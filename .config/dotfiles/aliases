@@ -23,7 +23,7 @@ alias grep='grep --color=auto'
 # | ps   --> procs       | #
 #--------------------------#
 # Find replacement
-alias fd='fd --no-ignore-vcs'
+#alias fd='fd --no-ignore-vcs'
 # Ls replacement
 alias el='exa --long --group-directories-first' # Exa Long
 alias ela='el --all'                            # Exa Long All
