@@ -1,0 +1,30 @@
+# Some comment
+priority -60
+
+global !p
+from vimsnippets import get_comment_format
+
+# Quick definition for a dynamic comment
+def cmt():
+    snip.rv = get_comment_format()[0]
+	
+endglobal
+
+snippet todo "A TODO Comment" b
+`!p snip.rv = get_comment_format()[0]` TODO${1: (`date +%F`)}: ${2:The todo comment}
+endsnippet
+
+snippet header "A nice header for the beginning of a file" b
+`!p cmt()` File:   `!p snip.rv = snip.fn`
+`!p cmt()` Author: ${1:`!v g:my_name`} ${2:(`!v g:my_email`)}
+`!p cmt()` Description:
+`!p cmt()`	${3:Some description}
+
+${0}
+endsnippet
+
+snippet ft "Gives the modeline for a custom filetype" b
+`!p cmt()` vim: ft=${1:filetype}:$0
+endsnippet
+
+# vim:ft=snippets:
