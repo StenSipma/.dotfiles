@@ -1,0 +1,42 @@
+-- vim:ft=haskell
+Config {  
+	-- General Appearance
+	  font = "xft:Noto Sans:size=12"
+        , bgColor = "#2f343f"
+        , fgColor = "#f3f4f5"  -- Text
+
+	-- Layout
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%UnsafeStdinReader% }{ %cpu%    %memory%    %battery%    %date%"
+	
+	-- Position
+        , position = TopW C 100
+        , allDesktops = True
+
+	-- Commands to run
+        , commands = [ 
+                  --Run DiskU [("/", "<used>/<size>")] ["-L", "20", "-H", "50", "-m", "10", "-p", "1"] 1
+                  Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                , Run Memory ["-t","Mem: <usedratio>%"] 10
+                , Run Date "%a %b %_d %k:%M" "date" 10
+		, Run Battery [ "--template" , "Batt: <acstatus>"
+				, "--Low"      , "10"        -- units: %
+				, "--High"     , "80"        -- units: %
+				, "--low"      , "darkred"
+				, "--normal"   , "darkorange"
+				, "--high"     , "darkgreen"
+				, "--" -- battery specific options
+					-- discharging status
+					, "-o"	, "<left>%"
+					-- AC "on" status
+					, "-O"	, "<fc=#dAA520>Charging</fc>"
+					-- charged status
+					, "-i"	, "<fc=#006000>Charged</fc>"
+                    -- Send message when threshold (-A) is reached.
+                    , "-A"  , "20"
+                    , "-a"  , "notify-send -u critical 'Battery Very Low'"
+				] 50
+                , Run UnsafeStdinReader
+                ]
+        }
