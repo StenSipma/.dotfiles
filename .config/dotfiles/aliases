@@ -1,0 +1,88 @@
+# File:   aliases
+# Author: Sten Sipma (sten.sipma@ziggo.nl)
+# Description:
+#	File containing aliases for the shell. Can be executed by both
+#       Bash and Zsh
+
+# Not needed if the $VIMINIT variable is not set
+#alias nvim='nvim -u $XDG_CONFIG_HOME/nvim/init.vim'
+
+## Alias for the git bare config method
+alias dgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+## Enables colors for some commands
+# for ls: -N	Prints the name without quotes
+alias ls='ls -N --color=auto --group-directories-first'
+alias grep='grep --color=auto'
+
+## Replacements for the good old commands
+#--------------------------#
+# | find --> fd          | #
+# | ls   --> exa         | #
+# | tree --> exa --tree  | #
+# | ps   --> procs       | #
+#--------------------------#
+# Find replacement
+alias fd='fd --no-ignore-vcs'
+# Ls replacement
+alias el='exa --long --group-directories-first' # Exa Long
+alias ela='el --all'                            # Exa Long All
+alias ell='el --group --git --header'           # Exa Long + extra options
+# Gives an error at the moment seems to be an issue with: --all, --git, --long
+# combined
+#alias ella='ell --all'
+# Tree replacement
+alias etree='exa --tree'
+
+## See `make-change-dir` for explanation
+alias mkcd=". make-change-dir"
+
+## Easier virtual environment activation
+alias vactivate=". .env/bin/activate"
+
+## Aliases for some standard programs (set in .bash_profile)
+# p for Pager (e.g. less, more etc.)
+# e for Editor for quick modifications
+alias p=$PAGER
+alias e=$EDITOR
+
+alias bt='bluetoothctl'
+
+# Usefull back command alias
+alias cd.='cd ../'
+alias cd..='cd ../../'
+alias cd...='cd ../../../'
+alias cd....='cd ../../../../'
+alias cd.....='cd ../../../../../'
+
+# Jupyter Notebook alias
+alias jn='jupyter notebook'
+
+# Usefull command to pair with longer running programs
+# alert will show when to program is finished when used
+# like this: $ ./long-program && alert
+alias alert='notify-send "Program finished"'
+
+# Some shortcuts to often used directories
+DOCS_DIR=$HOME/Documents
+STUDY_DIR=$DOCS_DIR/Study
+TA_DIR=$DOCS_DIR/TeachingAssistant
+PROJECTS_DIR=$DOCS_DIR/Projects
+LEARNIT_DIR=$DOCS_DIR/Learnit
+
+# University
+alias study='cd $STUDY_DIR'
+alias ta='cd $TA_DIR'
+alias pn='cd $TA_DIR/Prognum21'
+
+# Projects
+alias proj='cd $PROJECTS_DIR'
+alias pac='cd $PROJECTS_DIR/PracticalAstronomyCrew'
+alias cw='cd $PROJECTS_DIR/CosmicWeb'
+alias anc='cd $PROJECTS_DIR/PracticalAstronomyCrew/astrometry_net_client'
+
+
+# Learnit
+alias li='cd $LEARNIT_DIR'
+
+# vim: ft=bash:

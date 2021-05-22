@@ -1,0 +1,36 @@
+eval_git_prompt() {
+	unset PROMPT_GIT
+        # Test if we are currently in a git directory
+	if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]]; then
+                # Set something to show that we are in a git dir
+		PROMPT_GIT='' 
+
+                # Count number of uncommited files
+                uncommited=$( git status --short | wc -l )
+                if [[ $uncommited > 0 ]]; then
+
+                        # Count number of files which are not added for commit.
+                        not_added=$(($uncommited - $( git status --short | sed '/^.[^ ?] /d' | wc -l)))
+                        added=$(($uncommited - $( git status --short | sed '/^[^ ?]. /d' | wc -l)))
+                        untracked=$(($uncommited - $( git status --short | sed '/^?? /d' | wc -l)))
+
+                        all_not_added=$(($not_added + $untracked))
+
+                        if [[ $all_not_added == 0 ]]; then
+                                PROMPT_GIT+="🚀 " # Other option: 🖆 
+                        else
+                                # Other option: 🗘 , 🖉, 🔴, ❗
+                                PROMPT_GIT+="🔴$all_not_added"
+                                if [[ $added > 0 ]]; then
+                                       # Options ✅ 💚 📗
+                                       PROMPT_GIT+=" 🌟$added" 
+                                fi
+                        # TODO (2021-01-16): Add check for difference between local and remote branch
+                        fi
+                fi
+	fi
+	echo "$PROMPT_GIT"
+
+}
+
+# vim: ft=bash:
