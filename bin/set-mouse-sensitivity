@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Adjust Mouse Sensitivity (get Logitech Mouse if it is available)
+PROPERTY="libinput Accel Speed"
+SENSITIVITY=${1:-"-0.7"}
+
+# retrieve id's of all Logitech Mouse pointers
+ID=$(xinput list | grep 'Logitech G403 .* pointer' | egrep -o 'id=[0-9]+' | sed 's/id=//')
+echo $ID
+echo $SENSITIVITY
+
+for i in $ID; do
+	has_props=$( xinput list-props $i | grep "$PROPERTY" )
+	if [[ "$has_props" != "" ]]; then
+		xinput set-prop $i "$PROPERTY" $SENSITIVITY
+	fi
+done

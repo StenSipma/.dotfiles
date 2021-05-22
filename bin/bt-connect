@@ -1,0 +1,6 @@
+#!/bin/bash
+
+bluetoothctl power on
+bluetoothctl connect 0C:A6:94:2C:2B:FA
+
+echo "Exited with status " $?

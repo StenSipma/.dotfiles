@@ -1,0 +1,15 @@
+#!/bin/bash
+
+start=0
+
+[[ "$1" == "right" ]] && start=1920
+
+vlc \
+    --no-video-deco \
+    --no-embedded-video \
+    --screen-fps=30 \
+    --screen-top=0 \
+    --screen-left=$start \
+    --screen-width=1920 \
+    --screen-height=1080 \
+    screen://

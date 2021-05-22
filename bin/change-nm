@@ -1,0 +1,32 @@
+#!/bin/bash
+# Filename: change-nm
+# Author: Sten Sipma
+# Email:  sten.sipma@ziggo.nl
+# Description:
+#  Switch between the two available network managers:
+#  wicd or NetworkManager
+# Usage:
+#  change-nm [wicd]  
+#  if wicd is specified --> change to WICD
+#  otherwise            --> change to NetworkManager
+
+case $1 in
+	wicd)
+		systemctl disable --now NetworkManager.service
+		systemctl enable --now wicd.service
+		;;
+	nm)
+		systemctl disable --now wicd.service
+		systemctl enable --now NetworkManager.service
+		;;
+#	help)
+	*)
+		printf "Usage:\n"
+		printf " $ change-nm [wicd]  \n"
+		printf " if wicd is specified --> change to WICD\n"
+		printf " otherwise            --> change to NetworkManager\n"
+		printf "Description:\n"
+		printf " Switch between the two available network managers:\n"
+		printf " wicd or NetworkManager\n"
+		;;
+esac

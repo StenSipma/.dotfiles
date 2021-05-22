@@ -1,0 +1,12 @@
+#!/bin/bash
+
+tester=$(xrandr -q | grep -i 'DP-1-2 connected')
+
+if [[ -n "$tester" ]]; then
+	xrandr --output DP-1-2 --mode 1920x1080 \
+		&& xrandr --output DP-1-2 --right-of eDP-1-1 \
+		&& nitrogen --restore \
+		|| printf "Something went wrong during monitor setup\n"
+else
+	printf "Monitor already setup\n"
+fi

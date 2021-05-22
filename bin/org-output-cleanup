@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ ! -n "$1" ]]; then
+    echo "Error: No file given"
+    exit
+fi
+
+if [[ ! -f "${1}.org" ]]; then
+    echo "File ${1} is not an org file"
+    exit
+fi
+
+echo "Cleaning up org file: ${1}"
+for extension in {fdb_latexmk,out,synctex.gz,toc,aux,log,fls,blg,bbl}; do
+    echo "Removing '${1}.${extension}'..."
+    rm ${1}.${extension}
+done
+
+# Directories
+rm -rf auto/
+rm -rf ltximg/

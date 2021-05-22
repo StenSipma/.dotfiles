@@ -1,0 +1,54 @@
+#!/bin/bash
+# Filename: brightness
+# Author: Sten Sipma
+# Description:
+#  | Small command for directly adjusting the brightness file.
+#  | Serves as a replacement for when xbacklight does not work.
+MSG_NOTIFY_ID=90123
+
+ACTION=$1
+SDF_BRIGHTNESS_DIR=/sys/class/backlight/intel_backlight
+CUR_BRIGHTNESS=$(cat ${SDF_BRIGHTNESS_DIR}/brightness)
+MAX_BRIGHTNESS=$(cat ${SDF_BRIGHTNESS_DIR}/max_brightness)
+CHANGE_AMOUNT=100
+
+function notify {
+	dunstify -r "$MSG_NOTIFY_ID" -i cs-screen "Brightness $1" "$2"
+}
+
+function send-signal {
+	pkill -RTMIN+1 i3blocks
+}
+
+# Send signal to the status bar
+
+case $ACTION in
+	show)
+		printf "%d/%d\n" ${CUR_BRIGHTNESS} ${MAX_BRIGHTNESS}
+		;;
+	up)
+		NEW_BRIGHTNESS=$((${CUR_BRIGHTNESS} + ${CHANGE_AMOUNT}))
+		if [[ $NEW_BRIGHTNESS -le $MAX_BRIGHTNESS ]]; then
+			printf "%d" $NEW_BRIGHTNESS > $SDF_BRIGHTNESS_DIR/brightness
+			send-signal
+			notify "Up" "$((${NEW_BRIGHTNESS}*100/${MAX_BRIGHTNESS}))%"
+		fi
+		;;
+	down)
+		NEW_BRIGHTNESS=$((${CUR_BRIGHTNESS} - ${CHANGE_AMOUNT}))
+		if [[ $NEW_BRIGHTNESS -gt 0 ]]; then
+			printf "%d" $NEW_BRIGHTNESS > $SDF_BRIGHTNESS_DIR/brightness
+			send-signal
+			notify "Down" "$((${NEW_BRIGHTNESS}*100/${MAX_BRIGHTNESS}))%"
+		fi
+		;;
+	*)
+		printf "'%s' is not a valid action\n" $ACTION
+		printf "Usage: brightness [ACTION]\n"
+		printf "  Actions:\n"
+		printf "  show - Displays the current brightness and the max brightness in the form: cur/max.\n"
+		printf "  up   - Increases the brightness by %d. Stops at max brightness.\n" $CHANGE_AMOUNT
+		printf "  down - Decrease the brightness by %d. Always stops at 0.\n" $CHANGE_AMOUNT
+		printf "  \n"
+		;;
+esac

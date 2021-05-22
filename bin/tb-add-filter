@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# - Creates a new folder + adds a filter
+name=$1
+directory=$2
+email_suffix=$3
+
+if [[ ! (-n $name && -n $directory && -n $email_suffix) ]]; then
+	echo "Usage: tb-add-filter [name] [directory] [suffix]"
+	exit 1
+fi
+
+echo "name=\"$name\""
+echo "enabled=\"yes\""
+echo "type=\"17\""
+echo "action=\"Move to folder\""
+echo "actionValue=\"mailbox://nobody@Local%20Folders/$directory\""
+echo "condition=\"OR (from,ends with,@$email_suffix)\""

@@ -1,0 +1,24 @@
+#!/bin/bash
+# Filename: make-change-dir
+# Author:   Sten Sipma
+
+
+# NOTE: Run this command with `.`/`source` as this makes use of the `cd`
+#       command. It is recommended to make an alias like:
+#	  alias mkcd='. make-change-dir'
+#  	in your .bashrc file
+
+# Helper function for printing an error message
+errprint() {
+	>&2 echo "$1"
+}
+
+# Check if there is an argument given
+[[ -n $1 ]] || errprint "No argument given"
+
+# Make directory (let mkdir check for errors concerning existing filenames)
+mkdir $1
+
+# If directory was created successfully (status = 0)
+# --> change into it
+[[ $? -eq 0 ]] && cd $1

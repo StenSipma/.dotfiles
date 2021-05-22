@@ -1,0 +1,4 @@
+git config --local user.email "sipma@astro.rug.nl"
+git config --local user.name "Sten Sipma"
+git config --local credential.username "sipma"
+

@@ -1,0 +1,56 @@
+#!/bin/bash
+
+monitor_name=DP-1-2
+monitor_name=DP-1-1
+monitor_mode=1920x1080
+main_monitor_name=eDP-1-1
+
+
+
+# Position of DP-1-2 relative to eDP-1-1
+POS_ARG=copy
+while getopts :rp:x OPT; do
+case $OPT in
+	r)
+		R_arg=True
+		;;
+	p)
+		POS_ARG=$OPTARG
+		;;
+	:)
+		printf "Option -$OPTARG needs an argument!\n"
+		;;
+	\?)
+		printf "Invalid option: -${OPTARG}\n"
+		;;
+esac
+done
+
+case $POS_ARG in
+	left)
+		position_option=left-of
+		;;
+	right)
+		position_option=right-of
+		;;
+	up)
+		position_option=above
+		;;
+	down)
+		position_option=under
+		;;
+	*)
+		position_option=copy
+		;;
+esac
+
+if [[ -n "$R_arg" ]]; then
+	xrandr --output $monitor_name --off
+	xrandr --output $main_monitor_name --primary
+else
+	xrandr --output $monitor_name --mode $monitor_mode
+	[[ ! $position_option == "copy" ]] && \
+		xrandr --output $monitor_name --$position_option $main_monitor_name
+	xrandr --output $monitor_name --primary
+	nitrogen --restore
+fi

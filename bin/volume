@@ -1,0 +1,100 @@
+#!/bin/bash
+# Script to alter the volume of a sink
+
+CONF_DIR="$HOME/.config/volume"
+MSG_NOTIFY_ID=90043
+
+# Sends a signal to the status bar
+function send-signal {
+	pkill -RTMIN+2 i3blocks
+}
+
+# Sends a notification to the notification system
+function notify {
+	dunstify -r "$MSG_NOTIFY_ID" -i audio-volume-medium "Volume $1" 
+}
+
+function select-sink {
+	pactl list sinks | awk -v sink="#$1" '$2~sink, /^$/ {print}' 
+}
+
+function select-sink-description {
+	select-sink $1 | awk '/Description:/{for(i=2;i<=NF;i++){printf "%s ", $i}; printf "\n"} ' 
+}
+
+function sink-exists {
+	# If $sink is in the list of sinks, keep it
+	# Else select the first sink
+	sinks=$(pactl list sinks short | awk '{print $1}')
+	for sink in $sinks; do
+		[[ $sink -eq $1 ]] && echo $sink && return
+	done
+	echo $(pactl list sinks short | awk '{print $1}' | sed '1p; d')
+}
+
+function select-running-sink {
+	pactl list sinks short | awk '$7=="RUNNING"{print $1}' 
+}
+
+sink=$(cat $CONF_DIR/selected_sink)
+
+newsink=$(sink-exists $sink)
+if [[ ! $newsink -eq $sink ]]; then
+	sink=$newsink
+	printf "%d" "$sink" > $CONF_DIR/selected_sink
+	send-signal
+fi
+
+case $1 in
+	show)
+		level=$(pactl list sinks | select-sink $sink | awk '/Volume: front-left:/{print $5};' | sed 's/%//')
+		printf "%d" "$level"
+		;;
+	show-muted)
+		output=$(pactl list sinks | select-sink $sink | awk '/Mute:/ {print $2}' )
+		printf "%s" "$output"
+		;;
+	show-sink)
+		printf "%d" "$sink"
+		;;
+	show-inputs)
+		select-sink-description $sink
+		;;
+	set-sink)
+		sinknumber="$(pactl list sinks short | awk '{print $2; print $1}' | sed 's/bluez_sink.*$/Bluetooth/; s/alsa_output.pci-*$/Laptop/;' | ~/scripts/wrappers/dmenu_wrapper.py)"
+		#sinknumbers=$(pactl list sinks short | awk '{print $1}')
+		#dmen_input=${sinknumbers//*([:digit:])/}
+		printf "%d" "$sinknumber" > $CONF_DIR/selected_sink
+		send-signal
+		;;
+	auto-select)
+		sinknumber=$(select-running-sink)
+		printf "%d" "$sinknumber" > $CONF_DIR/selected_sink
+		send-signal
+		;;
+	up)
+		pactl set-sink-volume $sink +5%
+		send-signal
+		notify "Up"
+		;;
+	down)
+		pactl set-sink-volume $sink -5%
+		send-signal
+		notify "Down"
+		;;
+	mute)
+		pactl set-sink-mute $sink toggle
+		send-signal
+		notify "Mute Toggle"
+		;;
+	*)
+		printf "\n'%s' is not a valid action\n\n" "$1"
+		printf "Usage: volume [ACTION]\n"
+		printf "  Actions:\n"
+		printf "  show     - Displays current sink & volume level\n"
+		printf "  up       - Increases volume of selected sink by 5 percent\n"
+		printf "  down     - Decreases volume of selected sink by 5 percent\n"
+		printf "  mute     - Toggles mute on the selected sink\n"
+		printf "  set-sink - Select the sink to be controlled, using Rofi\n"
+		printf "\n"
+esac

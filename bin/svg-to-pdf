@@ -1,0 +1,8 @@
+#!/bin/bash
+
+[[ ! -n $1 ]] && echo "no input" && exit 1
+
+for i in "$@"; do
+	echo "$i --> ${i%.svg}.pdf"
+	inkscape --file="$i" --export-area-drawing --without-gui --export-pdf="${i%.svg}.pdf"
+done

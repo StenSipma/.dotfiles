@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ST_PKGBUILD="$HOME/AUR/downloads/st"
+# First change in the directory of the PKGBUILD, then
+#  run the makepkg command with the following options
+# -f forces the rebuild of the package
+#    which is to update the config.h
+# -i reinstalls the build package
+# --skipinteg is needed because we changed the
+#             content of some files (e.g. config.h)
+(cd $ST_PKGBUILD && makepkg -fi --skipinteg)
+# Brackets should ensure the cwd is reset after (?)
