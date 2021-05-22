@@ -76,7 +76,7 @@ myPP proc = xmobarPP
     , ppHidden = pad 
 
     , ppLayout = wrap "Layout: " "" . xmobarColor myAlternateTextColour ""
-    , ppTitle = wrap "Window:  " "" . xmobarColor myAlternateTextColour "" . shorten 100
+    , ppTitle  = wrap "Window: " "" . xmobarColor myAlternateTextColour "" . shorten 50
     }
 
 -- Usefull function to create action statements
@@ -98,7 +98,8 @@ xmobarEscape = concatMap doubleLts
 -- Workspaces (clickable)
 -- requires `xdotool` and usage of UnsafeStdInReader
 workspacesList :: [String]
-workspacesList = [ "Main" , "Browser" , "Terminal" , "Editor" , "5" , "Video" , "7" , "Email" , "Music" ]
+workspacesList = [ "Main" , "\62057 Browser" , "\62601 Terminal" , "\61508"  , "5" , "\63608" , "7" , "\63213" , "\61884" ]
+--                  Main  ,                 ,                  ,   Editor ,     ,  Video  ,     ,  Email  , \61441 \61884 Music
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape) $ workspacesList
