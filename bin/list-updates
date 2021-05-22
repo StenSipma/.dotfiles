@@ -1,0 +1,12 @@
+#!/bin/bash
+# File:   list-updates
+# Author: Sten Sipma (sten.sipma@ziggo.nl)
+# Description:
+#	Gives the amount of updates which are available (for pacman)
+updates=$(pacman -Qu | wc -l)
+
+if [[ $updates > 2 ]]; then
+        echo " Up: $updates"
+else
+        echo ""
+fi
