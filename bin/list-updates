@@ -2,11 +2,16 @@
 # File:   list-updates
 # Author: Sten Sipma (sten.sipma@ziggo.nl)
 # Description:
-#	Gives the amount of updates which are available (for pacman)
-updates=$(pacman -Qu | wc -l)
+#	Script for the status bar which lists the amount of (unignored)
+#       packages to be updated. If the system is up to date, no number is given
 
-if [[ $updates > 2 ]]; then
-        echo " Up: $updates"
+updates=$(pacman -Qu | wc -l)
+ignored=2
+
+avail_updates=$(($updates - $ignored))
+
+if [[ $avail_updates -gt 0 ]]; then
+        echo " $avail_updates"
 else
         echo ""
 fi
