@@ -78,6 +78,7 @@ precmd() {
         #git_prompt=$(eval_git_prompt)
         # Custom via Rust:
         git_prompt=$(/home/sten/Documents/Projects/Rust/git-testing/target/release/git-testing)
+        prompt=$(myprompt)
 }
 
 # Turn on command substitution in the prompt (and parameter expansion and arithmetic expansion).
@@ -94,8 +95,9 @@ setopt promptsubst
 # $ '
 
 # - Same prompt but with basic Git integration
-export PS1='%n at %m in %1~ ${git_prompt}
- $ '
+export PS1='${prompt}'
+# export PS1='%n at %m in %1~ ${git_prompt}
+#  $ '
 
 # Sets the prompt for when a command is specified on more
 # than one line (e.g. by using \ or not closing a quote etc.)
@@ -104,6 +106,3 @@ export PS2=' | '
 # Syntax highlighting in the shell
 # from the package: zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Created by `userpath` on 2021-02-03 12:28:46
-export PATH="$PATH:/home/sten/.local/bin"

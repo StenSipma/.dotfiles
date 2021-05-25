@@ -21,6 +21,7 @@ alias dgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 ````
 
 ## Dependencies
+(and a LOT more!!)
 - neovim-nightly
 - xmonad xmonad-contrib
 - xmobar rofi

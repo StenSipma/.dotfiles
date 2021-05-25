@@ -9,6 +9,7 @@ eval "$(sed 's/^[^#].*/export &/g;t;d' ~/.config/user-dirs.dirs)"
 # Add local bin folders to PATH
 PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 PATH=~/.local/bin:$PATH
+PATH=~/.cargo/bin:$PATH
 PATH=~/bin:$PATH
 
 
@@ -52,6 +53,8 @@ alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
 #################################
 #- Other Configuration Options -#
 #################################
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Fix Java window applications (like topcat)
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -85,6 +88,3 @@ if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
  	#sudo /usr/bin/prime-switch
 	exec startx
 fi
-
-# Created by `userpath` on 2021-02-03 12:28:46
-export PATH="$PATH:/home/sten/.local/bin"

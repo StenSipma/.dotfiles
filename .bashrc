@@ -62,7 +62,8 @@ done
 #   $ []
 ##
 #export PS1='\u at \h in \W\n $ '
-export PS1='\u at \h in \W $(eval_git_prompt)\n $ '
+export PS1='$(myprompt)'
+#export PS1='\u at \h in \W $(eval_git_prompt)\n $ '
 
 # Sets the prompt for when a command is specified on more
 # than one line (e.g. by using \ or not closing a quote etc.)
