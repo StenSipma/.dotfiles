@@ -61,7 +61,15 @@ chsh -l
 chsh -s /bin/zsh
 ````
 
-- Install Zsh plugins (highlighting)
+- Install completions (zsh and bash)
+````bash
+pacman -S zsh-completions bash-completion
+````
+
+- Install Zsh syntax highlighting
+````bash
+pacman -S zsh-syntax-highlighting
+````
 
 - Install the prompt with:
 ````
