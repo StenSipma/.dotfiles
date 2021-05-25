@@ -117,7 +117,7 @@ myManageHook = composeAll [ (className =? "firefox") <&&> (stringProperty "WM_WI
 
 myStartupHook :: X ()
 myStartupHook = do  -- Start the wallpaper manager using the previous config
-                    spawnOnce "nitrogen --restore &"
+                    --spawnOnce "nitrogen --restore &"
                     -- Start a system tray for some applications (e.g. NetworkManager)
                     -- Options:
                     -- geometry: [widthxheight]+x+y
@@ -133,7 +133,7 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     spawnOnce "pasystray &"
                     -- Start Rocket.Chat app. Note; you have to 'enable' the tray icon
                     -- By clicking: View --> Tray Icon
-                    spawnOnce "rocketchat-desktop &"
+                    --spawnOnce "rocketchat-desktop &"
 
 -- Main xmobar run sequence
 main = do
