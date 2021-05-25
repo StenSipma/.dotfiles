@@ -20,6 +20,78 @@ an alias to manage all the files. Here, we use `dgit` as the alias and the folde
 alias dgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 ````
 
+Check for conflicting files with:
+````bash
+dgit checkout
+````
+
+And back them up in a new directory. Potentially, you need to create sub-directories:
+````bash
+mkdir .dotfiles-backup
+dgit checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .dotfiles-backup/{}
+````
+
+Only show tracked files:
+````bash
+dgit config --local status.showUntrackedFiles no
+````
+
+### NeoVim
+- Install Plug.Vim (see init.vim)
+````
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+````
+And then, open neovim and run `:PlugInstall`
+
+- Make a python virtual environment for neovim:
+````bash
+mkdir -p $XDG_CONFIG_HOME/pyvirtualenvs
+python3 -m venv $XDG_CONFIG_HOME/pyvirtualenvs/neovim
+source $XDG_CONFIG_HOME/pyvirtualenvs/neovim/bin/activate
+pip install pynvim
+deactivate
+````
+
+### Shell
+- Set the shell to Zsh
+````
+# list available shells
+chsh -l
+# select the Zsh one (the following is likely good)
+chsh -s /bin/zsh
+````
+
+- Install Zsh plugins (highlighting)
+
+- Install the prompt with:
+````
+git clone git@github.com:StenSipma/myprompt.git
+cd myprompt
+cargo install --path .
+cd ..
+rm -r myprompt
+````
+
+### Git
+- Let git know who you are
+````bash
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+````
+
+### Fonts
+- FiraCode & Hasklig
+````
+paru -S otf-hasklig nerd-fonts-fira-code
+````
+
+### XMonad
+
+
+
+## TODO
+- Remove the git-testing dependency in .zshrc
+
 ## Dependencies
 (and a LOT more!!)
 - neovim-nightly
