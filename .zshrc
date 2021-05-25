@@ -77,7 +77,6 @@ precmd() {
         # Via shell commands (likely slow)
         #git_prompt=$(eval_git_prompt)
         # Custom via Rust:
-        git_prompt=$(/home/sten/Documents/Projects/Rust/git-testing/target/release/git-testing)
         prompt=$(myprompt)
 }
 

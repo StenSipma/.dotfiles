@@ -86,11 +86,12 @@ paru -S otf-hasklig nerd-fonts-fira-code
 ````
 
 ### XMonad
+- Stalonetray ?
 
 
 
 ## TODO
-- Remove the git-testing dependency in .zshrc
+- .
 
 ## Dependencies
 (and a LOT more!!)
