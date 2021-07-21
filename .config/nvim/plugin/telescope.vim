@@ -14,4 +14,4 @@ nnoremap <leader>ft <cmd>lua require'telescope.builtin'.treesitter()<cr>
 nnoremap <leader>fa <cmd>lua require'telescope.builtin'.lsp_code_actions()<cr>
 nnoremap <leader>fi <cmd>lua require'sten.telescope'.fits_inspect()<cr>
 
-lua require('telescope').setup(require'configs'.telescope_conf)
+lua require('telescope').setup(require'sten.conf'.telescope_conf)

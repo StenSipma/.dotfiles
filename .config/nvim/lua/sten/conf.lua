@@ -1,20 +1,9 @@
 local all_attach = require'completion'.on_attach
 local util = require('lspconfig/util')
 
-local pyls_conf = {
-        -- Not sure if this actually does anything...
-        settings = {
-                configurationSources = "flake8";
-                plugins = {
-                        pycodestyle = {
-                                enabled = false;
-                        };
-                };
-        };
-        -- capabilities = capabilities;
+local pylsp_conf = {
         on_attach = all_attach;
 }
-
 
 local pyright_conf = {
         --root_dir = root_fallback;
@@ -95,11 +84,11 @@ local telescope_conf = {
 };
 
 return {
-        pyls_conf = pyls_conf;
-        treesitter_conf = treesitter_conf;
-        pyright_conf = pyright_conf;
-        telescope_conf = telescope_conf;
-        lua_conf = lua_conf;
-        texlab_conf = texlab_conf;
+        treesitter_conf    = treesitter_conf;
+        pyright_conf       = pyright_conf;
+        pylsp_conf         = pylsp_conf;
+        telescope_conf     = telescope_conf;
+        lua_conf           = lua_conf;
+        texlab_conf        = texlab_conf;
         rust_analyzer_conf = rust_analyzer_conf;
 }

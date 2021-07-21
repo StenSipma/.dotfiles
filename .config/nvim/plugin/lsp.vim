@@ -2,8 +2,26 @@
 " Author: Sten Sipma (sten.sipma@ziggo.nl)
 " Description:
 "       (Neo)vim configuration file for all LSP (Language Server Protocol)
-"       configurations.
+"       and completion framework options.
 
+" Functions:
+lua << EOF
+function _G.contextual_documentation()
+        -- Use the lsp hover if a LSP client is active, otherwise use the
+        -- 'standard' vim help for the word under the cursor.
+        lsp_active = vim.lsp.get_active_clients()
+        if #lsp_active ~= 0 then
+                -- Use the fancy LSP hover
+                require('lspsaga.hover').render_hover_doc()
+        else
+                -- Jump to help
+                cword = vim.fn.expand('<cword>')
+                vim.cmd('help ' .. cword)
+        end 
+end
+EOF
+
+" Options:
 " Set completeopt to have a better completion experience
 " TODO: figure out what the options actually do
 set completeopt=menuone,noinsert,noselect
@@ -12,36 +30,71 @@ set completeopt=menuone,noinsert,noselect
 " TODO: figure out what the options actually do
 set shortmess+=c
 
-" General Keybindings:
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
-" Jump to definition
-nnoremap gd        :lua vim.lsp.buf.definition()<CR>
-" List references
-nnoremap gr        :lua vim.lsp.buf.references()<CR>
-nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>  
-" Rename on cursor
-nnoremap <leader>rn :lua vim.lsp.buf.rename()<CR>
+" Automatically change the source, when current matching is 0
+let g:completion_auto_change_source=1
 
-"command RestartLSP :lua vim.lsp.stop_client(vim.lsp.get_active_clients())
+" Will first show the paths, then snippets and finally lsp
+let g:completion_chain_complete_list = {
+    \'default' : [
+    \      {'complete_items': ['lsp', 'snippet']},
+    \      {'complete_items': ['path']}
+    \]
+    \}
+
+let g:completion_trigger_character = ['.', '::', '/']
+
+" General Keybindings:
+" Use <Tab> and <S-Tab> to navigate through popup menu
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
+
+" Activating the completion:
+" <CR>  : select
+" C-<CR>: select & code action
+"
+imap  <c-j> <Plug>(completion_next_source)
+imap  <c-k> <Plug>(completion_prev_source)
+
+" Jump to definition
+nnoremap gd         <cmd>lua vim.lsp.buf.definition()<CR>
+" List references
+nnoremap gr         <cmd>lua vim.lsp.buf.references()<CR>
+" Code Action
+nnoremap <leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+vnoremap <leader>ca <cmd><C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
+"nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>  
+" Rename on cursor
+nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
+"nnoremap <leader>rn <cmd>lua require('lspsaga.rename').rename()<CR>
+" Hover using K
+nnoremap K <cmd>lua contextual_documentation()<CR>
+
+" Commands:
+command RestartLSP <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>
+
+augroup LSP_HOVER
+        autocmd!
+        autocmd CursorHold * lua require('lspsaga.hover').render_hover_doc()
+augroup END
 
 " augroup MY_LSP_GROUP
 "         au!
 "         autocmd BufWrite *.py :lua vim.lsp.buf.formatting_sync(nil, 1000)
 " augroup END
 
+" Initialize Saga:
+lua require'lspsaga'.init_lsp_saga()
+
 " LSP Server Setups:
 " Python (pyls)
-"lua require'lspconfig'.pyls.setup( require'configs'.pyls_conf )
+" lua require'lspconfig'.pylsp.setup( require'sten.conf'.pylsp_conf )
 " Python (pyright)
-lua require'lspconfig'.pyright.setup( require'configs'.pyright_conf )
+lua require'lspconfig'.pyright.setup( require'sten.conf'.pyright_conf )
 " Lua (Sumneko_lua)
-lua require'lspconfig'.sumneko_lua.setup( require'configs'.lua_conf )
+lua require'lspconfig'.sumneko_lua.setup( require'sten.conf'.lua_conf )
 " LaTeX (Texlab)
-lua require'lspconfig'.texlab.setup( require'configs'.texlab_conf )
+lua require'lspconfig'.texlab.setup( require'sten.conf'.texlab_conf )
 " Rust (rust-analyzer)
-lua require'lspconfig'.rust_analyzer.setup( require'configs'.rust_analyzer_conf )
+lua require'lspconfig'.rust_analyzer.setup( require'sten.conf'.rust_analyzer_conf )

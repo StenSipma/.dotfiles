@@ -25,8 +25,13 @@ let local_plug = '/home/sten/Documents/Projects/NeoVim'
 call plug#begin(stdpath("config") . "/vplugged")
 
         " Auto Completion Linting Formatting:
+        " Neovim Configurations for the LSP client
         Plug 'neovim/nvim-lspconfig'
+        " Fancier LSP functions
+        Plug 'glepnir/lspsaga.nvim'
+        " Completion framework
         Plug 'nvim-lua/completion-nvim'
+
 
         " Snippets:
         " Ultisnips snippets engine
@@ -43,6 +48,7 @@ call plug#begin(stdpath("config") . "/vplugged")
 	"Plug 'jreybert/vimagit'
         " Treesitter, source code trees & better highlighting
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        Plug 'nvim-treesitter/playground'
         " Auto Match Parenthesis, quotes etc.
         Plug 'Raimondi/delimitMate'
 
@@ -126,7 +132,7 @@ nnoremap <leader>y "+y
 " Cylce between buffers with SPC+Tab
 nnoremap <leader><Tab> :bnext<CR>
 " Get a list of buffers (:ls) and enter a number to go to that buffer.
-nnoremap <leader>b :ls<CR>:b<space>
+"nnoremap <leader>b :ls<CR>:b<space>
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nnoremap ga <Plug>(EasyAlign)
 
