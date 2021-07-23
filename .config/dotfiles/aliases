@@ -63,6 +63,9 @@ alias jn='jupyter notebook'
 # like this: $ ./long-program && alert
 alias alert='notify-send "Program finished"'
 
+# SSH via kitty
+alias kssh='kitty +kitten ssh'
+
 # Some shortcuts to often used directories
 DOCS_DIR=$HOME/Documents
 STUDY_DIR=$DOCS_DIR/Study
