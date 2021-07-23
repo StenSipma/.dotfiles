@@ -71,6 +71,9 @@ USE_EMOJI=true
 # Use 'bat' as the reader for the man pages
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+# Make the 'global' NPM installation user specific
+export npm_config_prefix="$HOME/.local"
+
 # Source bashrc as well if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
