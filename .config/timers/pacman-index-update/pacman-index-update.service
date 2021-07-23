@@ -1,0 +1,6 @@
+[Unit]
+Description=Update the Pacman package index (for the statusbar)
+
+[Service]
+Type=oneshot
+ExecStart=pacman -Syq

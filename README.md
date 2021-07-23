@@ -96,7 +96,19 @@ paru -S otf-hasklig nerd-fonts-fira-code
 ### XMonad
 - Stalonetray ?
 
+### Pacman Update List
+Use the files in `$HOME/.config/timers/pacman-index-update`
+Link to the correct location (under `/usr/lib/systemd/system/`)
+```
+sudo ln -s $XDG_CONFIG_HOME/timers/pacman-index-update/pacman-index-update.service /usr/lib/systemd/system/pacman-index-update.service
+sudo ln -s $XDG_CONFIG_HOME/timers/pacman-index-update/pacman-index-update.timer   /usr/lib/systemd/system/pacman-index-update.timer
+```
 
+Then enable them:
+```
+sudo systemctl daemon-reload
+sudo systemctl enable --now pacman-index-update.timer
+```
 
 ## TODO
 - .
