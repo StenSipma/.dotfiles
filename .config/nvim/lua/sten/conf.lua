@@ -58,15 +58,24 @@ local rust_analyzer_conf = {
 }
 
 local treesitter_conf = {
-         -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-         -- TODO (2021-01-17): Convert into a list of languages
+        -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        -- TODO (2021-01-17): Convert into a list of languages
         ensure_installed = "maintained";
-        indent = { enable = false; };
+        indent = { enable = true; };
         incremental_selection = { enable = false; };
         highlight = {
                 enable = true;
                 -- list of language that will be disabled
                 -- disable = { "c", "rust" };
+        };
+        playground = {
+                enable = true,
+                updatetime = 25,
+        };
+        query_linter = {
+                enable = true,
+                use_virtual_text = true,
+                lint_events = {"BufWrite", "CursorHold"},
         };
 };
 
