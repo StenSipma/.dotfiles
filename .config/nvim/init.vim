@@ -17,7 +17,7 @@ let mapleader=" "
 "
 " sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 "
-" TODO: add an install script at the beginnin of this file which installs 
+" TODO: add an install script at the beginnig of this file which installs 
 "       vim-plug automatically
 
 let local_plug = '/home/sten/Documents/Projects/NeoVim'
@@ -49,6 +49,7 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Treesitter, source code trees & better highlighting
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         Plug 'nvim-treesitter/playground'
+        Plug 'stsewd/sphinx.nvim', { 'do': ':UpdateRemotePlugins' }
         " Auto Match Parenthesis, quotes etc.
         Plug 'Raimondi/delimitMate'
 
@@ -77,6 +78,7 @@ call plug#begin(stdpath("config") . "/vplugged")
 
         " Local Plugins:
         Plug (local_plug . '/fits.nvim')
+        Plug (local_plug . '/ts-actions')
         "Plug (local_plug . '/lua-playground')
 
         " Remote Versions:
@@ -119,15 +121,27 @@ let g:python3_host_prog = $XDG_CONFIG_HOME . "/pyvirtualenvs/neovim/bin/python"
 " Alternative exit from insert mode
 inoremap fd <esc>
 
+" Make an 'undo' breakpoint (<c-g>u) when this character is typed
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
 
 "" Normal Mode:
-" Yank to the clipboard (can be used with movement)
-nnoremap <leader>y "+y
+" Center the cursor (zz) & unfold current line (zv) after pressing n
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Make Y behave like D and C
+nnoremap Y y$
 
 " Move directly up in the terminal. Only affects movement when lines are
 " wrapped around
 "nnoremap j gj
 "nnoremap k gk
+"
+" Yank to the clipboard (can be used with movement)
+nnoremap <leader>y "+y
 
 " Cylce between buffers with SPC+Tab
 nnoremap <leader><Tab> :bnext<CR>
@@ -139,8 +153,8 @@ nnoremap ga <Plug>(EasyAlign)
 " Save & Source the current file
 nnoremap <leader>ss :w<CR>:source %<CR>
 
-" Remove the search highlight
-nnoremap <C-l> :set nohlsearch<CR>
+" Inverse the search highlight (for if you actually want it back)
+nnoremap <C-l> :set invhlsearch<CR>
 " Toggle between maximizing current window and resoring layout
 nnoremap <leader>m :MaximizerToggle!<CR>
 
@@ -150,3 +164,10 @@ nnoremap <leader>m :MaximizerToggle!<CR>
 xnoremap <leader>c "+y
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
+
+" Move selected lines up (J) and down (K)
+" Move (:m) From the lower part of the selection ('>), one line down (+1) 
+" (or up for the K case) .  Then, reselect (gv) and reindent (=) then reselect
+" again (gv)
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
