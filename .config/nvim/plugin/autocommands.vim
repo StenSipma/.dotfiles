@@ -21,7 +21,7 @@ augroup END
 augroup RUN_BLACK
         autocmd!
         " Run black in python files
-        " autocmd BufWrite *.py :Black
+        autocmd BufWrite *.py :Black
 augroup END
 
 
