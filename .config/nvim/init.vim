@@ -20,7 +20,7 @@ let mapleader=" "
 " TODO: add an install script at the beginnig of this file which installs 
 "       vim-plug automatically
 
-let local_plug = '/home/sten/Documents/Projects/NeoVim'
+let local_plug = $HOME .. '/Documents/Projects/NeoVim'
 
 call plug#begin(stdpath("config") . "/vplugged")
 
@@ -77,6 +77,7 @@ call plug#begin(stdpath("config") . "/vplugged")
         Plug 'lervag/vimtex'
 
         " Local Plugins:
+        " (see the local_plug variable for the path)
         Plug (local_plug . '/fits.nvim')
         Plug (local_plug . '/ts-actions')
         "Plug (local_plug . '/lua-playground')
