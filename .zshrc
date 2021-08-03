@@ -45,6 +45,8 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
+# setopt COMPLETE_ALIASES
+
 # Needed for the globbing pattern used
 setopt extendedglob
 
@@ -102,6 +104,15 @@ export PS1='${prompt}'
 # than one line (e.g. by using \ or not closing a quote etc.)
 export PS2=' | '
 
+######################
+## Enabling plugins ## 
+############ #########
+
 # Syntax highlighting in the shell
 # from the package: zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# from the package: zsh-autosuggestions
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# The colour of the suggestion, just a number (N) means colourN
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=4"

@@ -61,6 +61,11 @@ chsh -l
 chsh -s /bin/zsh
 ````
 
+- Install plugins for *syntax highlighting* and *autosuggestions*
+```
+sudo pacman -S zsh-syntax-highlighting zsh-autosuggestions
+```
+
 - Install completions (zsh and bash)
 ````bash
 pacman -S zsh-completions bash-completion
