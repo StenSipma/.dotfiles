@@ -25,12 +25,10 @@ alias grep='grep --color=auto'
 # Find replacement
 #alias fd='fd --no-ignore-vcs'
 # Ls replacement
-alias el='exa --long --group-directories-first' # Exa Long
-alias ela='el --all'                            # Exa Long All
-alias ell='el --group --git --header'           # Exa Long + extra options
-# Gives an error at the moment seems to be an issue with: --all, --git, --long
-# combined
-#alias ella='ell --all'
+alias el='exa --long --group-directories-first' # Exa long
+alias ela='el --all'                            # Exa long + all
+alias ell='el --group --git --header'           # Exa long + extra options
+alias ella='ell --all'                          # Exa long + extra + all
 # Tree replacement
 alias etree='exa --tree'
 
