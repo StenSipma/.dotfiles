@@ -12,7 +12,7 @@ augroup MY_AUTOCOMMANDS
 	autocmd CmdlineLeave /,\? :set nohlsearch
 
         " Enable completion for all filetypes
-        autocmd BufEnter * lua require'completion'.on_attach()
+        "autocmd BufEnter * lua require'completion'.on_attach()
 
         " Highlight the text yanked after yanking
         autocmd TextYankPost * silent! lua return (not vim.v.event.visual) and require'vim.highlight'.on_yank()

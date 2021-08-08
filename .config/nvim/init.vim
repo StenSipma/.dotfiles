@@ -30,8 +30,8 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Fancier LSP functions
         Plug 'glepnir/lspsaga.nvim'
         " Completion framework
-        Plug 'nvim-lua/completion-nvim'
-
+        " Plug 'nvim-lua/completion-nvim'
+        Plug 'hrsh7th/nvim-compe'
 
         " Snippets:
         " Ultisnips snippets engine
@@ -46,12 +46,14 @@ call plug#begin(stdpath("config") . "/vplugged")
         Plug 'szw/vim-maximizer'
         " Git plugin
 	"Plug 'jreybert/vimagit'
-        " Treesitter, source code trees & better highlighting
-        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-        Plug 'nvim-treesitter/playground'
-        Plug 'stsewd/sphinx.nvim', { 'do': ':UpdateRemotePlugins' }
         " Auto Match Parenthesis, quotes etc.
         Plug 'Raimondi/delimitMate'
+
+        " Treesitter:
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+        Plug 'nvim-treesitter/playground'
+        " Sphinx (in general, but also added treesitter queries)
+        " Plug 'stsewd/sphinx.nvim', { 'do': ':UpdateRemotePlugins' }
 
 	" Color Themes:
 	Plug 'mhartington/oceanic-next' 

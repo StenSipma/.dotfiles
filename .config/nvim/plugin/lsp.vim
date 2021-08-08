@@ -22,42 +22,6 @@ function _G.contextual_documentation()
 end
 EOF
 
-" Options:
-" Set completeopt to have a better completion experience
-" TODO: figure out what the options actually do
-set completeopt=menuone,noinsert,noselect
-
-" Avoid showing message extra message when using completion
-" TODO: figure out what the options actually do
-set shortmess+=c
-
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-
-" Automatically change the source, when current matching is 0
-let g:completion_auto_change_source=1
-
-" Will first show the paths, then snippets and finally lsp
-" let g:completion_chain_complete_list = {
-"     \'default' : [
-"     \      {'complete_items': ['lsp', 'snippet']},
-"     \      {'complete_items': ['path']}
-"     \]
-"     \}
-
-let g:completion_trigger_character = ['.', '::', '/']
-
-" General Keybindings:
-" Use <Tab> and <S-Tab> to navigate through popup menu
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
-
-" Activating the completion:
-" <CR>  : select
-" C-<CR>: select & code action
-"
-imap  <c-j> <Plug>(completion_next_source)
-imap  <c-k> <Plug>(completion_prev_source)
-
 " Jump to definition
 nnoremap gd         <cmd>lua vim.lsp.buf.definition()<CR>
 " List references
@@ -78,7 +42,7 @@ command RestartLSP <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr
 augroup LSP_HOVER
         autocmd!
         " autocmd CursorHold * lua require('lspsaga.hover').render_hover_doc()
-        autocmd CursorHold * lua vim.lsp.buf.hover()
+        " autocmd CursorHold * lua vim.lsp.buf.hover()
 augroup END
 
 " augroup MY_LSP_GROUP
