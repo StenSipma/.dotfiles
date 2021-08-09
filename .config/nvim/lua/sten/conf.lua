@@ -2,8 +2,13 @@
 local all_attach = nil
 local util = require('lspconfig/util')
 
+-- Enable snippet support (?)
+local all_capabilities = vim.lsp.protocol.make_client_capabilities()
+all_capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local pylsp_conf = {
         on_attach = all_attach;
+        capabilities = all_capabilities;
 }
 
 local pyright_conf = {
@@ -21,7 +26,8 @@ local pyright_conf = {
                         };
                 };
         };
-        on_attach = all_attach;
+        -- on_attach = all_attach;
+        capabilities = all_capabilities;
 };
 
 local lua_conf = {
@@ -48,14 +54,17 @@ local lua_conf = {
                 },
         },
         on_attach = all_attach;
+        capabilities = all_capabilities;
 }
 
 local texlab_conf = {
         on_attach = all_attach;
+        capabilities = all_capabilities;
 }
 
 local rust_analyzer_conf = {
         on_attach = all_attach;
+        capabilities = all_capabilities;
 }
 
 local treesitter_conf = {
@@ -105,11 +114,14 @@ local compe_conf = {
         source = {
                 path = true;
                 buffer = true;
-                calc = true;
+                -- calc = true;
+                -- Neovim specific
                 nvim_lsp = true;
                 nvim_lua = true;
-                -- vsnip = true;
+                nvim_treesitter = true;
+                -- Snippets
                 ultisnips = true;
+                -- vsnip = true;
                 -- luasnip = true;
         };
 }

@@ -51,16 +51,19 @@ augroup END
 " augroup END
 
 " Initialize Saga:
-lua require'lspsaga'.init_lsp_saga()
+lua require('lspsaga').init_lsp_saga()
+
+" Initialize Completion Kind Icons:
+lua require('sten.compl-kinds').setup()
 
 " LSP Server Setups:
 " Python (pyls)
 " lua require'lspconfig'.pylsp.setup( require'sten.conf'.pylsp_conf )
 " Python (pyright)
-lua require'lspconfig'.pyright.setup( require'sten.conf'.pyright_conf )
+lua require('lspconfig').pyright.setup( require('sten.conf').pyright_conf )
 " Lua (Sumneko_lua)
-lua require'lspconfig'.sumneko_lua.setup( require'sten.conf'.lua_conf )
+lua require('lspconfig').sumneko_lua.setup( require('sten.conf').lua_conf )
 " LaTeX (Texlab)
-lua require'lspconfig'.texlab.setup( require'sten.conf'.texlab_conf )
+lua require('lspconfig').texlab.setup( require('sten.conf').texlab_conf )
 " Rust (rust-analyzer)
-lua require'lspconfig'.rust_analyzer.setup( require'sten.conf'.rust_analyzer_conf )
+lua require('lspconfig').rust_analyzer.setup( require('sten.conf').rust_analyzer_conf )

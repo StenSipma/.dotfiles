@@ -12,11 +12,6 @@ set completeopt=menuone,noselect
 " TODO: figure out what the options actually do
 " set shortmess+=c
 
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-
-" Automatically change the source, when current matching is 0
-" let g:completion_trigger_character = ['.', '::', '/']
-
 " Enable compe
 lua require('compe').setup( require('sten.conf').compe_conf )
 
