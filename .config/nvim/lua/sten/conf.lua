@@ -114,15 +114,16 @@ local compe_conf = {
         source = {
                 path = true;
                 buffer = true;
-                -- calc = true;
+                emoji = true;
+                --calc = true;
                 -- Neovim specific
-                nvim_lsp = true;
+                nvim_lsp = { menu="殺" };
                 nvim_lua = true;
                 nvim_treesitter = true;
                 -- Snippets
-                ultisnips = true;
-                -- vsnip = true;
-                -- luasnip = true;
+                ultisnips = { menu=' ', kind='﬌ ' };
+                --vsnip = true;
+                --luasnip = true;
         };
 }
 
