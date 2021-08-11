@@ -109,10 +109,12 @@ myWorkspaces = clickable . (map xmobarEscape) $ workspacesList
 myManageHook = composeAll [ (className =? "firefox") <&&> (stringProperty "WM_WINDOW_ROLE" =? "browser")
                                                        --> doShift (myWorkspaces!!1)
                           , className =? "Emacs"       --> doShift (myWorkspaces!!3)
+                          , className =? "Mattermost"  --> doShift (myWorkspaces!!5)
                           , className =? "Thunderbird" --> doShift (myWorkspaces!!7)
                           -- Match Spotify, no classname given on startup!
                           , className =? ""            --> doShift (myWorkspaces!!8)
                           , className =? "Peek"        --> doFloat
+
               ]
 
 myStartupHook :: X ()

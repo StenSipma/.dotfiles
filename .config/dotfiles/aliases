@@ -70,6 +70,7 @@ STUDY_DIR=$DOCS_DIR/Study
 TA_DIR=$DOCS_DIR/TeachingAssistant
 PROJECTS_DIR=$DOCS_DIR/Projects
 LEARNIT_DIR=$DOCS_DIR/Learnit
+ACS_DIR=$DOCS_DIR/ACS
 
 # University
 alias study='cd $STUDY_DIR'
@@ -85,5 +86,6 @@ alias anc='cd $PROJECTS_DIR/PracticalAstronomyCrew/astrometry_net_client'
 
 # Learnit
 alias li='cd $LEARNIT_DIR'
+alias acs='cd $ACS_DIR'
 
 # vim: ft=bash:
