@@ -11,9 +11,15 @@ local pylsp_conf = {
         capabilities = all_capabilities;
 }
 
+-- Resolves the root dir of a project (if it exists)
+-- otherwise defaults to the current file.
+local function python_root_dir(filename)
+        return util.root_pattern("setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt", ".git")(filename) or util.path.dirname(filename);
+end
+
 local pyright_conf = {
         --root_dir = root_fallback;
-        root_dir = util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt", "*.py");
+        root_dir = python_root_dir;
         settings = {
                 defaultVenv = {".env"};
                 pyright = {
@@ -22,7 +28,8 @@ local pyright_conf = {
                 python = {
                         analysis = {
                                 autoSearchPaths = true;
-                                useLibraryCodeForTypes = true
+                                useLibraryCodeForTypes = true;
+                                extraPaths = {"."};
                         };
                 };
         };
