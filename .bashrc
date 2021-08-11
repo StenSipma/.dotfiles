@@ -68,3 +68,7 @@ export PS1='$(myprompt)'
 # Sets the prompt for when a command is specified on more
 # than one line (e.g. by using \ or not closing a quote etc.)
 export PS2=' | '
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
