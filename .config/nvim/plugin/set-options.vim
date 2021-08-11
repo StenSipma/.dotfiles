@@ -30,7 +30,8 @@ set incsearch      " Display match for search pattern whilst typing
 set ignorecase     " Case insensitive searching (i.e. using /, : etc.)
 set smartcase      " Make search case sensitive if an upper case letter is used
 
-set colorcolumn=80 " Display a vertical line at column 80
+set colorcolumn=89 " Display a vertical line at column 80
+" set colorcolumn=80
 
 set tabstop=8 softtabstop=8 " Set the tab size
 set shiftwidth=8            " Set the size used for indenting using >>
