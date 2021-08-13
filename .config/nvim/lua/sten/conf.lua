@@ -78,7 +78,7 @@ local treesitter_conf = {
         -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         -- TODO (2021-01-17): Convert into a list of languages
         ensure_installed = "maintained";
-        indent = { enable = true; };
+        indent = { enable = false; };
         incremental_selection = { enable = false; };
         highlight = {
                 enable = true;
@@ -126,7 +126,7 @@ local compe_conf = {
                 -- Neovim specific
                 nvim_lsp = { menu="殺" };
                 nvim_lua = true;
-                nvim_treesitter = true;
+                -- nvim_treesitter = true;
                 -- Snippets
                 ultisnips = { menu=' ', kind='﬌ ' };
                 --vsnip = true;
