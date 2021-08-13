@@ -44,5 +44,5 @@ set hidden " Keep unsaved files active even in background (removes the
 
 set inccommand=split  " TODO: figure out what this does exactly
 
-" Time (milliseconds) before the CursorHold event is triggered
-set updatetime=500
+
+set updatetime=500    " Time (milliseconds) before the CursorHold event is triggered

@@ -62,6 +62,11 @@ call plug#begin(stdpath("config") . "/vplugged")
 	Plug 'tyrannicaltoucan/vim-deep-space'
 	Plug 'liuchengxu/space-vim-theme'
 
+        " Statusline:
+        Plug 'hoob3rt/lualine.nvim'
+        Plug 'kyazdani42/nvim-web-devicons'
+        Plug 'nvim-lua/lsp-status.nvim'
+
         " Fuzzy Finder:
         Plug 'nvim-lua/popup.nvim'
         Plug 'nvim-lua/plenary.nvim'

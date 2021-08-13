@@ -50,6 +50,10 @@ augroup END
 "         autocmd BufWrite *.py :lua vim.lsp.buf.formatting_sync(nil, 1000)
 " augroup END
 
+" LSP Status:
+lua require('lsp-status').config(require('sten.conf').lsp_status_conf)
+lua require('lsp-status').register_progress()
+
 " Initialize Saga:
 lua require('lspsaga').init_lsp_saga()
 

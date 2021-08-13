@@ -147,6 +147,29 @@ local telescope_conf = {
         };
 };
 
+local statusline = require('sten.statusline')
+
+local lualine_conf = {
+        options = {
+                theme = 'gruvbox_material';
+        };
+
+        -- Lualine has sections: [a>b>c     x<y<z]
+        sections = {
+                -- lualine_x = {statusline.diagnostic_status, statusline.lsp_status, 'encoding', 'filetype'};
+                lualine_x = {require'lsp-status'.status, 'encoding', 'filetype'};
+                lualine_z = {statusline.location};
+        }
+}
+
+local lsp_status_conf = {
+        indicator_errors = '',
+        indicator_warnings = '',
+        indicator_info = '',
+        indicator_hint = '',
+        indicator_ok = '',
+}
+
 return {
         treesitter_conf    = treesitter_conf;
         pyright_conf       = pyright_conf;
@@ -156,4 +179,6 @@ return {
         texlab_conf        = texlab_conf;
         rust_analyzer_conf = rust_analyzer_conf;
         compe_conf         = compe_conf;
+        lualine_conf       = lualine_conf;
+        lsp_status_conf    = lsp_status_conf;
 }
