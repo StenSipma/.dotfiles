@@ -74,6 +74,11 @@ local rust_analyzer_conf = {
         capabilities = all_capabilities;
 }
 
+local tsserver_conf = {
+        on_attach = all_attach;
+        capabilities = all_capabilities;
+}
+
 local treesitter_conf = {
         -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         -- TODO (2021-01-17): Convert into a list of languages
@@ -181,4 +186,5 @@ return {
         compe_conf         = compe_conf;
         lualine_conf       = lualine_conf;
         lsp_status_conf    = lsp_status_conf;
+        tsserver_conf      = tsserver_conf;
 }
