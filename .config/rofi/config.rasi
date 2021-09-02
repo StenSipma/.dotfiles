@@ -1,0 +1,21 @@
+/* vim: ft=css
+ * File:   config.rasi
+ * Author: Sten Sipma (sten.sipma@ziggo.nl)
+ * Description:
+ *	The configuration file for Rofi. I mainly use it as an application
+ *	launcher, and not for any of the other features. The custom theme
+ *	(Arc-Dark-Large) is separated in a dedicated file and imported using the
+ *	`theme` keyword.
+ */
+
+configuration {
+        modi: "run";
+        theme: "Arc-Dark-Large";
+        show-icons: true;
+        terminal: "kitty";
+
+        timeout {
+                action: "kb-cancel";
+                delay:  0;
+        }
+}

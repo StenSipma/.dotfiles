@@ -1,0 +1,56 @@
+/* 
+ * vim: ft=css
+ */
+
+* {
+        background-color: rgba ( 45, 48, 59, 0 % );
+        text-color: rgba ( 196, 203, 212, 100 % );
+        border-color: @text-color;
+        font: "Noto Sans Display 50";
+}
+
+window {
+        fullscreen: true;
+        padding: 10% 20%;
+        transparency: "real";
+        background-color: rgba ( 45, 48, 59, 95 % );
+}
+
+mainbox {
+        padding: 40px;
+
+}
+
+inputbar {
+        margin: 15px 80px;
+        padding: 10px;
+        children: [entry, case-indicator];
+        border: 1px;
+}
+
+entry {
+}
+
+listview { }
+
+element.selected {
+        /* border: 2px; */
+}
+
+element-text.selected {
+        text-color: rgba ( 249, 249, 249, 100 % );
+}
+
+element-icon {
+        size: 75px;
+        padding: 10px;
+
+}
+
+/* element-text { */
+/*         background-color: inherit; */
+/* } */
+
+/* textbox { */
+/*         width: 100%; */
+/* } */
