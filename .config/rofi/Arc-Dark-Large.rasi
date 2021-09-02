@@ -6,51 +6,46 @@
         background-color: rgba ( 45, 48, 59, 0 % );
         text-color: rgba ( 196, 203, 212, 100 % );
         border-color: @text-color;
-        font: "Noto Sans Display 50";
+        font: "Noto Sans Display 40";
 }
 
 window {
         fullscreen: true;
-        padding: 10% 20%;
-        transparency: "real";
-        background-color: rgba ( 45, 48, 59, 95 % );
+        padding: 9% 10%;
+        transparency: "real"; /* Requires an X compositor (picom/compton etc) */
+        background-color: rgba ( 45, 48, 59, 65 % );
 }
 
-mainbox {
-        padding: 40px;
+listview {
+        background-color: rgba ( 45, 48, 59, 100 % );
 
+        border: 2px;
+        padding: 1%;
+        spacing: 10;
+
+        columns: 2;
 }
 
 inputbar {
-        margin: 15px 80px;
-        padding: 10px;
+        background-color: rgba ( 45, 48, 59, 100 % );
+
+        margin: 1% 0;
+        padding: 1%;
+
         children: [entry, case-indicator];
-        border: 1px;
-}
-
-entry {
-}
-
-listview { }
-
-element.selected {
-        /* border: 2px; */
+        border: 2px;
 }
 
 element-text.selected {
-        text-color: rgba ( 249, 249, 249, 100 % );
+        text-color: rgba ( 253, 253, 253, 100 % );
+}
+
+element.selected {
+        border: 1px;
+        /* background-color: rgba ( 45, 48, 59, 100 % ); */
 }
 
 element-icon {
-        size: 75px;
+        size: 53px;
         padding: 10px;
-
 }
-
-/* element-text { */
-/*         background-color: inherit; */
-/* } */
-
-/* textbox { */
-/*         width: 100%; */
-/* } */
