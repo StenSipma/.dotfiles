@@ -42,6 +42,7 @@ command RestartLSP <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr
 augroup LSP_HOVER
         autocmd!
         " autocmd CursorHold * lua require('lspsaga.hover').render_hover_doc()
+        " TODO: The following will jump to the buffer when executed twice
         " autocmd CursorHold * lua vim.lsp.buf.hover()
 augroup END
 
@@ -71,5 +72,7 @@ lua require('lspconfig').sumneko_lua.setup( require('sten.conf').lua_conf )
 lua require('lspconfig').texlab.setup( require('sten.conf').texlab_conf )
 " Rust (rust-analyzer)
 lua require('lspconfig').rust_analyzer.setup( require('sten.conf').rust_analyzer_conf )
-" Rust (rust-analyzer)
+" Typescript (tsserver)
 lua require('lspconfig').tsserver.setup( require('sten.conf').tsserver_conf )
+" Go (gopls)
+lua require('lspconfig').gopls.setup( require('sten.conf').gopls_conf )

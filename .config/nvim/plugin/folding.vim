@@ -8,6 +8,12 @@ function LuaFoldexpr()
         return luaeval('require("sten.folding").foldexpr()')
 endfunction
 
-" TODO: move to Python ftplugin
-set foldmethod=expr
-set foldexpr=LuaFoldexpr()
+function LuaFoldtext()
+        return luaeval('require("sten.folding").foldtext()')
+endfunction
+
+" set fillchars=fold:*
+set foldmethod=manual
+
+" TODO: Work in progress
+" set foldtext=LuaFoldtext()

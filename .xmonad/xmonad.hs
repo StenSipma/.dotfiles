@@ -46,7 +46,8 @@ myBorderWidth        = 2
 myKeys' :: [((KeyMask, KeySym), X ())]
 myKeys' = 
         -- Application starter (rofi)
-    [ ((myModMask, xK_d), spawn "rofi -show drun -modi drun#run -show-icons -theme Arc-Dark-Custom")
+    -- [ ((myModMask, xK_d), spawn "rofi -show drun -modi drun#run -show-icons -theme Arc-Dark-Custom")
+    [ ((myModMask, xK_d), spawn "rofi -show drun -modi drun#run")
 
     -- Control volume of currently selected sink
     , ((noModMask, xF86XK_AudioRaiseVolume), spawn "volume up")
@@ -120,6 +121,11 @@ myManageHook = composeAll [ (className =? "firefox") <&&> (stringProperty "WM_WI
 myStartupHook :: X ()
 myStartupHook = do  -- Start the wallpaper manager using the previous config
                     spawnOnce "nitrogen --restore &"
+                    -- Start the compositor, allowing transparent windows
+                    -- Options:
+                    --   - fade-delta: time (milliseconds) between fade steps (i.e. when
+                    --                 switching/opening windows etc.)
+                    spawnOnce "picom --fade-delta 5 &"
                     -- Start a system tray for some applications (e.g. NetworkManager)
                     -- Options:
                     -- geometry: [widthxheight]+x+y

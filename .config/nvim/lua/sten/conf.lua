@@ -79,6 +79,11 @@ local tsserver_conf = {
         capabilities = all_capabilities;
 }
 
+local gopls_conf = {
+        on_attach = all_attach;
+        capabilities = all_capabilities;
+}
+
 local treesitter_conf = {
         -- one of "all", "maintained" (parsers with maintainers), or a list of languages
         -- TODO (2021-01-17): Convert into a list of languages
@@ -175,6 +180,7 @@ local lsp_status_conf = {
         indicator_ok = '',
 }
 
+
 return {
         treesitter_conf    = treesitter_conf;
         pyright_conf       = pyright_conf;
@@ -187,4 +193,5 @@ return {
         lualine_conf       = lualine_conf;
         lsp_status_conf    = lsp_status_conf;
         tsserver_conf      = tsserver_conf;
+        gopls_conf         = gopls_conf ;
 }

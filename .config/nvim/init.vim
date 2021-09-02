@@ -152,7 +152,9 @@ nnoremap Y y$
 nnoremap <leader>y "+y
 
 " Cylce between buffers with SPC+Tab
-nnoremap <leader><Tab> :bnext<CR>
+" nnoremap <leader><Tab> :bnext<CR>
+" Jump to the alternate-file (previously edited file in the window)
+nnoremap <leader><Tab> <C-^>
 " Get a list of buffers (:ls) and enter a number to go to that buffer.
 "nnoremap <leader>b :ls<CR>:b<space>
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -160,6 +162,8 @@ nnoremap ga <Plug>(EasyAlign)
 
 " Save & Source the current file
 nnoremap <leader>ss :w<CR>:source %<CR>
+" Save & reload the current file
+nnoremap <leader>sr :w<CR>:e %<CR>
 
 " Inverse the search highlight (for if you actually want it back)
 nnoremap <C-l> :set invhlsearch<CR>

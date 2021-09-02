@@ -8,9 +8,10 @@ eval "$(sed 's/^[^#].*/export &/g;t;d' ~/.config/user-dirs.dirs)"
 
 # Add local bin folders to PATH
 PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-PATH=~/.local/bin:$PATH
-PATH=~/.cargo/bin:$PATH
-PATH=~/bin:$PATH
+PATH=$HOME/.local/bin:$PATH
+PATH=$HOME/.cargo/bin:$PATH
+PATH=$HOME/bin:$PATH
+PATH=$HOME/go/bin:$PATH
 
 
 ##########################

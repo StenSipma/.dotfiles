@@ -11,3 +11,8 @@ nmap <buffer> } ]m
 " Pressing any of the characters in this list three times will cause a three
 " more to appear behind the cursor (Plugin: delimitMate)
 let b:delimitMate_nesting_quotes = ['"','`']
+
+" Python specific folding
+set foldmethod=expr
+set foldexpr=LuaFoldexpr()
+

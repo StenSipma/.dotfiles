@@ -52,4 +52,16 @@ function M.foldexpr()
         return M.fold_levels(buf)[line]
 end
 
+function M.foldtext()
+        local fold_start = vim.v.foldstart
+        local fold_end = vim.v.foldend
+        local fold_dashes = vim.v.folddashes
+        local fold_level = vim.v.foldlevel
+
+        local fold_size = fold_end - fold_start
+
+        return string.format("  +%s :: %s ", fold_dashes, fold_size)
+        -- return string.format("%s - %s - %s - %s", fold_start, fold_end, fold_dashes, fold_level)
+end
+
 return M
