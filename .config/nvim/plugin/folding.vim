@@ -14,6 +14,3 @@ endfunction
 
 " set fillchars=fold:*
 set foldmethod=manual
-
-" TODO: Work in progress
-" set foldtext=LuaFoldtext()

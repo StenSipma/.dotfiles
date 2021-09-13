@@ -12,7 +12,7 @@ nmap <buffer> } ]m
 " more to appear behind the cursor (Plugin: delimitMate)
 let b:delimitMate_nesting_quotes = ['"','`']
 
-" Python specific folding
+" Folding powered by Treesitter
 set foldmethod=expr
 set foldexpr=LuaFoldexpr()
-
+set foldtext=LuaFoldtext()

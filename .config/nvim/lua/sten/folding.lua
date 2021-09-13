@@ -9,6 +9,21 @@ local M = {}
 local ts_utils = require('nvim-treesitter.ts_utils')
 local ts = vim.treesitter
 
+local fold_queries = {}
+fold_queries.python = [[
+        (function_definition) @fold 
+        (class_definition) @fold
+
+        (block (expression_statement (string) @fold ))
+]]
+
+fold_queries.go = [[
+        (function_declaration) @fold 
+        (method_declaration) @fold 
+        (type_declaration) @fold 
+        (import_declaration) @fold 
+]]
+
 -- Some options (?)
 local fold_query = [[
         (function_definition) @fold 
@@ -26,7 +41,8 @@ function M.buf_foldlevels(buf)
         end
         local parser = ts.get_parser()
         local tree = parser:parse()[1]
-        local query = ts.parse_query("python", fold_query)
+        local filetype = vim.bo.filetype
+        local query = ts.parse_query(filetype, fold_queries[filetype])
         -- local query = ts.parse_query("python", "(function_definition) @fold")
 
         for _, node, _ in query:iter_captures(tree:root(), buf) do
@@ -42,8 +58,7 @@ end
 M.fold_levels = ts_utils.memoize_by_buf_tick(M.buf_foldlevels, {})
 
 function M.foldexpr()
-        -- Only works with python!
-        if vim.bo.filetype ~= "python" then
+        if fold_queries[vim.bo.filetype] == nil then
                 return 0
         end
 
@@ -60,7 +75,9 @@ function M.foldtext()
 
         local fold_size = fold_end - fold_start
 
-        return string.format("  +%s :: %s ", fold_dashes, fold_size)
+        local preview = vim.api.nvim_buf_get_lines(0, fold_start-1, fold_start, nil)
+
+        return string.format("  +%s (%s) :: %s ", fold_dashes, fold_size, preview[1])
         -- return string.format("%s - %s - %s - %s", fold_start, fold_end, fold_dashes, fold_level)
 end
 
