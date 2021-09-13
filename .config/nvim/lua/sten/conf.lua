@@ -64,11 +64,6 @@ local lua_conf = {
         capabilities = all_capabilities;
 }
 
-local texlab_conf = {
-        on_attach = all_attach;
-        capabilities = all_capabilities;
-}
-
 local rust_analyzer_conf = {
         on_attach = all_attach;
         capabilities = all_capabilities;
@@ -80,6 +75,18 @@ local tsserver_conf = {
 }
 
 local gopls_conf = {
+        on_attach = all_attach;
+        capabilities = all_capabilities;
+}
+
+local texlab_conf = {
+        settings = {
+                texlab = {
+                        chktex = {
+                                onEdit = true;
+                        };
+                };
+        };
         on_attach = all_attach;
         capabilities = all_capabilities;
 }
@@ -187,11 +194,11 @@ return {
         pylsp_conf         = pylsp_conf;
         telescope_conf     = telescope_conf;
         lua_conf           = lua_conf;
-        texlab_conf        = texlab_conf;
         rust_analyzer_conf = rust_analyzer_conf;
         compe_conf         = compe_conf;
         lualine_conf       = lualine_conf;
         lsp_status_conf    = lsp_status_conf;
         tsserver_conf      = tsserver_conf;
         gopls_conf         = gopls_conf ;
+        texlab_conf        = texlab_conf;
 }
