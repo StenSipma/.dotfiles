@@ -77,6 +77,9 @@ alias study='cd $STUDY_DIR'
 alias ta='cd $TA_DIR'
 alias pn='cd $TA_DIR/Prognum21'
 
+alias smt='cd $STUDY_DIR/Space_Mission_Technology'
+alias cos='cd $STUDY_DIR/Cosmology'
+
 # Projects
 alias proj='cd $PROJECTS_DIR'
 alias pac='cd $PROJECTS_DIR/PracticalAstronomyCrew'
