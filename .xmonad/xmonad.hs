@@ -125,7 +125,8 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     -- Options:
                     --   - fade-delta: time (milliseconds) between fade steps (i.e. when
                     --                 switching/opening windows etc.)
-                    spawnOnce "picom --fade-delta 5 &"
+                    --   - menu-opacity: Opacity of dropdown menu's (1.0 = no see through)
+                    spawnOnce "picom --fade-delta 5 --menu-opacity=1.0 &"
                     -- Start a system tray for some applications (e.g. NetworkManager)
                     -- Options:
                     -- geometry: [widthxheight]+x+y
@@ -141,7 +142,9 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     spawnOnce "pasystray &"
                     -- Start Rocket.Chat app. Note; you have to 'enable' the tray icon
                     -- By clicking: View --> Tray Icon
-                    spawnOnce "rocketchat-desktop &"
+                    -- spawnOnce "rocketchat-desktop &"
+                    -- Start nextcloud sync
+                    spawnOnce "nextcloud --background &"
 
 -- Main xmobar run sequence
 main = do
