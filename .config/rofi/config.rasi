@@ -10,7 +10,6 @@
 
 configuration {
         modi: "run";
-        theme: "Arc-Dark-Large";
         show-icons: true;
         terminal: "kitty";
 
@@ -19,3 +18,5 @@ configuration {
                 delay:  0;
         }
 }
+
+@theme "Arc-Dark-Large"
