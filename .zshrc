@@ -92,8 +92,8 @@ setopt promptsubst
 #   $ []
 # Choose One:
 # - Simple prompt without Git integration
-#export PS1='%n at %m in %W
-# $ '
+# export PS1='%n at %m in %1~
+#  $ '
 
 # - Same prompt but with basic Git integration
 export PS1='${prompt}'
