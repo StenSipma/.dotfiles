@@ -16,3 +16,6 @@ let b:delimitMate_nesting_quotes = ['"','`']
 set foldmethod=expr
 set foldexpr=LuaFoldexpr()
 set foldtext=LuaFoldtext()
+
+" Save and execute the current python file
+nnoremap <leader>ss :w<CR>:!python3 %<CR>

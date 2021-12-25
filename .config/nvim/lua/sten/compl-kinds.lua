@@ -6,37 +6,54 @@
 
 local M = {}
 
--- TODO: Snippet does not show the right icon
-M.icons = {
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Enum = "了 ",
-  EnumMember = " ",
-  Field = " ",
-  File = " ",
-  Folder = " ",
-  Function = " ",
-  Interface = "ﰮ ",
-  Keyword = " ",
-  Method = "ƒ ",
-  Module = " ",
-  Property = " ",
-  Snippet = "﬌ ",
-  Struct = " ",
-  Text = " ",
-  Unit = " ",
-  Value = " ",
-  Variable = " ",
+M.kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
 }
 
-function M.setup()
-        local kinds = vim.lsp.protocol.CompletionItemKind
-        for i, kind in ipairs(kinds) do
-                -- print(string.format("%s %s has kind %s", i, kind, M.icons[kind]))
-                kinds[i] = M.icons[kind] or kind
+-- Prepends the icon from the above list when a completion item is displayed
+function M.format(entry, vim_item)
+        -- This concatonates the icons with the name of the item kind
+        vim_item.kind = string.format('%s %s', M.kind_icons[vim_item.kind], vim_item.kind)
+
+        -- If the completion entry is a LaTeX function that represents a
+        -- unicode character; display that character (in the item menu)
+        -- TODO: it is probably best to add another check for it to only work
+        -- within latex files
+        local it = entry.completion_item
+        if vim.bo.filetype == "tex" and entry.source.name == "nvim_lsp" and it.detail ~= nil and vim.endswith(it.detail, ", built-in") then
+                local split = vim.split(it.detail, ", ")
+                vim_item.menu = split[1]
         end
+
+        -- local sym = symbols[vim_item.word]
+        -- if sym then
+        --         vim_item.menu = sym
+        -- end
+        return vim_item
 end
 
 return M

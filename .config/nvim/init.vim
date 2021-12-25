@@ -30,14 +30,23 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Fancier LSP functions
         Plug 'glepnir/lspsaga.nvim'
         " Completion framework
-        " Plug 'nvim-lua/completion-nvim'
-        Plug 'hrsh7th/nvim-compe'
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/cmp-buffer'
+        Plug 'hrsh7th/cmp-path'
+        Plug 'hrsh7th/cmp-cmdline'
+        Plug 'hrsh7th/cmp-emoji'
+        Plug 'kdheepak/cmp-latex-symbols'
+        Plug 'hrsh7th/nvim-cmp'
+
+        " Nice symbols for completion menu
+        Plug 'onsails/lspkind-nvim'
 
         " Snippets:
         " Ultisnips snippets engine
         Plug 'SirVer/ultisnips'
         " Actual Snippets
         Plug 'honza/vim-snippets'
+        Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 	" General:
         " Easy Align
@@ -154,7 +163,10 @@ nnoremap <leader>y "+y
 " Cylce between buffers with SPC+Tab
 " nnoremap <leader><Tab> :bnext<CR>
 " Jump to the alternate-file (previously edited file in the window)
-nnoremap <leader><Tab> <C-^>
+" If no alternate file exists, use :bnext instead.
+nnoremap <expr> <leader><Tab> expand('#') == '' ? ':bnext<CR>' : '<C-^><CR>'
+" nnoremap <leader><Tab> :call AltfileOrNext()<CR>
+" nnoremap <leader><Tab> <C-^>
 " Get a list of buffers (:ls) and enter a number to go to that buffer.
 "nnoremap <leader>b :ls<CR>:b<space>
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)

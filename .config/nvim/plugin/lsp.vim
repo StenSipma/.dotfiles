@@ -27,8 +27,8 @@ nnoremap gd         <cmd>lua vim.lsp.buf.definition()<CR>
 " List references
 nnoremap gr         <cmd>lua vim.lsp.buf.references()<CR>
 " Code Action
-nnoremap <leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
-vnoremap <leader>ca <cmd><C-u>lua require('lspsaga.codeaction').range_code_action()<CR>
+" nnoremap <leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+" vnoremap <leader>ca <cmd><C-u>lua require('lspsaga.codeaction').range_code_action()<CR>
 "nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>  
 " Rename on cursor
 nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
@@ -56,10 +56,7 @@ lua require('lsp-status').config(require('sten.conf').lsp_status_conf)
 lua require('lsp-status').register_progress()
 
 " Initialize Saga:
-lua require('lspsaga').init_lsp_saga()
-
-" Initialize Completion Kind Icons:
-lua require('sten.compl-kinds').setup()
+" lua require('lspsaga').init_lsp_saga()
 
 " LSP Server Setups:
 " Python (pyls)

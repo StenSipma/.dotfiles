@@ -2,8 +2,6 @@
 -- Author: Sten Sipma (sten.sipma@ziggo.nl)
 -- Description:
 --	Functions for evaluating the fold locations
-
-
 local M = {}
 
 local ts_utils = require('nvim-treesitter.ts_utils')
@@ -22,6 +20,10 @@ fold_queries.go = [[
         (method_declaration) @fold 
         (type_declaration) @fold 
         (import_declaration) @fold 
+]]
+
+fold_queries.tex = [[
+        (section) @fold 
 ]]
 
 -- Some options (?)
