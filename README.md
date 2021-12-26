@@ -92,6 +92,9 @@ git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 ````
 
+- `delta` (install via `git-delta`)
+It is a better diff viewer for git (or in general)
+
 ### Fonts
 - FiraCode & Hasklig
 ````
@@ -114,6 +117,7 @@ Then enable them:
 sudo systemctl daemon-reload
 sudo systemctl enable --now pacman-index-update.timer
 ```
+
 
 ## TODO
 - .
