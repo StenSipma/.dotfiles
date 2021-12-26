@@ -7,6 +7,7 @@
 " Syntax highlighting for lua code inside a .vim file
 let g:vimsyn_embed = 'l'
 
+" Make some functions global:
 lua << EOF
 _G.dump = require'sten.util'.dump
 EOF

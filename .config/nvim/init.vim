@@ -30,13 +30,12 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Fancier LSP functions
         Plug 'glepnir/lspsaga.nvim'
         " Completion framework
+        Plug 'hrsh7th/nvim-cmp' " Main plugin
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
         Plug 'hrsh7th/cmp-path'
         Plug 'hrsh7th/cmp-cmdline'
         Plug 'hrsh7th/cmp-emoji'
-        Plug 'kdheepak/cmp-latex-symbols'
-        Plug 'hrsh7th/nvim-cmp'
 
         " Nice symbols for completion menu
         Plug 'onsails/lspkind-nvim'
@@ -165,15 +164,20 @@ nnoremap <leader>y "+y
 " Jump to the alternate-file (previously edited file in the window)
 " If no alternate file exists, use :bnext instead.
 nnoremap <expr> <leader><Tab> expand('#') == '' ? ':bnext<CR>' : '<C-^><CR>'
-" nnoremap <leader><Tab> :call AltfileOrNext()<CR>
-" nnoremap <leader><Tab> <C-^>
+
 " Get a list of buffers (:ls) and enter a number to go to that buffer.
 "nnoremap <leader>b :ls<CR>:b<space>
+
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nnoremap ga <Plug>(EasyAlign)
 
-" Save & Source the current file
-nnoremap <leader>ss :w<CR>:source %<CR>
+" Save & run the current file. This is specific for the file at the current
+" buffer, so the buffer variable should be set (b:runprg). For vim, it should
+" be something with source: 
+" > let b:runprg = 'source %'
+" But for python, it should be something like:
+" > let b:runprg = '!python %'
+nnoremap <expr> <leader>ss  exists('b:runprg') ? ':w<CR>:' . b:runprg  . '<CR>' : ''
 " Save & reload the current file
 nnoremap <leader>sr :w<CR>:e %<CR>
 

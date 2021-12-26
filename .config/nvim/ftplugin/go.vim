@@ -7,3 +7,6 @@
 set foldmethod=expr
 set foldexpr=LuaFoldexpr()
 set foldtext=LuaFoldtext()
+
+" Command to run the current file
+let b:runprg = '!go run %'

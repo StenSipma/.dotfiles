@@ -18,4 +18,6 @@ set foldexpr=LuaFoldexpr()
 set foldtext=LuaFoldtext()
 
 " Save and execute the current python file
-nnoremap <leader>ss :w<CR>:!python3 %<CR>
+" nnoremap <leader>ss :w<CR>:!python3 %<CR>
+
+let b:runprg = '!python3 %'
