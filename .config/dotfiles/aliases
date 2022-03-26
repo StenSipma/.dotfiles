@@ -86,9 +86,6 @@ alias pac='cd $PROJECTS_DIR/PracticalAstronomyCrew'
 alias cw='cd $PROJECTS_DIR/CosmicWeb'
 alias anc='cd $PROJECTS_DIR/PracticalAstronomyCrew/astrometry_net_client'
 
-
-# Learnit
-alias li='cd $LEARNIT_DIR'
 alias acs='cd $ACS_DIR'
 
 # vim: ft=bash:
