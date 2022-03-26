@@ -1,8 +1,19 @@
+-- File:   conf.lua
+-- Author: Sten Sipma (sten.sipma@ziggo.nl)
+-- Description:
+--	Collection of configuration tables for Lua plugins (mostly LSP's)
+
+
 -- local all_attach = require'completion'.on_attach
 local all_attach = nil
 local util = require('lspconfig/util')
 
--- Enable snippet support
+
+--[[
+-- LSP Clients
+--]]
+
+-- Capabilities which should be set for all LSP clients, like the completion framework integration.
 local all_capabilities = vim.lsp.protocol.make_client_capabilities()
 require('cmp_nvim_lsp').update_capabilities(all_capabilities)
 
@@ -98,9 +109,13 @@ local texlab_conf = {
         capabilities = all_capabilities;
 }
 
+--[[
+-- Other Configurations
+--]]
+
 local treesitter_conf = {
         -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-        -- TODO (2021-01-17): Convert into a list of languages
+        -- TODO: Convert into a list of languages
         ensure_installed = "maintained";
         indent = { enable = false; };
         incremental_selection = { enable = false; };
@@ -122,48 +137,10 @@ local treesitter_conf = {
         };
 };
 
-local compe_conf = {
-        enabled = true;
-        autocomplete = true;
-        debug = false;
-        min_length = 1;
-        preselect = 'enable';
-        throttle_time = 80;
-        source_timeout = 200;
-        resolve_timeout = 800;
-        incomplete_delay = 400;
-        max_abbr_width = 100;
-        max_kind_width = 100;
-        max_menu_width = 100;
-        documentation = {
-                border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-                winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-                max_width = 120,
-                min_width = 60,
-                max_height = math.floor(vim.o.lines * 0.3),
-                min_height = 1,
-        };
-
-        source = {
-                path = true;
-                buffer = true;
-                emoji = true;
-                --calc = true;
-                -- Neovim specific
-                nvim_lsp = { menu="殺" };
-                nvim_lua = true;
-                -- nvim_treesitter = true;
-                -- Snippets
-                ultisnips = { menu=' ', kind='﬌ ' };
-                --vsnip = true;
-                --luasnip = true;
-        };
-}
-
 local telescope_conf = {
         defaults = {
                 borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"},
-                prompt_prefix = " 🔭";
+                prompt_prefix = " 🔭 ";
                 file_ignore_patterns = {
                         ".env";
                         "*.egg-info";
@@ -211,6 +188,8 @@ local cmp_conf = {
         mapping = {
                 ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
                 ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+
+                -- Mappings are defined in ./compl-kinds.lua, as to not clutter this file
                 ['<Tab>'] = cmp.mapping({
                         i = cmp_util.TAB.i,
                         c = cmp_util.TAB.c,
@@ -237,24 +216,30 @@ local cmp_conf = {
         formatting = { format = kinds.format };
         sources = cmp.config.sources({
                 {name = 'nvim_lsp'},
-                {name = 'buffer'},
+                {name = 'nvim_lua'},
+                {name = 'ultisnips'},
                 {name = 'path'},
                 {name = 'emoji'},
-                {name = 'ultisnips'},
-                -- {name = 'latex_symbols'}, -- inserts actual unicode symbols
+                {name = 'buffer', option = {keyword_length = 5}},
         });
+        experimental = {
+                -- Show virtual text of first completion item while typing
+                ghost_text = true;
+        };
 }
 
 local cmp_cmdline_search_conf = {
+        -- Do not pop up the autocomplete, but only when pressing TAB
         completion = {autocomplete = false},
         sources = {
                 -- Following keyword pattern matches an entire line, instead of a single word
                 -- { name = 'buffer', opts = { keyword_pattern = [=[[^[:blank:]].*]=] } }
-                { name = 'buffer' }
+                {name = 'buffer', option = {keyword_length = 5}},
         };
 }
 
 local cmp_cmdline_command_conf = {
+        -- Do not pop up the autocomplete, but only when pressing TAB
         completion = {autocomplete = false},
         sources = cmp.config.sources({
                         {name = 'path'},
@@ -270,7 +255,6 @@ return {
         telescope_conf           = telescope_conf;
         lua_conf                 = lua_conf;
         rust_analyzer_conf       = rust_analyzer_conf;
-        compe_conf               = compe_conf;
         lualine_conf             = lualine_conf;
         lsp_status_conf          = lsp_status_conf;
         tsserver_conf            = tsserver_conf;

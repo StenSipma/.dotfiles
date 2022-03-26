@@ -35,16 +35,33 @@ nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 "nnoremap <leader>rn <cmd>lua require('lspsaga.rename').rename()<CR>
 " Hover/query `help` using K
 nnoremap K <cmd>lua contextual_documentation()<CR>
+nnoremap <leader>d <cmd>lua vim.diagnostic.open_float(nil, {focus=false})<CR>
 
 " Commands:
-command RestartLSP <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>
+command RestartLSP <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>
 
 augroup LSP_HOVER
         autocmd!
+        " autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})
         " autocmd CursorHold * lua require('lspsaga.hover').render_hover_doc()
         " TODO: The following will jump to the buffer when executed twice
         " autocmd CursorHold * lua vim.lsp.buf.hover()
 augroup END
+
+augroup GOLANG
+        autocmd!
+        autocmd BufRead *.go set colorcolumn=100
+        " Run go fmt on the current file on save
+        " autocmd BufWritePre *.go !go fmt <afile>
+augroup END
+" lua << EOF
+"         cmp = require('cmp')
+"         function optional_diagnositcs()
+"                 if not cmp.visible() then
+                        
+"                 end
+"         end
+" EOF
 
 " augroup MY_LSP_GROUP
 "         au!

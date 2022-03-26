@@ -32,6 +32,7 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Completion framework
         Plug 'hrsh7th/nvim-cmp' " Main plugin
         Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/cmp-nvim-lua'
         Plug 'hrsh7th/cmp-buffer'
         Plug 'hrsh7th/cmp-path'
         Plug 'hrsh7th/cmp-cmdline'
