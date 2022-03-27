@@ -13,6 +13,9 @@ set completeopt=menu,menuone,noselect
 " Avoid showing message extra message when using completion
 " set shortmess+=c
 
+" Load snippets
+lua require("sten.luasnip")
+
 " Enable cmp
 lua require('cmp').setup( require('sten.conf').cmp_conf )
 lua require('cmp').setup.cmdline('/', require('sten.conf').cmp_cmdline_search_conf)

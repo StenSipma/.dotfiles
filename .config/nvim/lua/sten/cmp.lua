@@ -25,7 +25,8 @@ local M = {}
 M.TAB = {}
 function M.TAB.c()
         if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                cmp.select_next_item()
         else
                 cmp.complete()
         end
@@ -33,9 +34,8 @@ end
 
 function M.TAB.s(fallback)
         if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                cmp.select_next_item()
         else
                 fallback()
         end
@@ -43,9 +43,8 @@ end
 
 function M.TAB.i(fallback)
         if cmp.visible() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
-                vim.api.nvim_feedkeys(t("<Plug>(ultisnips_jump_forward)"), 'm', true)
+                -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+                cmp.select_next_item()
         else
                 fallback()
         end
@@ -63,19 +62,13 @@ end
 function M.S_TAB.i(fallback)
         if cmp.visible() then
                 cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-        elseif vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
         else
                 fallback()
         end
 end
 
 function M.S_TAB.s(fallback)
-        if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
-                return vim.api.nvim_feedkeys( t("<Plug>(ultisnips_jump_backward)"), 'm', true)
-        else
-                fallback()
-        end
+        fallback()
 end
 
 M.C_n = {}

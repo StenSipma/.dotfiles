@@ -45,7 +45,8 @@ function M.format(entry, vim_item)
                 path = "[Pth]",
                 nvim_lsp = "[LSP]",
                 nvim_lua = "[Lua]",
-                ultisnips = "[Snp]",
+                -- luasnip = "[Snp]",
+                -- ultisnips = "[Snp]",
                 emoji = "[Emj]",
         })[entry.source.name]
 
@@ -64,6 +65,8 @@ function M.format(entry, vim_item)
                 vim_item.kind = string.format('%s Symbol', split[1]) -- Show it as a different Kind
         end
 
+        -- if vim.endswith(it.abbr) and it.word ~= nil then
+                -- vim_item.
         -- local sym = symbols[vim_item.word]
         -- if sym then
         --         vim_item.menu = sym

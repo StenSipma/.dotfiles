@@ -43,10 +43,13 @@ call plug#begin(stdpath("config") . "/vplugged")
 
         " Snippets:
         " Ultisnips snippets engine
-        Plug 'SirVer/ultisnips'
+        " Plug 'SirVer/ultisnips'
+        " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+        " LuaSnip
+        Plug 'L3MON4D3/LuaSnip'
+        Plug 'saadparwaiz1/cmp_luasnip'
         " Actual Snippets
         Plug 'honza/vim-snippets'
-        Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
 	" General:
         " Easy Align

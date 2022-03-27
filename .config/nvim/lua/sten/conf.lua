@@ -175,6 +175,7 @@ local lsp_status_conf = {
         indicator_ok = '',
 }
 
+local luasnip = require("luasnip")
 local cmp = require('cmp')
 local cmp_util = require('sten.cmp')
 local kinds = require('sten.compl-kinds')
@@ -182,14 +183,15 @@ local kinds = require('sten.compl-kinds')
 local cmp_conf = {
         snippet = {
                 expand = function(args)
-                        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+                        luasnip.lsp_expand(args.body) -- For `luasnip` users.
                 end
         };
         mapping = {
                 ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
                 ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
 
-                -- Mappings are defined in ./compl-kinds.lua, as to not clutter this file
+                -- Mappings are defined in ./cmp.lua, as to not clutter this file
                 ['<Tab>'] = cmp.mapping({
                         i = cmp_util.TAB.i,
                         c = cmp_util.TAB.c,
@@ -217,14 +219,18 @@ local cmp_conf = {
         sources = cmp.config.sources({
                 {name = 'nvim_lsp'},
                 {name = 'nvim_lua'},
-                {name = 'ultisnips'},
+                -- {name = 'ultisnips'},
+                -- {name = 'luasnip'},
+                -- Disable luasnip completion source for now. It seems to error
+                -- as there is not a correct completion_item.data.snip_id entry
+                -- Maybe an update will resolve this?
                 {name = 'path'},
                 {name = 'emoji'},
                 {name = 'buffer', option = {keyword_length = 5}},
         });
         experimental = {
                 -- Show virtual text of first completion item while typing
-                ghost_text = true;
+                -- ghost_text = true;
         };
 }
 
@@ -247,6 +253,10 @@ local cmp_cmdline_command_conf = {
                 })
 }
 
+local luasnip_conf = {
+        history= true;
+        updateevents = "TextChanged,TextChangedI";
+}
 
 return {
         treesitter_conf          = treesitter_conf;
@@ -263,4 +273,5 @@ return {
         cmp_conf                 = cmp_conf;
         cmp_cmdline_search_conf  = cmp_cmdline_search_conf;
         cmp_cmdline_command_conf = cmp_cmdline_command_conf;
+        luasnip_conf             = luasnip_conf;
 }
