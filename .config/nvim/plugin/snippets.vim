@@ -14,10 +14,13 @@ imap <silent> <C-l> <Plug>luasnip-expand-snippet
 imap <silent> <C-j> <Plug>luasnip-jump-next
 inoremap <silent> <C-k> <Cmd>lua require'luasnip'.jump(-1)<Cr>
 
-" Initialize with custom config
+" Initialize LuaSnip with custom config
 lua require("luasnip").config.set_config( require"sten.conf".luasnip_conf )
-" Create the actual snippets
+" Load vim-snippets snippets
+lua require("sten.luasnip").load_snipmate("./vplugged/vim-snippets/snippets")
+" Load custom snippets
 lua require("sten.luasnip").init_snippets()
+
 
 " For changing choices in choiceNodes (not strictly necessary for a basic setup).
 " imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'

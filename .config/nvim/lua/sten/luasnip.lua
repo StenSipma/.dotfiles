@@ -50,8 +50,26 @@ local function filename()
         return splits[#splits]
 end
 
-local snippets = {
-        all = {
+local function python_docstring(args, _)
+        local func_name = args[1][1] or ""
+        local arguments = args[2][1] or ""
+        -- TODO: Make better =D 
+        -- 1. Split the arguments
+        -- 2. format the docstring based on arguments
+        -- 3. maybe make it a choice node to show docstring or not.
+        return [["""]] .. arguments .. [["""]]
+end
+
+M = {}
+
+function M.load_snipmate(path)
+        local sm = require('luasnip.loaders.from_snipmate')
+        sm.load({ path = path })
+        ls.filetype_extend('all', {'_'})
+end
+
+function M.init_snippets()
+        ls.add_snippets("all", {
                 -- Todo snippet
                 s("todo", fmt( [[{} TODO: {} ]], { cmt(), i(0) } ));
                 -- Header for a file
@@ -64,9 +82,10 @@ local snippets = {
                         cmt(), f(function (_) return filename() end),
                         cmt(), f(function (_) return vim.g.my_name end), f(function (_) return vim.g.my_email end),
                         cmt(), cmt(), i(0)
-        }));
-        };
-        lua = {
+                }));
+        })
+
+        ls.add_snippets("lua", {
                 -- Snippet to make a new snippet
                 s("snip", fmt("s(\"{}\", fmt([[{}]], {{ {} }} ));", {i(1), i(2), i(3)})),
                 -- require snippet, gives nice suggestion for variable name
@@ -79,26 +98,77 @@ local snippets = {
                         i(0),
                         newline(),
                 } ));
-        };
-        go = {
+        })
+
+        ls.add_snippets("python", {
+                s("fun", fmt([[
+                def {}({}):
+                    {}
+                    {}
+                ]], { 
+                        i(1, "foo"),
+                        i(2, "args"), 
+                        f(python_docstring, {1, 2}),
+                        i(0),
+                }));
+        })
+
+        ls.add_snippets("go", {
                 -- 'if err != nil' snippet
-                s("eif", fmt([[if {} != nil {{{}{}{}}}{}{}]], {
+                s("eif", fmt([[
+                        if {} != nil {{
+                                {}
+                        }}
+                        {}
+                        ]], {
                         i(1, "err"),
-                        ni(),
                         i(2, "return nil"),
-                        newline(),
-                        newline(),
                         i(0)
                 } ));
-        };
-}
+        })
 
-ls.snippets = snippets
+        ls.add_snippets("tex", {
+                -- Math align environment
+                s("alis", fmt([[
+                        \begin{{align*}}
+                                {} &= {} \\
+                        \end{{align*}}]], {
+                        i(1, "f(x)"),
+                        i(0)
+                }));
 
-M = {}
+                -- Custom preamble loader
+                s("pream", fmt([[\input{{/home/sten/Documents/Study/homework_template/preamble.tex}}]], {} ));
 
-function M.init_snippets()
-        ls.snippets = snippets
+                -- Bibtex setup
+                s("bib", fmt([[
+                        \usepackage{{biblatex}}
+                        \addbibresource{{bibtex.bib}}
+                        ]], {} 
+                ));
+                
+                -- Simple LaTeX skeleton
+                s("skeleton", fmt([[
+                        \documentclass[12pt]{{article}}
+
+                        \usepackage[a4paper,margin=1.8cm]{{geometry}} % Reduce the margin on all sides of the paper
+                        \usepackage{{float}}                          % Flexibility for image placement
+
+                        \title{{}}
+                        \author{{}}
+                        \date{{\today}}
+
+                        \begin{{document}}
+                        \maketitle
+
+                        {}
+                        \end{{document}}
+                ]], { i(0) } ));
+        })
+
 end
+
+-- Also init snippets on file load
+-- M.init_snippets()
 
 return M

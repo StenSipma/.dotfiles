@@ -220,10 +220,7 @@ local cmp_conf = {
                 {name = 'nvim_lsp'},
                 {name = 'nvim_lua'},
                 -- {name = 'ultisnips'},
-                -- {name = 'luasnip'},
-                -- Disable luasnip completion source for now. It seems to error
-                -- as there is not a correct completion_item.data.snip_id entry
-                -- Maybe an update will resolve this?
+                {name = 'luasnip'},
                 {name = 'path'},
                 {name = 'emoji'},
                 {name = 'buffer', option = {keyword_length = 5}},
