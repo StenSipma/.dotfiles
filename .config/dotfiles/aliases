@@ -75,10 +75,8 @@ ACS_DIR=$DOCS_DIR/ACS
 # University
 alias study='cd $STUDY_DIR'
 alias ta='cd $TA_DIR'
-alias pn='cd $TA_DIR/Prognum21'
 
-alias smt='cd $STUDY_DIR/Space_Mission_Technology'
-alias cos='cd $STUDY_DIR/Cosmology'
+alias bsc='cd $STUDY_DIR/AS_Bachelor_Thesis'
 
 # Projects
 alias proj='cd $PROJECTS_DIR'
