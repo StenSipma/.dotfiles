@@ -22,6 +22,11 @@ fold_queries.go = [[
         (import_declaration) @fold 
 ]]
 
+fold_queries.rust = [[
+        (mod_item) @fold
+        (function_item) @fold
+]]
+
 fold_queries.tex = [[
         (section) @fold 
 ]]
