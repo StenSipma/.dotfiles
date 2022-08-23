@@ -164,6 +164,21 @@ function M.init_snippets()
                         {}
                         \end{{document}}
                 ]], { i(0) } ));
+
+                s("ac", fmt([[\ac{{{}}} {}]], { i(1), i(0) } ));
+
+                s("declareac", fmt([[
+                        \DeclareAcronym{{{}}}{{
+                                short={},
+                                long={},
+                        }}
+                        {}
+                ]], { i(1), i(2), i(3), i(0) } ));
+
+                -- IDEA: change capitalization of si, based on number of
+                -- arguments given (i.e. si when only unit, SI when also number
+                -- is given)
+                s("si", fmt([[\SI{{{}}}{{{}}} {}]], { i(1), i(2), i(0) } ));
         })
 
 end

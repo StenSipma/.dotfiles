@@ -182,6 +182,7 @@ nnoremap ga <Plug>(EasyAlign)
 " But for python, it should be something like:
 " > let b:runprg = '!python %'
 nnoremap <expr> <leader>ss  exists('b:runprg') ? ':w<CR>:' . b:runprg  . '<CR>' : ''
+nnoremap <expr> <leader>st  exists('b:testprg') ? ':w<CR>:' . b:testprg  . '<CR>' : ''
 " Save & reload the current file
 nnoremap <leader>sr :w<CR>:e %<CR>
 
