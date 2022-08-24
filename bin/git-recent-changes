@@ -1,0 +1,32 @@
+#!/bin/bash
+
+num_commits=${1:-1}
+delete_keywords="migrations"
+filter_keywords=".*.py"
+ 
+modified_files=$(
+        git log --pretty=format: --name-status --max-count ${num_commits} | 
+                sed '/^$/d' | # Remove empty lines
+                sed -E '/^M|^A/!d' |
+                sed -E "/${filter_keywords}/!d" |
+                sed "/${delete_keywords}/d" |
+                awk '{print $2}' |
+                tr '\n' ' ' # Join all the lines with a space in between
+)
+
+renamed_files=$(
+        git log --pretty=format: --name-status --max-count ${num_commits} | 
+                sed '/^$/d' | # Remove empty lines
+                sed -E '/^R/!d' |
+                sed -E "/${filter_keywords}/!d" |
+                sed "/${delete_keywords}/d" |
+                awk '{print $3}' |
+                tr '\n' ' ' # Join all the lines with a space in between
+)
+
+if [[ $? != 0 ]]; then
+        echo "Some error occured"
+else
+        echo -n "$modified_files "
+        echo -n $renamed_files
+fi
