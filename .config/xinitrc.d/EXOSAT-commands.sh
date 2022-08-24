@@ -1,0 +1,3 @@
+#!/bin/bash
+
+# Put commands specific to EXOSAT machine here. Nothing yet...

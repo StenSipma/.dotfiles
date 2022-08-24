@@ -102,6 +102,28 @@ It is a better diff viewer for git (or in general)
 paru -S otf-hasklig nerd-fonts-fira-code
 ````
 
+### Xorg
+Add the following to `~/.xinitrc`
+```shell
+# Run local xinitrc commands and programs
+if [ -d ~/.config/xinitrc.d ] ; then
+	# Commands for all machines, files start with all-[name].sh
+	for f in ~/.config/xinitrc.d/all-?*.sh; do
+		[ -x "$f" ] && . "$f"
+	done
+
+	# Commands specific to this machine, files start with [hostname]-[name].sh
+	for f in ~/.config/xinitrc.d/$(cat /etc/hostname)-?*.sh; do
+		[ -x "$f" ] && . "$f"
+	done
+
+	unset f
+fi
+
+# Start the XMonad window manager
+exec xmonad
+```
+
 ### XMonad
 - Stalonetray ?
 
