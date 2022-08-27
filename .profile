@@ -7,7 +7,7 @@
 eval "$(sed 's/^[^#].*/export &/g;t;d' ~/.config/user-dirs.dirs)"
 
 # Location for the go installation
-GOPATH="$XDG_DATA_HOME/go"
+export GOPATH="$XDG_DATA_HOME/go"
 
 # Add local bin folders to PATH
 PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
