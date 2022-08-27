@@ -1,2 +1,6 @@
 #!/bin/bash
+
+# Decreases the keyboard autorepeat delay.
+# First number: delay for repeating after initial keypress
+# Second number: number of repeats in a second.
 xset r rate 270 55
