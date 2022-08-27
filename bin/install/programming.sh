@@ -38,3 +38,6 @@ if [[ ! -d $(jupyter --data-dir)/nbextensions/vim_binding ]]; then
 else
         echo "Vim bindings already installed"
 fi
+
+# Tmux
+sudo pacman -S --needed tmux

@@ -5,5 +5,7 @@ sudo pacman -S --needed xmonad xmonad-contrib
 xmonad --recompile
 
 echo "Installing used applications"
-sudo pacman -S --needed rofi kitty playerctl flameshot nitrogen picom stalonetray pasystray xmobar dunst dmenu xautolock adobe-source-code-pro-fonts noto-fonts noto-fonts-emoji
+sudo pacman -S --needed rofi kitty playerctl flameshot nitrogen picom stalonetray pasystray xmobar dunst dmenu xautolock adobe-source-code-pro-fonts noto-fonts noto-fonts-emoji xdotool
 paru -S --needed betterlockscreen otf-hasklig nerd-fonts-fira-code
+
+mkdir -p $HOME/.wallpapers
