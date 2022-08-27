@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
 # Make sure to clone the repo before running
-#mkdir -p $HOME/.dotfiles
-#git clone --bare https://github.com/StenSipma/.dotfiles.git $HOME/.dotfiles
+git clone --bare https://github.com/StenSipma/.dotfiles.git $HOME/.dotfiles
 
 # Create the alias used for managing the repo
 alias dgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
