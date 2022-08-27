@@ -12,7 +12,7 @@ sudo pacman -S --needed go
 
 # Node (via NVM)
 paru -S --needed nvm
-if [ -n "$NVM_DIR" ]; then
+if [[ -n "$NVM_DIR" ]]; then
         source /usr/share/nvm/init-nvm.sh
         nvm install 16
 fi
