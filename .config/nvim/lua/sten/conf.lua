@@ -114,9 +114,10 @@ local texlab_conf = {
 --]]
 
 local treesitter_conf = {
-        -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-        -- TODO: Convert into a list of languages
-        ensure_installed = "maintained";
+        ensure_installed = {
+                "c", "python", "go", "rust", "lua", "vim", "json", "html",
+                "yaml", "javascript", "typescript", "markdown", "latex", "bash",
+        };
         indent = { enable = false; };
         incremental_selection = { enable = false; };
         highlight = {
