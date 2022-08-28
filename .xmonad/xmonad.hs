@@ -160,7 +160,7 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     spawnOnce "nextcloud --background &"
 
 runXmobar "EXOSAT" = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/EXOSAT.xmobarrc"
-runXmobar _ = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
+runXmobar _        = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
 
 -- Removes whitespace at the end and beginning of the string:
 -- strip " value\n"

@@ -8,7 +8,7 @@ Config {
 	-- Layout
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %battery%    %date% "
+        , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %date% "
 	
 	-- Position
         , position = TopW C 100
@@ -25,20 +25,6 @@ Config {
                 , Run Com "list-updates" [] "updates" 10
                 , Run Memory ["-t"," <usedratio>%"] 10
                 , Run Date "%a %b %_d %k:%M" "date" 10
-		, Run Battery [ "--template" , " <acstatus>"
-				, "--Low"      , "20"        -- units: %
-				, "--low"      , "red"
-				, "--" -- battery specific options
-					-- discharging status
-					, "-o"	, "<left>%"
-					-- AC "on" status
-					, "-O"	, "<fc=#dAA520>Charging</fc>"
-					-- charged status
-					, "-i"	, "<fc=#006000>Charged</fc>"
-                                        -- Send message when threshold (-A) is reached.
-                                        , "-A"  , "20"
-                                        , "-a"  , "notify-send -u critical 'Battery Very Low'"
-				] 50
                 , Run UnsafeStdinReader
                 ]
         }
