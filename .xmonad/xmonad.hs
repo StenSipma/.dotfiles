@@ -8,6 +8,7 @@ import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.ManageHelpers
 
 -- Layout
 import XMonad.ManageHook
@@ -19,6 +20,7 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.EZConfig (additionalKeys)
 
 import System.IO
+import Data.Char
 
 -- Import Media Keys
 import Graphics.X11.ExtraTypes.XF86
@@ -118,6 +120,17 @@ myManageHook = composeAll [ (className =? "firefox") <&&> (stringProperty "WM_WI
 
               ]
 
+-- Managed difference between dialog (intended floating) and 'normal' windows
+-- When a window is a dialog: 
+--     a new spawn should appear in front, and be focused
+-- Otherwise:
+--     the window should spawn at the end of the stack (i.e. at the right) and
+--     still be in focus.
+myFocusManager = composeOne [ isDialog   -?> insertPosition Above Newer
+                            , qOtherwise -?> insertPosition End Newer   
+                            ]
+                where qOtherwise = return otherwise -- We raise the Bool to Query Bool with this
+
 myStartupHook :: X ()
 myStartupHook = do  -- Start the wallpaper manager using the previous config
                     spawnOnce "nitrogen --restore &"
@@ -146,16 +159,29 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     -- Start nextcloud sync
                     spawnOnce "nextcloud --background &"
 
+runXmobar "EXOSAT" = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/EXOSAT.xmobarrc"
+runXmobar _ = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
+
+-- Removes whitespace at the end and beginning of the string:
+-- strip " value\n"
+-- --> "value"
+-- strip " \n value with spaced \n and\n newlines\n"
+-- strip "value with spaced \n and\n newlines"
+strip :: String -> String
+strip = reverse . dropWhile (isSpace) . reverse . dropWhile isSpace
+
 -- Main xmobar run sequence
 main = do
         -- Start the status bar using the specified config.
         -- The result of the spawned process is given to the log pretty printer (PP)
-        xmproc <- spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
+        hostname <- readFile "/etc/hostname"
+        xmproc <- runXmobar $ strip hostname
         xmonad $ desktopConfig
                 -- Dictionary with custom values and hooks
                     -- manageDocks     will shift the screen so the statusbar is visible
                 -- insertPosition  determines where a new window is spawned on the page.
-                { manageHook  = manageDocks <+> insertPosition End Newer <+> myManageHook <+> manageHook def
+                -- { manageHook  = manageDocks <+> insertPosition Master Newer <+> myManageHook <+> manageHook def
+                { manageHook  = manageDocks <+> myFocusManager <+> myManageHook <+> manageHook def
                 , layoutHook  = avoidStruts  $ layoutHook def
                 , logHook     = dynamicLogWithPP $ myPP xmproc
                 , startupHook = myStartupHook
