@@ -1,0 +1,2 @@
+git config --local user.name "Sten Sipma"
+git config --local user.email "sten.sipma@ziggo.nl"
