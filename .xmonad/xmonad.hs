@@ -25,6 +25,9 @@ import Data.Char
 -- Import Media Keys
 import Graphics.X11.ExtraTypes.XF86
 
+---------------
+-- Constants --
+---------------
 
 -- Colours
 myBackgroundColour      = "#2f343f"
@@ -43,6 +46,36 @@ myFocusedBorderColor    = "#DEDEDE"
 myTerminal           = "kitty"
 myModMask            = mod4Mask
 myBorderWidth        = 2
+
+-------------------------------
+-- General Utility Functions --
+-------------------------------
+
+-- Enumerate function, adds indexes starting at some integer 
+-- enum 0 ["a", "b", "c"]
+-- --> [(0, "a"), (1, "b"), (2, "c")]
+enum :: Integral i => i -> [a] -> [(i, a)]
+enum n = zip [n..]
+
+-- Removes whitespace at the end and beginning of the string:
+-- strip " value\n"
+-- --> "value"
+-- strip " \n value with spaced \n and\n newlines\n"
+-- strip "value with spaced \n and\n newlines"
+strip :: String -> String
+strip = reverse . dropWhile (isSpace) . reverse . dropWhile isSpace
+
+-- Converts a string to lowercase
+-- lower "AbC DEFg"
+-- --> "abc defg"
+-- lower "already lowercase"
+-- --> "already lowercase"
+lower :: String -> String
+lower = map toLower
+
+------------
+-- Config --
+------------
 
 -- Keybindings
 myKeys' :: [((KeyMask, KeySym), X ())]
@@ -82,15 +115,11 @@ myPP proc = xmobarPP
     , ppTitle  = wrap "Window: " "" . xmobarColor myAlternateTextColour "" . shorten 50
     }
 
+
 -- Usefull function to create action statements
 wrapAction :: String -> String -> String
 wrapAction a body = "<action=" ++ a ++ ">" ++ body ++ "</action>"
 
--- Enumerate function, adds indexes starting at some integer 
--- enum 0 ["a", "b", "c"]
--- --> [(0, "a"), (1, "b"), (2, "c")]
-enum :: Integral i => i -> [a] -> [(i, a)]
-enum n = zip [n..]
 
 xmobarEscape :: String -> String
 xmobarEscape = concatMap doubleLts
@@ -109,16 +138,19 @@ myWorkspaces = clickable . (map xmobarEscape) $ workspacesList
                where clickable xs = [wrapAction ("xdotool key super+" ++ show n) ws | (n,  ws) <- enum 1 xs ]
 
 -- Assign Applications to workspaces when started
-myManageHook = composeAll [ (className =? "firefox") <&&> (stringProperty "WM_WINDOW_ROLE" =? "browser")
+-- use `xprop` to find these names.
+myManageHook = composeAll [ (classNameLower =? "firefox") <&&> (stringProperty "WM_WINDOW_ROLE" =? "browser")
                                                        --> doShift (myWorkspaces!!1)
-                          , className =? "Emacs"       --> doShift (myWorkspaces!!3)
-                          , className =? "Mattermost"  --> doShift (myWorkspaces!!5)
-                          , className =? "Thunderbird" --> doShift (myWorkspaces!!7)
+                          , classNameLower =? "emacs"       --> doShift (myWorkspaces!!3)
+                          , classNameLower =? "mattermost"  --> doShift (myWorkspaces!!5)
+                          , classNameLower =? "thunderbird" --> doShift (myWorkspaces!!7)
                           -- Match Spotify, no classname given on startup!
-                          , className =? ""            --> doShift (myWorkspaces!!8)
-                          , className =? "Peek"        --> doFloat
+                          , classNameLower =? ""            --> doShift (myWorkspaces!!8)
+                          , classNameLower =? "peek"        --> doFloat
 
               ]
+              -- Converts the classname to lowercase
+              where classNameLower = lower <$> className
 
 -- Managed difference between dialog (intended floating) and 'normal' windows
 -- When a window is a dialog: 
@@ -161,14 +193,6 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
 
 runXmobar "EXOSAT" = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/EXOSAT.xmobarrc"
 runXmobar _        = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
-
--- Removes whitespace at the end and beginning of the string:
--- strip " value\n"
--- --> "value"
--- strip " \n value with spaced \n and\n newlines\n"
--- strip "value with spaced \n and\n newlines"
-strip :: String -> String
-strip = reverse . dropWhile (isSpace) . reverse . dropWhile isSpace
 
 -- Main xmobar run sequence
 main = do
