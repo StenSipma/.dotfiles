@@ -1,7 +1,9 @@
 #!/bin/bash
 
-git clone https://github.com/StenSipma/myprompt.git
-cd myprompt
+TMP_DIR='/tmp/myprompt'
+
+git clone https://github.com/StenSipma/myprompt.git $TMP_DIR
+pushd $TMP_DIR
 cargo install --path .
-cd ..
-rm -rf myprompt
+popd
+rm -rf $TMP_DIR
