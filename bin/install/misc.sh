@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Tools
+sudo pacman -S --needed unzip
+
 # Sound
 sudo pacman -S --needed pulseaudio pulseaudio-alsa pavucontrol pasystray
 
