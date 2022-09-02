@@ -39,5 +39,8 @@ else
         echo "Vim bindings already installed"
 fi
 
+jupyter nbextension install --user toc2 
+jupyter nbextension enable --user toc2/toc2
+
 # Tmux
 sudo pacman -S --needed tmux

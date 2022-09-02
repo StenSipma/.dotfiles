@@ -116,7 +116,8 @@ local texlab_conf = {
 local treesitter_conf = {
         ensure_installed = {
                 "c", "python", "go", "rust", "lua", "vim", "json", "html",
-                "yaml", "javascript", "typescript", "markdown", "latex", "bash",
+                "yaml", "javascript", "typescript", "markdown", "latex",
+                "bash", "scss",
         };
         indent = { enable = false; };
         incremental_selection = { enable = false; };
