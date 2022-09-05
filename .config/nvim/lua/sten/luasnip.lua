@@ -36,7 +36,8 @@ local function indent(text)
 end
 
 local function inline_comment(text)
-        local cmt = vim.bo.commentstring:gsub(" %%s", "")
+        -- Remove the '%s' from the commentstring:
+        local cmt = vim.bo.commentstring:gsub(" ?%%s", "")
         return cmt .. text
 end
 
@@ -111,6 +112,10 @@ function M.init_snippets()
                         f(python_docstring, {1, 2}),
                         i(0),
                 }));
+                s("ifm", fmt([[
+                if __name__ == '__main__':
+                    {}{}
+                ]], { i(1, "main()"), i(0) } ));
         })
 
         ls.add_snippets("go", {
@@ -144,9 +149,9 @@ function M.init_snippets()
                 s("bib", fmt([[
                         \usepackage{{biblatex}}
                         \addbibresource{{bibtex.bib}}
-                        ]], {} 
+                        ]], {}
                 ));
-                
+
                 -- Simple LaTeX skeleton
                 s("skeleton", fmt([[
                         \documentclass[12pt]{{article}}
