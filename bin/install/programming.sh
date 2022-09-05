@@ -44,3 +44,7 @@ jupyter nbextension enable --user toc2/toc2
 
 # Tmux
 sudo pacman -S --needed tmux
+
+# Git tools
+# A better diff viewer
+sudo pacman -S --needed git-delta
