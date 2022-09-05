@@ -25,10 +25,16 @@ augroup RUN_BLACK
 augroup END
 
 
-" Exceptions:
-augroup LEARNIT
+" Example Exceptions:
+" augroup BLACK_DISABLE
+"         autocmd!
+"         " Disable Black formatting in NAME sub directories
+"         autocmd! BufNewFile,BufRead */NAME/**/*.py autocmd! RUN_BLACK
+" augroup END
+
+" Remove whitespace at the end of the line on save, not giving errors if no
+" patterns are found
+augroup REMOVE_WHITESPACE
         autocmd!
-        
-        " Disable Black formatting in learnit sub directories
-        autocmd! BufNewFile,BufRead */Learnit/**/*.py autocmd! RUN_BLACK
+        autocmd BufWrite * :silent! %s/\s\+$//
 augroup END
