@@ -45,7 +45,6 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
-# setopt COMPLETE_ALIASES
 
 # Needed for the globbing pattern used
 setopt extendedglob
