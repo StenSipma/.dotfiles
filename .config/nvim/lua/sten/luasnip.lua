@@ -54,7 +54,7 @@ end
 local function python_docstring(args, _)
         local func_name = args[1][1] or ""
         local arguments = args[2][1] or ""
-        -- TODO: Make better =D 
+        -- TODO: Make better =D
         -- 1. Split the arguments
         -- 2. format the docstring based on arguments
         -- 3. maybe make it a choice node to show docstring or not.
@@ -75,11 +75,11 @@ function M.init_snippets()
                 s("todo", fmt( [[{} TODO: {} ]], { cmt(), i(0) } ));
                 -- Header for a file
                 s("header", fmt([[
-                {} File:   {} 
-                {} Author: {} <{}> 
+                {} File:   {}
+                {} Author: {} <{}>
                 {} Description:
                 {}      {}
-                ]], { 
+                ]], {
                         cmt(), f(function (_) return filename() end),
                         cmt(), f(function (_) return vim.g.my_name end), f(function (_) return vim.g.my_email end),
                         cmt(), cmt(), i(0)
@@ -106,9 +106,9 @@ function M.init_snippets()
                 def {}({}):
                     {}
                     {}
-                ]], { 
+                ]], {
                         i(1, "foo"),
-                        i(2, "args"), 
+                        i(2, "args"),
                         f(python_docstring, {1, 2}),
                         i(0),
                 }));
@@ -116,6 +116,18 @@ function M.init_snippets()
                 if __name__ == '__main__':
                     {}{}
                 ]], { i(1, "main()"), i(0) } ));
+                s("np", fmt([[
+                import numpy as np
+                {}
+                ]], { i(0) } ));
+                s("plt", fmt([[
+                import matplotlib.pyplot as plt
+                {}
+                ]], { i(0) } ));
+                s("pd", fmt([[
+                import pandas as pd
+                {}
+                ]], { i(0) } ));
         })
 
         ls.add_snippets("go", {
