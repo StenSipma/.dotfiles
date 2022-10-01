@@ -4,10 +4,16 @@
 sudo pacman -S --needed python-pip python-pipx
 # Needed to resolve issue with keys
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
-paru -S --needed python39
+paru -S --needed python39 python36
 
 # Rust
-sudo pacman -S --needed rust
+
+# Old way of installing
+#sudo pacman -S --needed rust
+# Following is better when programming with rust
+sudo pacman -S --needed rustup
+rustup default stable
+
 
 # Go
 GOPATH=~/.local/share/go
@@ -23,7 +29,7 @@ else
 fi
 
 # Docker
-sudo pacman -S --needed docker
+sudo pacman -S --needed docker docker-compose
 sudo systemctl enable --now docker.service
 
 # Jupyter hub
@@ -39,7 +45,7 @@ else
         echo "Vim bindings already installed"
 fi
 
-jupyter nbextension install --user toc2 
+jupyter nbextension install --user toc2
 jupyter nbextension enable --user toc2/toc2
 
 # Tmux
