@@ -8,7 +8,7 @@
 lua << EOF
 function _G.contextual_documentation()
         -- Use the lsp hover if a LSP client is active in the current buffer, 
-        -- otherwise use the 'standard' vim help for the word under the cursor.
+        -- Otherwise use the default 'vim help' command
         lsp_active = vim.lsp.buf_get_clients()
         if #lsp_active > 0 then
                 -- Use the fancy LSP hover
@@ -17,7 +17,10 @@ function _G.contextual_documentation()
         else
                 -- Jump to help
                 cword = vim.fn.expand('<cword>')
-                vim.cmd('help ' .. cword)
+                ok = pcall(vim.cmd, 'help ' .. cword)
+                if not ok then 
+                        print(string.format("No help found for '%s'", cword))
+                end
         end 
 end
 EOF
@@ -81,7 +84,7 @@ lua require('lsp-status').register_progress()
 " Python (pyright)
 lua require('lspconfig').pyright.setup( require('sten.conf').pyright_conf )
 " Lua (Sumneko_lua)
-" lua require('lspconfig').sumneko_lua.setup( require('sten.conf').lua_conf )
+lua require('lspconfig').sumneko_lua.setup( require('sten.conf').lua_conf )
 " LaTeX (Texlab)
 lua require('lspconfig').texlab.setup( require('sten.conf').texlab_conf )
 " Rust (rust-analyzer)

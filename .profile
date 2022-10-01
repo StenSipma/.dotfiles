@@ -6,6 +6,9 @@
 # see: https://wiki.archlinux.org/index.php/XDG_Base_Directory
 eval "$(sed 's/^[^#].*/export &/g;t;d' ~/.config/user-dirs.dirs)"
 
+# Location for the go installation
+export GOPATH="$XDG_DATA_HOME/go"
+
 # Add local bin folders to PATH
 PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 PATH=$HOME/.local/bin:$PATH

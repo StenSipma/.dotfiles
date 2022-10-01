@@ -9,17 +9,17 @@ local ts = vim.treesitter
 
 local fold_queries = {}
 fold_queries.python = [[
-        (function_definition) @fold 
+        (function_definition) @fold
         (class_definition) @fold
 
         (block (expression_statement (string) @fold ))
 ]]
 
 fold_queries.go = [[
-        (function_declaration) @fold 
-        (method_declaration) @fold 
-        (type_declaration) @fold 
-        (import_declaration) @fold 
+        (function_declaration) @fold
+        (method_declaration) @fold
+        (type_declaration) @fold
+        (import_declaration) @fold
 ]]
 
 fold_queries.rust = [[
@@ -28,12 +28,12 @@ fold_queries.rust = [[
 ]]
 
 fold_queries.tex = [[
-        (section) @fold 
+        (section) @fold
 ]]
 
 -- Some options (?)
 local fold_query = [[
-        (function_definition) @fold 
+        (function_definition) @fold
         (class_definition) @fold
 
         (block (expression_statement (string) @fold ))

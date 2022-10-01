@@ -11,8 +11,12 @@
 " TODO: Add jump forward and backward keybindings for UltiSnips
 
 imap <silent> <C-l> <Plug>luasnip-expand-snippet
-imap <silent> <C-j> <Plug>luasnip-jump-next
+" imap <silent> <C-j> <Plug>luasnip-jump-next
+inoremap <silent> <C-j> <cmd>lua require'luasnip'.jump(1)<CR>
 inoremap <silent> <C-k> <Cmd>lua require'luasnip'.jump(-1)<Cr>
+
+snoremap <silent> <C-j> <cmd>lua require('luasnip').jump(1)<Cr>
+snoremap <silent> <C-k> <cmd>lua require('luasnip').jump(-1)<Cr>
 
 " Initialize LuaSnip with custom config
 lua require("luasnip").config.set_config( require"sten.conf".luasnip_conf )

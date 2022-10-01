@@ -1,9 +1,7 @@
 #!/usr/bin/env sh
 
-# Make sure you are in `$HOME`
-# Clone repo to the machine
-mkdir -p $HOME/.dotfiles
-git clone --bare https://github.com/StenSipma/.dotfiles.git $HOME/.dotfiles
+# Make sure to clone the repo before running
+git clone --bare https://github.com/StenSipma/.dotfiles.git $HOME/.dotfiles
 
 # Create the alias used for managing the repo
 alias dgit='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -17,3 +15,5 @@ dgit checkout
 
 # Show only tracked files (cleans up a lot)
 dgit config --local status.showUntrackedFiles no
+dgit config user.email "sten.sipma@ziggo.nl"
+dgit config user.name "Sten Sipma"

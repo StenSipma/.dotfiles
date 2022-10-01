@@ -15,6 +15,9 @@ Here is an overview of the most notable configurations in this repository (the a
 - Some other configuration options shared for X applications are found in [.Xresources](./.Xresources)
 
 ## Installation
+Installation files are found under `bin/install/`.
+
+### Repository
 Because the repository is managed as a bare repository, it is convenient to use
 an alias to manage all the files. Here, we use `dgit` as the alias and the folder `$HOME/.dotfiles` in which the bare repository resides.
 ````bash

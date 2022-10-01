@@ -1,0 +1,30 @@
+-- vim:ft=haskell
+Config {
+	-- General Appearance
+	  font = "xft:Noto Sans:size=12,Fira Code Nerd Font"
+        , bgColor = "#2f343f"
+        , fgColor = "#f3f4f5"  -- Text
+
+	-- Layout
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %date% "
+
+	-- Position
+        , position = TopW C 100
+        , allDesktops = True
+
+	-- Commands to run
+        , commands = [
+                  Run DiskU [("/", " <free>")] ["-p", "1"] 1000
+                , Run Cpu ["-L" ,"3"
+                          ,"-H" ,"70"
+                          ,"--high" , "red"
+                          , "--template"
+                          , " <total>%"] 10
+                , Run Com "list-updates" [] "updates" 10
+                , Run Memory ["-t"," <usedratio>%"] 10
+                , Run Date "%a %b %_d %k:%M" "date" 10
+                , Run UnsafeStdinReader
+                ]
+        }
