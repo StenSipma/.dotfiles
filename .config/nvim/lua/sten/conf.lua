@@ -117,7 +117,7 @@ local treesitter_conf = {
         ensure_installed = {
                 "c", "python", "go", "rust", "lua", "vim", "json", "html",
                 "yaml", "javascript", "typescript", "markdown", "latex",
-                "bash", "scss",
+                "bash", "scss", "vue",
         };
         indent = { enable = false; };
         incremental_selection = { enable = false; };
