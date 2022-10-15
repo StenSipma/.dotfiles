@@ -16,16 +16,16 @@ Config {
 
 	-- Commands to run
         , commands = [
-                  Run DiskU [("/", " <free>")] ["-p", "1"] 1000
+                  Run DiskU [("/", "  <free>")] ["-p", "1"] 1000
                 , Run Cpu ["-L" ,"3"
                           ,"-H" ,"70"
                           ,"--high" , "red"
                           , "--template"
-                          , " <total>%"] 10
+                          , "  <total>%"] 10
                 , Run Com "list-updates" [] "updates" 10
-                , Run Memory ["-t"," <usedratio>%"] 10
+                , Run Memory ["-t","  <usedratio>%"] 10
                 , Run Date "%a %b %_d %k:%M" "date" 10
-		, Run Battery [ "--template" , " <acstatus>"
+		, Run Battery [ "--template" , "    <acstatus>"
 				, "--Low"      , "20"        -- units: %
 				, "--low"      , "red"
 				, "--" -- battery specific options
