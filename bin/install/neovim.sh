@@ -11,10 +11,10 @@ else
 fi
 
 # Make the python virtual environment
-if [[ ! -d "$XDG_CONFIG_HOME/pyvirtualenvs/neovim" ]]; then
-        mkdir -p $XDG_CONFIG_HOME/pyvirtualenvs
-        python3 -m venv $XDG_CONFIG_HOME/pyvirtualenvs/neovim
-        source $XDG_CONFIG_HOME/pyvirtualenvs/neovim/bin/activate
+if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim" ]]; then
+        mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs
+        python3.10 -m venv ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim
+        source ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim/bin/activate
         pip install pynvim
         pip install black
         deactivate

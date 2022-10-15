@@ -57,4 +57,4 @@ sudo pacman -S --needed git-delta
 
 # Latex
 #  TODO: Make the selection automatic
-sudo pacman -S --needed textlive-most
+sudo pacman -S --needed texlive-most

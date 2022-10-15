@@ -3,7 +3,7 @@
 echo "Adding XMonad recompile hook to pacman"
 if [[ ! -f /etc/pacman.d/hooks/xmonad.hook ]]; then
         sudo mkdir -p /etc/pacman.d/hooks/
-        sudo ln -sf $XDG_CONFIG_HOME/pacman-hooks/xmonad.hook /etc/pacman.d/hooks/xmonad.hook
+        sudo ln -sf ${XDG_CONFIG_HOME:-$HOME/.config}/pacman-hooks/xmonad.hook /etc/pacman.d/hooks/xmonad.hook
 else
         echo "XMonad.hook already exists. Skipping..."
 fi

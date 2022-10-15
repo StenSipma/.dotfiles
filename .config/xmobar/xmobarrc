@@ -1,7 +1,7 @@
 -- vim:ft=haskell
-Config {  
+Config {
 	-- General Appearance
-	  font = "xft:Noto Sans:size=12,FuraCode Nerd Font"
+	  font = "xft:Noto Sans:size=12,Fira Code Nerd Font"
         , bgColor = "#2f343f"
         , fgColor = "#f3f4f5"  -- Text
 
@@ -9,13 +9,13 @@ Config {
         , sepChar = "%"
         , alignSep = "}{"
         , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %battery%    %date% "
-	
+
 	-- Position
         , position = TopW C 100
         , allDesktops = True
 
 	-- Commands to run
-        , commands = [ 
+        , commands = [
                   Run DiskU [("/", " <free>")] ["-p", "1"] 1000
                 , Run Cpu ["-L" ,"3"
                           ,"-H" ,"70"
