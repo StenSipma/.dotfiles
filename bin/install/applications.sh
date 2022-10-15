@@ -10,3 +10,9 @@ paru -S --needed spotify
 
 # Nextcloud client, with secret management
 sudo pacman -S --needed nextcloud-client qtkeychain-qt5 libsecret kwallet gnome-keyring
+
+# Zotero, reference manager
+paru -S --needed zotero
+
+# Okular, pdf viewer
+sudo pacman -S --needed okular
