@@ -17,7 +17,7 @@ let mapleader=" "
 "
 " sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 "
-" TODO: add an install script at the beginnig of this file which installs 
+" TODO: add an install script at the beginnig of this file which installs
 "       vim-plug automatically
 
 let local_plug = $HOME .. '/Documents/Projects/NeoVim'
@@ -68,7 +68,7 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Plug 'stsewd/sphinx.nvim', { 'do': ':UpdateRemotePlugins' }
 
 	" Color Themes:
-	Plug 'mhartington/oceanic-next' 
+	Plug 'mhartington/oceanic-next'
         Plug 'morhetz/gruvbox'
         Plug 'sainnhe/gruvbox-material'
 	Plug 'tyrannicaltoucan/vim-deep-space'
@@ -94,6 +94,8 @@ call plug#begin(stdpath("config") . "/vplugged")
         Plug 'chrisbra/csv.vim'
         " LaTeX
         Plug 'lervag/vimtex'
+        " Rust
+        Plug 'simrat39/rust-tools.nvim'
 
         " Local Plugins:
         " (see the local_plug variable for the path)
@@ -104,7 +106,7 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Remote Versions:
         " Plug 'StenSipma/fits.nvim'
 call plug#end()
-" plug#end already sets: 
+" plug#end already sets:
 "       filetype plugin indent on
 "       syntax enable
 " So we do not need to set these after.
@@ -177,7 +179,7 @@ nnoremap ga <Plug>(EasyAlign)
 
 " Save & run the current file. This is specific for the file at the current
 " buffer, so the buffer variable should be set (b:runprg). For vim, it should
-" be something with source: 
+" be something with source:
 " > let b:runprg = 'source %'
 " But for python, it should be something like:
 " > let b:runprg = '!python %'
@@ -199,7 +201,7 @@ xnoremap <leader>c "+y
 xmap ga <Plug>(EasyAlign)
 
 " Move selected lines up (J) and down (K)
-" Move (:m) From the lower part of the selection ('>), one line down (+1) 
+" Move (:m) From the lower part of the selection ('>), one line down (+1)
 " (or up for the K case) .  Then, reselect (gv) and reindent (=) then reselect
 " again (gv)
 vnoremap J :m '>+1<CR>gv=gv

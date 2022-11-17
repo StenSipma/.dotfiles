@@ -15,7 +15,8 @@ local util = require('lspconfig/util')
 
 -- Capabilities which should be set for all LSP clients, like the completion framework integration.
 local all_capabilities = vim.lsp.protocol.make_client_capabilities()
-require('cmp_nvim_lsp').update_capabilities(all_capabilities)
+-- require('cmp_nvim_lsp').update_capabilities(all_capabilities)
+require('cmp_nvim_lsp').default_capabilities()
 
 local pylsp_conf = {
         on_attach = all_attach;
@@ -71,6 +72,11 @@ local lua_conf = {
                         },
                 },
         },
+        on_attach = all_attach;
+        capabilities = all_capabilities;
+}
+
+local rust_tools_conf = {
         on_attach = all_attach;
         capabilities = all_capabilities;
 }
@@ -264,6 +270,7 @@ return {
         telescope_conf           = telescope_conf;
         lua_conf                 = lua_conf;
         rust_analyzer_conf       = rust_analyzer_conf;
+        rust_tools_conf          = rust_tools_conf;
         lualine_conf             = lualine_conf;
         lsp_status_conf          = lsp_status_conf;
         tsserver_conf            = tsserver_conf;

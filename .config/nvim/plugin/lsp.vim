@@ -7,7 +7,7 @@
 " Functions:
 lua << EOF
 function _G.contextual_documentation()
-        -- Use the lsp hover if a LSP client is active in the current buffer, 
+        -- Use the lsp hover if a LSP client is active in the current buffer,
         -- Otherwise use the default 'vim help' command
         lsp_active = vim.lsp.buf_get_clients()
         if #lsp_active > 0 then
@@ -18,10 +18,10 @@ function _G.contextual_documentation()
                 -- Jump to help
                 cword = vim.fn.expand('<cword>')
                 ok = pcall(vim.cmd, 'help ' .. cword)
-                if not ok then 
+                if not ok then
                         print(string.format("No help found for '%s'", cword))
                 end
-        end 
+        end
 end
 EOF
 
@@ -32,7 +32,7 @@ nnoremap gr         <cmd>lua vim.lsp.buf.references()<CR>
 " Code Action
 " nnoremap <leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
 " vnoremap <leader>ca <cmd><C-u>lua require('lspsaga.codeaction').range_code_action()<CR>
-"nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>  
+"nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
 " Rename on cursor
 nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 "nnoremap <leader>rn <cmd>lua require('lspsaga.rename').rename()<CR>
@@ -61,7 +61,7 @@ augroup END
 "         cmp = require('cmp')
 "         function optional_diagnositcs()
 "                 if not cmp.visible() then
-                        
+
 "                 end
 "         end
 " EOF
@@ -88,7 +88,8 @@ lua require('lspconfig').sumneko_lua.setup( require('sten.conf').lua_conf )
 " LaTeX (Texlab)
 lua require('lspconfig').texlab.setup( require('sten.conf').texlab_conf )
 " Rust (rust-analyzer)
-lua require('lspconfig').rust_analyzer.setup( require('sten.conf').rust_analyzer_conf )
+"lua require('lspconfig').rust_analyzer.setup( require('sten.conf').rust_analyzer_conf )
+lua require('rust-tools').setup( require('sten.conf').rust_tools_conf )
 " Typescript (tsserver)
 lua require('lspconfig').tsserver.setup( require('sten.conf').tsserver_conf )
 " Go (gopls)

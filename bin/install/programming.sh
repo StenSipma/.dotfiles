@@ -6,18 +6,22 @@ sudo pacman -S --needed python-pip python-pipx
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 paru -S --needed python39 python36
 
-# Rust
 
+# Rust
 # Old way of installing
 #sudo pacman -S --needed rust
 # Following is better when programming with rust
 sudo pacman -S --needed rustup
 rustup default stable
 
+rustup target add wasm32-unknown-unknown
+cargo install trunk
+
 
 # Go
 GOPATH=~/.local/share/go
 sudo pacman -S --needed go
+
 
 # Node (via NVM)
 paru -S --needed nvm
@@ -28,13 +32,19 @@ else
         echo "nvm already installed. Skipping..."
 fi
 
+
 # Docker
 sudo pacman -S --needed docker docker-compose
 sudo systemctl enable --now docker.service
 
+
 # Jupyter hub
 sudo pacman -S --needed jupyter-notebook
 paru -S --needed jupyter_contrib_nbextensions
+# Installs all contrib nbextensions (does not enable them)
+jupyter contrib nbextension install --user
+
+jupyter nbextension enable --user toc2/toc2
 
 if [[ ! -d $(jupyter --data-dir)/nbextensions/vim_binding ]]; then
         mkdir -p $(jupyter --data-dir)/nbextensions
@@ -45,16 +55,16 @@ else
         echo "Vim bindings already installed"
 fi
 
-jupyter nbextension install --user toc2
-jupyter nbextension enable --user toc2/toc2
 
 # Tmux
 sudo pacman -S --needed tmux
+
 
 # Git tools
 # A better diff viewer
 sudo pacman -S --needed git-delta
 
+
 # Latex
 #  TODO: Make the selection automatic
-sudo pacman -S --needed textlive-most
+sudo pacman -S --needed texlive-most

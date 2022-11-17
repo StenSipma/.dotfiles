@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo pacman -S --needed firefox obsidian mattermost-desktop thunderbird
+sudo pacman -S --needed firefox obsidian mattermost-desktop thunderbird discord
 # For obsidian
 mkdir -p Documents/Obstenian
 
