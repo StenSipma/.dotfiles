@@ -21,7 +21,7 @@ augroup END
 augroup RUN_BLACK
         autocmd!
         " Run black in python files
-        autocmd BufWrite *.py :Black
+        autocmd BufWritePre *.py :call BlackSync()
 augroup END
 
 
@@ -34,6 +34,7 @@ augroup END
 
 " Remove whitespace at the end of the line on save, not giving errors if no
 " patterns are found
+" TODO: Make sure the user returns to original location when whitespace is removed
 augroup REMOVE_WHITESPACE
         autocmd!
         autocmd BufWrite * :silent! %s/\s\+$//

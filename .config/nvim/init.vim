@@ -9,6 +9,9 @@
 " custom keybindings. Use: <leader> to access this key.
 let mapleader=" "
 
+" A specific virtual environment is created for neovim:
+let g:python3_host_prog = $XDG_CONFIG_HOME . "/pyvirtualenvs/neovim/bin/python"
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN INSTALLATION
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -89,7 +92,9 @@ call plug#begin(stdpath("config") . "/vplugged")
         " Python
         Plug 'jeetsukumaran/vim-pythonsense'
         " Formatter
-        Plug 'psf/black', { 'branch': 'stable' }
+        " Plug 'psf/black', { 'branch': 'stable' }
+        Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
+
         "
         Plug 'chrisbra/csv.vim'
         " LaTeX
@@ -132,9 +137,6 @@ colorscheme gruvbox-material
 " MISC
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:maximizer_set_default_mapping = 0
-
-" A specific virtual environment is created for neovim:
-let g:python3_host_prog = $XDG_CONFIG_HOME . "/pyvirtualenvs/neovim/bin/python"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " KEY BINDINGS
