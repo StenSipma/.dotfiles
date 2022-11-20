@@ -101,6 +101,8 @@ call plug#begin(stdpath("config") . "/vplugged")
         Plug 'lervag/vimtex'
         " Rust
         Plug 'simrat39/rust-tools.nvim'
+        " To update the rust.vim scripts to the newest version
+        Plug 'rust-lang/rust.vim'
 
         " Local Plugins:
         " (see the local_plug variable for the path)
