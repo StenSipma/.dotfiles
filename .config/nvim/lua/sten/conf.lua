@@ -79,6 +79,13 @@ local lua_conf = {
 local rust_tools_conf = {
         on_attach = all_attach;
         capabilities = all_capabilities;
+        tools = {
+                inlay_hints = {
+                        parameter_hints_prefix = " <- ",
+                        other_hints_prefix = " :: ",
+                        max_len_align = true,
+                }
+        }
 }
 
 local rust_analyzer_conf = {

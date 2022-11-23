@@ -63,6 +63,7 @@ call plug#begin(stdpath("config") . "/vplugged")
 	"Plug 'jreybert/vimagit'
         " Auto Match Parenthesis, quotes etc.
         Plug 'Raimondi/delimitMate'
+        " TODO: replace with https://github.com/windwp/nvim-autopairs
 
         " Treesitter:
         Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}

@@ -3,5 +3,10 @@
 " Description:
 "      Rust specific commands
 
-let g:rustfmt_autosave = 1
+" Don't autoformat, since it is too slow. Find something else
+let g:rustfmt_autosave = 0
 
+" Folding powered by Treesitter
+set foldmethod=expr
+set foldexpr=LuaFoldexpr()
+set foldtext=LuaFoldtext()
