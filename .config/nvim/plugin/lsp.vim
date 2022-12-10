@@ -30,9 +30,9 @@ nnoremap gd         <cmd>lua vim.lsp.buf.definition()<CR>
 " List references
 nnoremap gr         <cmd>lua vim.lsp.buf.references()<CR>
 " Code Action
-" nnoremap <leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+nnoremap <leader>ca <cmd>Lspsaga code_action<CR>
 " vnoremap <leader>ca <cmd><C-u>lua require('lspsaga.codeaction').range_code_action()<CR>
-"nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
+" nnoremap <leader>ca :lua vim.lsp.buf.code_action()<CR>
 " Rename on cursor
 nnoremap <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
 "nnoremap <leader>rn <cmd>lua require('lspsaga.rename').rename()<CR>
