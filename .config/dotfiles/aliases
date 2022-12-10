@@ -81,7 +81,7 @@ alias bsc='cd $STUDY_DIR/AS_Bachelor_Thesis'
 # Projects
 alias proj='cd $PROJECTS_DIR'
 alias pac='cd $PROJECTS_DIR/PracticalAstronomyCrew'
-alias cw='cd $PROJECTS_DIR/CosmicWeb'
+alias cw='cd $DOCS_DIR/CosmicWeb'
 alias anc='cd $PROJECTS_DIR/PracticalAstronomyCrew/astrometry_net_client'
 
 alias acs='cd $ACS_DIR'
