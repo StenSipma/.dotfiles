@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo pacman -S --needed firefox obsidian mattermost-desktop thunderbird discord
+sudo pacman -S --needed firefox obsidian mattermost-desktop thunderbird discord chromium pinta
 # For obsidian
 mkdir -p Documents/Obstenian
 
@@ -16,3 +16,6 @@ paru -S --needed zotero
 
 # Okular, pdf viewer
 sudo pacman -S --needed okular
+
+# Physics (Feynmann diagrams)
+paru -S --needed jaxodraw
