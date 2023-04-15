@@ -1,7 +1,7 @@
 -- vim:ft=haskell
 Config {
 	-- General Appearance
-	  font = "xft:Noto Sans:size=12,Fira Code Nerd Font"
+	  font = "xft:Noto Sans:size=12"--,Fira Code Nerd Font"
         , bgColor = "#2f343f"
         , fgColor = "#f3f4f5"  -- Text
 
