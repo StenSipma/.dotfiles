@@ -1,5 +1,7 @@
 " File:   lua.vim
-" Author: Sten Sipma (sten.sipma@ziggo.nl)
+" Author:  <>
 " Description:
-"	Commands to run for any Lua buffer.
-let b:runprg = 'luafile %'
+"      Commands for lua files
+
+
+let b:runprg = 'so %'

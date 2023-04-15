@@ -1,0 +1,9 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = libgit2
+
+[Action]
+Description = Recompiling myprompt...
+When = PostTransaction
+Exec = /usr/bin/sudo -u sten /home/sten/bin/install/prompt.sh

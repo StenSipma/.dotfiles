@@ -196,6 +196,13 @@ function M.init_snippets()
                 -- arguments given (i.e. si when only unit, SI when also number
                 -- is given)
                 s("si", fmt([[\SI{{{}}}{{{}}} {}]], { i(1), i(2), i(0) } ));
+
+                -- Quick text styles
+                s("it", fmt([[\textit{{{}}} {}]], { i(1), i(0) } ));
+                s("bf", fmt([[\textbf{{{}}} {}]], { i(1), i(0) } ));
+                s("tt", fmt([[\texttt{{{}}} {}]], { i(1), i(0) } ));
+                s("rm", fmt([[\textrm{{{}}} {}]], { i(1), i(0) } ));
+                s("txt", fmt([[\text{{{}}} {}]], { i(1), i(0) } ));
         })
 
 end
@@ -204,3 +211,4 @@ end
 -- M.init_snippets()
 
 return M
+

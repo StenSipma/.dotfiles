@@ -29,8 +29,11 @@ sudo pacman -S --needed \
         adobe-source-code-pro-fonts \
         noto-fonts \
         noto-fonts-emoji \
+        ttf-nerd-fonts-symbols-2048-em \
+        otf-hasklig-nerd \
         xdotool
 
-paru -S --needed betterlockscreen otf-hasklig nerd-fonts-fira-code
+paru -S --needed betterlockscreen
+pacman -S --needed
 mkdir -p $HOME/.wallpapers
 

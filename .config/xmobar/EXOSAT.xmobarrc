@@ -1,7 +1,7 @@
 -- vim:ft=haskell
 Config {
 	-- General Appearance
-	  font = "xft:Noto Sans:size=12,Fira Code Nerd Font"
+	  font = "xft:Noto Sans:size=12,Symbols Nerd Font"
         , bgColor = "#2f343f"
         , fgColor = "#f3f4f5"  -- Text
 
@@ -11,8 +11,8 @@ Config {
         , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %date% "
 
 	-- Position
-        , position = TopW C 100
-        , allDesktops = True
+        -- , position = TopW C 100
+        , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 25 }
 
 	-- Commands to run
         , commands = [

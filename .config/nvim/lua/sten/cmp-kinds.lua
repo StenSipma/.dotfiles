@@ -1,4 +1,4 @@
--- File:   compl-kinds.lua
+-- File:   cmp-kinds.lua
 -- Author: Sten Sipma (sten.sipma@ziggo.nl)
 -- Description:
 --	Gives icons to the different types of completion in the popup menu
