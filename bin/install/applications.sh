@@ -17,5 +17,5 @@ paru -S --needed zotero
 # Okular, pdf viewer
 sudo pacman -S --needed okular
 
-# Physics (Feynmann diagrams)
-paru -S --needed jaxodraw
+# Drawing Tablet
+sudo pacman -S xournalpp xf86-input-wacom
