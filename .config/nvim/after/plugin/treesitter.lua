@@ -2,7 +2,7 @@ require('nvim-treesitter.configs').setup({
         ensure_installed = {
                 "c", "python", "go", "rust", "lua", "vim", "json", "html",
                 "yaml", "javascript", "typescript", "markdown", "latex",
-                "bash", "scss", "vue", "help",
+                "bash", "scss", "vue", "vimdoc",
         };
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
