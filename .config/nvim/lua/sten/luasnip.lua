@@ -203,6 +203,9 @@ function M.init_snippets()
                 s("tt", fmt([[\texttt{{{}}} {}]], { i(1), i(0) } ));
                 s("rm", fmt([[\textrm{{{}}} {}]], { i(1), i(0) } ));
                 s("txt", fmt([[\text{{{}}} {}]], { i(1), i(0) } ));
+
+                -- Math
+                s("frac", fmt([[\frac{{{}}}{{{}}} {}]], { i(1), i(2), i(0) } ));
         })
 
 end
