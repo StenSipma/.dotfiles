@@ -19,3 +19,6 @@ sudo pacman -S --needed okular
 
 # Drawing Tablet
 sudo pacman -S --needed xournalpp xf86-input-wacom
+
+# Image viewer
+paru -S --needed nomacs

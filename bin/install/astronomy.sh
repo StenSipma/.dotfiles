@@ -10,3 +10,6 @@ paru -S --needed astromatic-scamp
 # Add theli when it works (now in Project/Theli-install)
 # sudo pacman -S --needed libraw
 # paru -S --needed theli
+
+paru -S --needed astrometry.net
+# TODO: Add index files as well
