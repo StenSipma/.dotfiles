@@ -28,9 +28,9 @@ vim.opt.smartcase = true   -- Make search case sensitive if an upper case letter
 
 vim.opt.colorcolumn = "89"     -- Display a vertical line at column 89
 
-vim.opt.tabstop = 8        -- Set the tab size
-vim.opt.softtabstop = 8
-vim.opt.shiftwidth = 8     -- Set the size used for indenting using >>
+vim.opt.tabstop = 4        -- Set the tab size
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4     -- Set the size used for indenting using >>
 vim.opt.expandtab = true   -- Expand tabs into spaces
 vim.opt.autoindent = true  -- Going to a newline retains the indentation of the current 
                            -- line

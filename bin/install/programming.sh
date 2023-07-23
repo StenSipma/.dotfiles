@@ -68,3 +68,6 @@ sudo pacman -S --needed git-delta
 # Latex
 #  TODO: Make the selection automatic
 sudo pacman -S --needed texlive-most
+
+# Tools
+sudo pacman -S --needed pandoc-cli
