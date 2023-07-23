@@ -76,14 +76,10 @@ ACS_DIR=$DOCS_DIR/ACS
 alias study='cd $STUDY_DIR'
 alias ta='cd $TA_DIR'
 
-alias bsc='cd $STUDY_DIR/AS_Bachelor_Thesis'
-
 # Projects
 alias proj='cd $PROJECTS_DIR'
 alias pac='cd $PROJECTS_DIR/PracticalAstronomyCrew'
 alias cw='cd $DOCS_DIR/CosmicWeb'
-alias anc='cd $PROJECTS_DIR/PracticalAstronomyCrew/astrometry_net_client'
-
-alias acs='cd $ACS_DIR'
+alias anc='cd $PROJECTS_DIR/astrometry_net_client'
 
 # vim: ft=bash:

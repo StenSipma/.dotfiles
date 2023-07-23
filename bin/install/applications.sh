@@ -18,4 +18,7 @@ paru -S --needed zotero
 sudo pacman -S --needed okular
 
 # Drawing Tablet
-sudo pacman -S xournalpp xf86-input-wacom
+sudo pacman -S --needed xournalpp xf86-input-wacom
+
+# Image viewer
+paru -S --needed nomacs
