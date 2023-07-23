@@ -3,7 +3,11 @@ local util = require('lspconfig/util')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 local null_ls = require("null-ls")
+local mason = require('mason')
 local mason_registry = require("mason-registry")
+
+-- Setup mason for if we need to install
+mason.setup()
 
 -- Custom 'ensure_installed' for Mason
 local mason_packages = { 'black', 'flake8', 'isort' }
