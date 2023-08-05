@@ -63,7 +63,6 @@ function M.foldexpr()
 
     local line = vim.v.lnum
     local buf = vim.api.nvim_get_current_buf()
-    print("hello")
     return M.fold_levels(buf)[line]
 end
 

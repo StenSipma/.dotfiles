@@ -15,12 +15,13 @@ return require('packer').startup(function(use)
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'nvim-treesitter/playground'
-    use("nvim-treesitter/nvim-treesitter-context");
+    use 'nvim-treesitter/nvim-treesitter-context'
 
     -- Convenience
     use 'mbbill/undotree'
     use 'terrortylor/nvim-comment'
     use 'declancm/maximize.nvim'
+    use 'windwp/nvim-autopairs'
 
     -- Theme(s)
     use 'wittyjudge/gruvbox-material.nvim'
@@ -64,5 +65,5 @@ return require('packer').startup(function(use)
     }
 
     -- LaTeX tools
-    use { 'lervag/vimtex', }
+    use 'lervag/vimtex'
 end)
