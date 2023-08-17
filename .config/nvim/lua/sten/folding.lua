@@ -35,54 +35,55 @@ fold_queries.tex = [[
 local offset = 1;
 
 function M.buf_foldlevels(buf)
-        local foldlvl = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-        for i, _ in ipairs(foldlvl) do
-                foldlvl[i] = 0
-        end
-        local parser = ts.get_parser()
-        local tree = parser:parse()[1]
-        local filetype = vim.bo.filetype
-        local query = ts.query.parse(filetype, fold_queries[filetype])
+    local foldlvl = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+    for i, _ in ipairs(foldlvl) do
+        foldlvl[i] = 0
+    end
+    local parser = ts.get_parser()
+    local tree = parser:parse()[1]
+    local filetype = vim.bo.filetype
+    local query = ts.query.parse(filetype, fold_queries[filetype])
 
-        for _, node, _ in query:iter_captures(tree:root(), buf) do
-                local r1, _, r2, _ = node:range()
-                for i = r1+1+offset, r2+1, 1 do
-                        foldlvl[i] = foldlvl[i] + 1
-                end
+    for _, node, _ in query:iter_captures(tree:root(), buf) do
+        local r1, _, r2, _ = node:range()
+        for i = r1 + 1 + offset, r2 + 1, 1 do
+            foldlvl[i] = foldlvl[i] + 1
         end
+    end
 
-        return foldlvl
+    return foldlvl
 end
 
 M.fold_levels = ts_utils.memoize_by_buf_tick(M.buf_foldlevels, {})
 
 function M.foldexpr()
-        if fold_queries[vim.bo.filetype] == nil then
-                return 0
-        end
+    if fold_queries[vim.bo.filetype] == nil then
+        return 0
+    end
 
-        local line = vim.v.lnum
-        local buf = vim.api.nvim_get_current_buf()
-        return M.fold_levels(buf)[line]
+    local line = vim.v.lnum
+    local buf = vim.api.nvim_get_current_buf()
+    return M.fold_levels(buf)[line]
 end
 
 function M.foldtext()
-        local fold_start = vim.v.foldstart
-        local fold_end = vim.v.foldend
-        local fold_dashes = vim.v.folddashes
-        -- local fold_level = vim.v.foldlevel
+    local fold_start = vim.v.foldstart
+    local fold_end = vim.v.foldend
+    local fold_dashes = vim.v.folddashes
+    -- local fold_level = vim.v.foldlevel
 
-        local fold_size = fold_end - fold_start
+    local fold_size = fold_end - fold_start
 
-        local preview = vim.api.nvim_buf_get_lines(0, fold_start-1, fold_start, nil)
+    local preview = vim.api.nvim_buf_get_lines(0, fold_start - 1, fold_start, nil)
 
-        return string.format("  +%s (%s) :: %s ", fold_dashes, fold_size, preview[1])
-        -- return string.format("%s - %s - %s - %s", fold_start, fold_end, fold_dashes, fold_level)
+    return string.format("  +%s (%s) :: %s ", fold_dashes, fold_size, preview[1])
+    -- return string.format("%s - %s - %s - %s", fold_start, fold_end, fold_dashes, fold_level)
 end
 
--- Load both in global namespace
-_G.foldtext = M.foldtext
-_G.foldexpr = M.foldexpr
-
+function M.setup()
+    -- Load both in global namespace so they can be accessed via v:lua.foldexpr() etc.
+    _G.foldtext = M.foldtext
+    _G.foldexpr = M.foldexpr
+end
 
 return M

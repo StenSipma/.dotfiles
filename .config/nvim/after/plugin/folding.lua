@@ -5,5 +5,7 @@
 -- vim.wo.foldexpr = require('sten.folding').foldexpr()
 -- vim.wo.foldtext = require('sten.folding').foldtext()
 
+require('sten.folding').setup()
+
 vim.wo.foldmethod = "manual"
 --set nofoldenable                     " Disable folding at startup.
