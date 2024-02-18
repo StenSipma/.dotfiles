@@ -43,7 +43,7 @@ myFocusedBorderColor    = "#DEDEDE"
 
 -- Variables
 --myTerminal           = "st"
-myTerminal           = "kitty"
+myTerminal           = "kitty --listen-on=unix:@\"$(date +%s%N)\""
 myModMask            = mod4Mask
 myBorderWidth        = 2
 
