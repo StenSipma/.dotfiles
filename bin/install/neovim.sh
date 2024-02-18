@@ -9,6 +9,7 @@ if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim" ]]; then
         python3.10 -m venv ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim
         source ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim/bin/activate
         pip install pynvim
+        # black can probably be removed as well.
         pip install black
         deactivate
 else
