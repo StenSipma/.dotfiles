@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
@@ -66,4 +66,8 @@ return require('packer').startup(function(use)
 
     -- LaTeX tools
     use 'lervag/vimtex'
+
+    -- Jupyter Notebook
+    -- use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
+    use { 'luk400/vim-jukit' }
 end)

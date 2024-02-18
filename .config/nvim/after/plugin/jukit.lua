@@ -1,0 +1,3 @@
+-- vim.g.jukit_terminal = 'kitty'
+-- vim.g.jukit_inline_plotting = 1
+-- vim.g.jukit_mpl_style = vim.fn['jukit#util#plugin_path']() .. '/helpers/matplotlib-backend-kitty/backend.mplstyle'
