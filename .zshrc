@@ -107,6 +107,9 @@ export PS2=' | '
 ## Enabling plugins ## 
 ############ #########
 
+# Initialize Zoxide 
+eval "$(zoxide init --cmd cd zsh)"
+
 # Syntax highlighting in the shell
 # from the package: zsh-syntax-highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
