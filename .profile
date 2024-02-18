@@ -73,7 +73,10 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 USE_EMOJI=true
 
 # Use 'bat' as the reader for the man pages
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
+export MANPAGER="sh -c 'col -bx | bat -plman'"
+# The above is a solution for bold text and colours not correctly showing up.
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # Make the 'global' NPM installation user specific
 # NOTE: incompatible with nvm
@@ -93,6 +96,15 @@ fi
 # ($XDG_VTNR -eq 1) : If the VT number equals 1 (e.g. Ctrl+Alt+F1)
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
 	# For Optimus-Manager
- 	#sudo /usr/bin/prime-switch
+    if [[ -f "/usr/bin/prime-offload" ]]; then
+        /usr/bin/prime-offload
+    fi
+ 	
 	exec startx
+
+    # TODO: Need to fix this, only run this when switching (?)
+	# # For Optimus-Manager
+	#     if [[ -f "/usr/bin/prime-switch" ]]; then
+	#         sudo /usr/bin/prime-switch
+	#     fi
 fi

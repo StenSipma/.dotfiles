@@ -2,7 +2,7 @@
 
 ## xrandr commands for correct display resolution, gpu driver etc.
 #xrandr --listproviders > providers-x.txt
-xrandr --setprovideroutputsource modesetting NVIDIA-0
+#xrandr --setprovideroutputsource modesetting NVIDIA-0
 xrandr --auto
 # xrandr --dpi 331 # This makes the menu bars larger, not entirely sure why
 
