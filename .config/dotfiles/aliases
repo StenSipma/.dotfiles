@@ -36,7 +36,9 @@ alias etree='exa --tree'
 alias mkcd=". make-change-dir"
 
 ## Easier virtual environment activation
-alias vactivate=". .env/bin/activate"
+# alias vactivate=". .env/bin/activate"
+alias vactivate='if [ -f ".venv/bin/activate" ]; then . ".venv/bin/activate"; elif [ -f ".env/bin/activate" ]; then . ".env/bin/activate"; else echo "Neither .venv nor .env environment found"; fi'
+
 
 ## Aliases for some standard programs (set in .bash_profile)
 # p for Pager (e.g. less, more etc.)
