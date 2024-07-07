@@ -69,5 +69,5 @@ return require('packer').startup(function(use)
 
     -- Jupyter Notebook
     -- use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
-    use { 'luk400/vim-jukit' }
+    -- use { 'luk400/vim-jukit' }
 end)
