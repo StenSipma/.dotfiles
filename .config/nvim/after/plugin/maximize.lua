@@ -1,5 +1,5 @@
 require('maximize').setup({
-        default_keymaps = false,
+    -- default_keymaps = false,
 })
 
 -- Toggle and restore the maximize state
