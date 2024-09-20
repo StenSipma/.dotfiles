@@ -20,9 +20,8 @@ require('telescope').setup({
         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         prompt_prefix = " 🔭 ",
         file_ignore_patterns = {
-            ".env",
-            "*.egg-info",
-            "__pycache__/",
+            ".env", "*.egg-info", "__pycache__/",                                  -- Python stuff
+            ".aux", ".bbl", ".blg", ".fdb_latexmk", ".fls", ".synctex.gz", ".toc", -- LaTeX stuff
         },
     },
 })
