@@ -6,11 +6,11 @@ sudo pacman -S --needed xclip python tree-sitter
 # Make the python virtual environment
 if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim" ]]; then
         mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs
-        python3.10 -m venv ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim
+        python3 -m venv ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim
         source ${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim/bin/activate
         pip install pynvim
         # black can probably be removed as well.
-        pip install black
+        # pip install black
         deactivate
 else
         echo "Virtual environment already created. Skipping..."
