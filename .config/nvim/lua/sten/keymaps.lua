@@ -29,11 +29,11 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Yank to the clipboard (can be used with movement)
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- Paste/delete without contaminating the yank register
 vim.keymap.set("x", "<leader>p", [["_dP]])
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 
 -- 'Project / file' Keymaps (all <leader>p)
@@ -41,12 +41,17 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pr", ":w<CR>:e %<CR>")
 
 local function run_file()
-        vim.cmd("write")
-        if vim.b.runprg == nil then
-                vim.cmd("so %")
-        end
-        return vim.cmd(vim.b.runprg)
+    vim.cmd("write")
+    if vim.b.runprg == nil then
+        vim.cmd("so %")
+    end
+    return vim.cmd(vim.b.runprg)
 end
 
 -- vim.keymap.set("n", "<leader>ps", ":w<CR>:so %<CR>")
 vim.keymap.set("n", "<leader>ps", run_file)
+
+
+-- Quickfix commands
+vim.keymap.set("n", "<leader>qn", ":cnext<CR>")
+vim.keymap.set("n", "<leader>qp", ":clast<CR>")

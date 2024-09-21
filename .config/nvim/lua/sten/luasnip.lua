@@ -1,4 +1,5 @@
 local ls = require "luasnip"
+local l = require("luasnip.extras").lambda
 local s = ls.snippet
 local sn = ls.snippet_node
 local isn = ls.indent_snippet_node
@@ -182,6 +183,7 @@ function M.init_snippets()
                         \end{{document}}
                 ]], { i(0) })),
 
+        --
         s("ac", fmt([[\ac{{{}}} {}]], { i(1), i(0) })),
 
         s("declareac", fmt([[
@@ -195,17 +197,43 @@ function M.init_snippets()
         -- IDEA: change capitalization of si, based on number of
         -- arguments given (i.e. si when only unit, SI when also number
         -- is given)
+        -- IDEA: change the trigger of the snippet to be a regular expression
+        --       with any number + si. i.e. :
+        --          10si --> \SI{10}{...}
+        --          0.5si --> \SI{0.5}{...}
+        --          1e40si --> \SI{1e40}{...}
         s("si", fmt([[\SI{{{}}}{{{}}} {}]], { i(1), i(2), i(0) })),
+        s({ trig = "([0-9e.%-+]+)si", regTrig = true }, fmt([[\SI{{{}}}{{{}}} {}]], { l(l.CAPTURE1), i(1), i(0) })),
+        s("sir", fmt([[\qtyrange{{{}}}{{{}}}{{{}}} {}]], { i(1), i(2), i(3), i(0) })),
+        s("sirp",
+            fmt([[\qtyrange[range-exponents=combine,range-units=bracket]{{{}}}{{{}}}{{{}}} {}]],
+                { i(1), i(2), i(3), i(0) })),
 
         -- Quick text styles
         s("it", fmt([[\textit{{{}}} {}]], { i(1), i(0) })),
         s("bf", fmt([[\textbf{{{}}} {}]], { i(1), i(0) })),
         s("tt", fmt([[\texttt{{{}}} {}]], { i(1), i(0) })),
         s("rm", fmt([[\textrm{{{}}} {}]], { i(1), i(0) })),
-        s("txt", fmt([[\text{{{}}} {}]], { i(1), i(0) })),
+        s("tx", fmt([[\text{{{}}} {}]], { i(1), i(0) })),
 
         -- Math
         s("frac", fmt([[\frac{{{}}}{{{}}} {}]], { i(1), i(2), i(0) })),
+
+        -- triggers a 'textrm' subscript on any characters+'_r' at the end
+        -- will expand into character_{\rm ... }:
+        --   - M_r        -> M_{\rm ...}
+        --   - quantity_r -> quantity_{\rm ...}
+        s(
+            { trig = "(%w+)_r", regTrig = true },
+            fmt([[{}_{{\rm {}}} {}]], { l(l.CAPTURE1), i(1), i(0) })
+        ),
+
+        -- Referencing
+        s("eqr", fmt([[Equation~\ref{{eq:{}}}{}]], { i(1), i(0) })),
+        s("secr", fmt([[Section~\ref{{sec:{}}}{}]], { i(1), i(0) })),
+        s("figr", fmt([[Figure~\ref{{fig:{}}}{}]], { i(1), i(0) })),
+        s("tabr", fmt([[Table~\ref{{tbl:{}}}{}]], { i(1), i(0) })),
+        s("appr", fmt([[Appendix~\ref{{app:{}}}{}]], { i(1), i(0) })),
     })
 end
 
