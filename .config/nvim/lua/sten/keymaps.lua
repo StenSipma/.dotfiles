@@ -54,4 +54,4 @@ vim.keymap.set("n", "<leader>ps", run_file)
 
 -- Quickfix commands
 vim.keymap.set("n", "<leader>qn", ":cnext<CR>")
-vim.keymap.set("n", "<leader>qp", ":clast<CR>")
+vim.keymap.set("n", "<leader>qp", ":cprevious<CR>")
