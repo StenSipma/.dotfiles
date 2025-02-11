@@ -29,7 +29,7 @@ lsp.ensure_installed({
     'pyright',
     'texlab',
     'gopls',
-    'tsserver',
+    -- 'tsserver',
 })
 
 -- Add compatibility with your NeoVim lua configuration
