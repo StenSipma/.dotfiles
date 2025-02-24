@@ -60,6 +60,9 @@ alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# For screen sharing in Zoom
+export XDG_SESSION_TYPE=X11
+
 # Fix Java window applications (like topcat)
 export _JAVA_AWT_WM_NONREPARENTING=1
 
