@@ -1,7 +1,8 @@
 #!/bin/bash
 # install nvim
-paru -S --needed neovim-nightly-bin packer
-sudo pacman -S --needed xclip python tree-sitter
+
+sudo pacman -S --needed xclip python tree-sitter neovim
+paru -S --needed packer
 
 # Make the python virtual environment
 if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}/pyvirtualenvs/neovim" ]]; then

@@ -29,7 +29,7 @@ lsp.ensure_installed({
     'pyright',
     'texlab',
     'gopls',
-    'tsserver',
+    -- 'tsserver',
 })
 
 -- Add compatibility with your NeoVim lua configuration
@@ -138,7 +138,8 @@ vim.diagnostic.config({
 -- otherwise defaults to the current file.
 local function python_root_dir(filename)
     return util.root_pattern("setup.py", "setup.cfg", "pyproject.toml", "requirements.txt", ".git")(filename) or
-        util.path.dirname(filename);
+        -- util.path.dirname(filename);
+        vim.fs.dirname(filename);
 end
 
 -------------

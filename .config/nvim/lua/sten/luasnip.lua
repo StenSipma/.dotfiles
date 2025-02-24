@@ -113,6 +113,19 @@ function M.init_snippets()
             f(python_docstring, { 1, 2 }),
             i(0),
         })),
+        s("cmap", fmt([[
+            from matplotlib.cm import ScalarMappable
+            from matplotlib.colors import Normalize
+            from matplotlib import colormaps
+
+            cmap = colormaps['heat'].resampled(64)
+            norm = Normalize(vmin={}, vmax={})
+            mapper = ScalarMappable(norm=norm, cmap=cmap)
+
+            colour = mapper.to_rgba({})
+        ]], {
+            i(1), i(2), i(0)
+        })),
         s("ifm", fmt([[
                 if __name__ == '__main__':
                     {}{}
@@ -127,6 +140,15 @@ function M.init_snippets()
                 ]], { i(0) })),
         s("pd", fmt([[
                 import pandas as pd
+                {}
+                ]], { i(0) })),
+        s("au", fmt([[
+                import astropy.units as u
+                {}
+                ]], { i(0) })),
+
+        s("ac", fmt([[
+                import astropy.constants as aconst
                 {}
                 ]], { i(0) })),
     })
