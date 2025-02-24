@@ -15,8 +15,8 @@ vim.keymap.set("n", "<leader>lo", builtin.vim_options)
 -- Custom options
 require('telescope').setup({
     defaults = {
-        -- sorting_strategy = "descending",
-        sorting_strategy = "ascending", -- TEMP fix for invisible filenames
+        sorting_strategy = "descending",
+        -- sorting_strategy = "ascending", -- TEMP fix for invisible filenames
         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         prompt_prefix = " 🔭 ",
         file_ignore_patterns = {

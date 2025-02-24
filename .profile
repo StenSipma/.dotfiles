@@ -60,6 +60,9 @@ alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+# For screen sharing in Zoom
+export XDG_SESSION_TYPE=X11
+
 # AtomDB emissivity data
 export ATOMDB=/home/sten/Documents/PhD/atomdb
 
