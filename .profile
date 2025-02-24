@@ -63,6 +63,13 @@ export LANG=en_US.UTF-8
 # For screen sharing in Zoom
 export XDG_SESSION_TYPE=X11
 
+# AtomDB emissivity data
+export ATOMDB=/home/sten/Documents/PhD/atomdb
+
+# HEASoft init
+export HEADAS="/opt/heasoft/x86_64-pc-linux-gnu-libc2.40"
+alias heainit='. "/opt/heasoft/x86_64-pc-linux-gnu-libc2.40/headas-init.sh"'
+
 # Fix Java window applications (like topcat)
 export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -98,16 +105,12 @@ fi
 # (! $DISPLAY)      : If there is no current display (?)
 # ($XDG_VTNR -eq 1) : If the VT number equals 1 (e.g. Ctrl+Alt+F1)
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-	# For Optimus-Manager
-    if [[ -f "/usr/bin/prime-offload" ]]; then
-        /usr/bin/prime-offload
-    fi
- 	
-	exec startx
 
-    # TODO: Need to fix this, only run this when switching (?)
-	# # For Optimus-Manager
-	#     if [[ -f "/usr/bin/prime-switch" ]]; then
-	#         sudo /usr/bin/prime-switch
-	#     fi
+	# For Optimus-Manager
+    if [[ -f "/usr/bin/prime-switch" ]]; then
+        # sudo /usr/bin/prime-switch
+        exec sh -c "startx ; sudo prime-switch"
+    else
+        exec startx
+    fi
 fi
