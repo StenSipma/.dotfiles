@@ -1,0 +1,24 @@
+# File:   display-gpu-status
+# Author:  <>
+# Description:
+#      Script for the statusbar that shows the current active state of
+#      the GPU or CPU
+#      The possible options are:
+#      - nvidia
+#      - hybrid
+#      - integrated
+
+current_mode=$(optimus-manager --print-mode | awk '{print $NF}')
+# example output of --print-mode:
+# Current GPU mode : integrated
+
+case "$current_mode" in
+    "integrated"|"intel") echo ""
+    ;;
+    "nvidia") echo "󱚞"
+    ;;
+    "hybrid") echo "󱚞 +"
+    ;;
+    *) echo "err :("
+    ;;
+esac

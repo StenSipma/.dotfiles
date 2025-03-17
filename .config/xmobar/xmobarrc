@@ -8,7 +8,7 @@ Config {
 	-- Layout
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %battery%    %date% "
+        , template = "%UnsafeStdinReader% }{ %updates%    %gpustatus%    %disku%    %cpu%    %memory%    %battery%    %date% "
 
 	-- Position
         , position = TopW C 100
@@ -23,6 +23,8 @@ Config {
                           , "--template"
                           , "  <total>%"] 10
                 , Run Com "list-updates" [] "updates" 10
+                -- , Run ArchUpdates ("", "1 one", "? updates") 10 -- This command seems to exist but gives an error?
+                , Run Com "display-gpu-status" [] "gpustatus" 10
                 , Run Memory ["-t","  <usedratio>%"] 10
                 , Run Date "%a %b %_d %k:%M" "date" 10
 		, Run Battery [ "--template" , "    <acstatus>"
