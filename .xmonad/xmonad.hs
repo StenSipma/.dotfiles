@@ -180,7 +180,7 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     -- background: colour
                     -- grow-gravity: direction for the bar to grow into, [N, W, S, E] or any
                     --               combination of them (i.e NE, to grow right and bottom)
-                    spawnOnce "stalonetray --geometry 6x1+1200+2 --icon-gravity NE --grow-gravity NW --background \"#2f343f\" &"
+                    spawnOnce "stalonetray --geometry 6x1+1000 --icon-gravity NE --grow-gravity NW --background \"#2f343f\" &"
                     -- Start the tray applet for NetworkManager. Might error if using wicd ?
                     spawnOnce "nm-applet &"
                     -- Start the tray applet for Pulseaudio control
