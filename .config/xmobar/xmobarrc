@@ -1,17 +1,19 @@
 -- vim:ft=haskell
 Config {
 	-- General Appearance
-	  font = "xft:Noto Sans:size=12"--,Fira Code Nerd Font"
+	  -- font = "xft:Noto Sans:size=12"--,Fira Code Nerd Font"
+	  font = "xft:Noto Sans:size=12,Symbols Nerd Font"
         , bgColor = "#2f343f"
         , fgColor = "#f3f4f5"  -- Text
 
 	-- Layout
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%UnsafeStdinReader% }{ %updates%    %disku%    %cpu%    %memory%    %battery%    %date% "
+        , template = "%UnsafeStdinReader% }{ %updates%  %gpustatus%  %disku%  %cpu%    %memory%    %battery%    %date% "
 
 	-- Position
-        , position = TopW C 100
+        -- , position = TopW C 100
+        , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 25 }
         , allDesktops = True
 
 	-- Commands to run
@@ -23,6 +25,8 @@ Config {
                           , "--template"
                           , "  <total>%"] 10
                 , Run Com "list-updates" [] "updates" 10
+                -- , Run ArchUpdates ("", "1 one", "? updates") 10 -- This command seems to exist but gives an error?
+                , Run Com "display-gpu-status" [] "gpustatus" 10
                 , Run Memory ["-t","  <usedratio>%"] 10
                 , Run Date "%a %b %_d %k:%M" "date" 10
 		, Run Battery [ "--template" , "    <acstatus>"

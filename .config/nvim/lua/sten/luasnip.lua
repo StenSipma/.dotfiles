@@ -126,6 +126,20 @@ function M.init_snippets()
         ]], {
             i(1), i(2), i(0)
         })),
+        s("argparse", fmt([[
+            import argparse
+            def parse_args():
+                parser = argparse.ArgumentParser()
+                {}
+                parser.add_argument("echo", default="echo test", help="echo the string you use here")
+                parser.add_argument("-v", "--verbose", action="store_true", help="increase output verbosity")
+                return parser.parse_args()
+
+            args = parse_args()
+            {}
+        ]], {
+            i(1), i(0)
+        })),
         s("ifm", fmt([[
                 if __name__ == '__main__':
                     {}{}

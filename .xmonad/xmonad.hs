@@ -130,8 +130,15 @@ xmobarEscape = concatMap doubleLts
 -- Workspaces (clickable)
 -- requires `xdotool` and usage of UnsafeStdInReader
 workspacesList :: [String]
-workspacesList = [ "Main" , "\62057  Browser" , "\62601  Terminal" , "\61508 "  , "5" , "\63608 " , "7" , "\63213 " , "\61884 " ]
---                  Main  ,                 ,                  ,   Editor ,     ,  Video  ,     ,  Email  , \61441 \61884 Music
+workspacesList = [ "\984760 Obsidian" , "\62057  Browser" , "\62601  Terminal" , "\xf0c37  Zotero"  , "5" , "6" , "\xf0b79  Chats" , "\xeb1c  Mail" , "\61884 Spotify" ]
+--  Some suggested icons:
+--  - 󰚸 , 
+--  - 
+--  - 
+--  - 󰭹
+--  -  , 
+--  -  ,  ,
+--  - 󰬇 󰬡
 
 myWorkspaces :: [String]
 myWorkspaces = clickable . (map xmobarEscape) $ workspacesList
@@ -140,9 +147,11 @@ myWorkspaces = clickable . (map xmobarEscape) $ workspacesList
 -- Assign Applications to workspaces when started
 -- use `xprop` to find these names.
 myManageHook = composeAll [ (classNameLower =? "firefox") <&&> (stringProperty "WM_WINDOW_ROLE" =? "browser")
-                                                       --> doShift (myWorkspaces!!1)
-                          , classNameLower =? "emacs"       --> doShift (myWorkspaces!!3)
-                          , classNameLower =? "mattermost"  --> doShift (myWorkspaces!!5)
+                                                            --> doShift (myWorkspaces!!1)
+                          , classNameLower =? "zotero"      --> doShift (myWorkspaces!!3)
+                          , classNameLower =? "obsidian"    --> doShift (myWorkspaces!!0)
+                          , classNameLower =? "mattermost"  --> doShift (myWorkspaces!!6)
+                          , classNameLower =? "discord"     --> doShift (myWorkspaces!!6)
                           , classNameLower =? "thunderbird" --> doShift (myWorkspaces!!7)
                           -- Match Spotify, no classname given on startup!
                           , classNameLower =? ""            --> doShift (myWorkspaces!!8)
@@ -180,7 +189,7 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     -- background: colour
                     -- grow-gravity: direction for the bar to grow into, [N, W, S, E] or any
                     --               combination of them (i.e NE, to grow right and bottom)
-                    spawnOnce "stalonetray --geometry 6x1+1200+2 --icon-gravity NE --grow-gravity NW --background \"#2f343f\" &"
+                    spawnOnce "stalonetray --geometry 6x1+1000 --icon-gravity NE --grow-gravity NW --background \"#2f343f\" &"
                     -- Start the tray applet for NetworkManager. Might error if using wicd ?
                     spawnOnce "nm-applet &"
                     -- Start the tray applet for Pulseaudio control

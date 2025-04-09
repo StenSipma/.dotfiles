@@ -51,7 +51,9 @@ return require('packer').startup(function(use)
             { 'williamboman/mason-lspconfig.nvim' },
 
             -- Formatting & Linting
-            { 'jose-elias-alvarez/null-ls.nvim' },
+            -- { 'jose-elias-alvarez/null-ls.nvim' }, -- Outdated :(
+            { 'stevearc/conform.nvim' }, -- Formatting
+            -- Linting with: mfussenegger/nvim-lint
 
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },
