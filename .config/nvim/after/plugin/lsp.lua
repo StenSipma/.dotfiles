@@ -2,7 +2,7 @@ local lsp = require('lsp-zero')
 local util = require('lspconfig/util')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-local null_ls = require("null-ls")
+-- local null_ls = require("null-ls")
 local mason = require('mason')
 local mason_registry = require("mason-registry")
 
@@ -212,16 +212,32 @@ lsp.configure('texlab', {
 -------------
 -- Formatting
 -- requires: black, flake8, isort
--- set up null_ls
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.black.with({
-            extra_args = { "--fast" },
-        }),
-        null_ls.builtins.formatting.isort,
-        null_ls.builtins.diagnostics.flake8,
+require("conform").setup({
+    formatters_by_ft = {
+        python = { "isort", "black" },
+        -- You can customize some of the format options for the filetype (:help conform.format)
     },
-});
+    -- Below will set up the 'BufPreWrite' autocommand
+    format_on_save = {
+        -- These options will be passed to conform.format()
+        timeout_ms = 500,
+        lsp_format = "fallback",
+    },
+})
+
+
+
+--
+-- set up null_ls
+-- null_ls.setup({
+--     sources = {
+--         null_ls.builtins.formatting.black.with({
+--             extra_args = { "--fast" },
+--         }),
+--         null_ls.builtins.formatting.isort,
+--         null_ls.builtins.diagnostics.flake8,
+--     },
+-- });
 -- And then activate it with lsp
 lsp.format_on_save({
     format_opts = {
@@ -230,7 +246,7 @@ lsp.format_on_save({
     },
     servers = {
         ['lua_ls'] = { 'lua' },
-        ['null-ls'] = { 'python' },
+        -- ['null-ls'] = { 'python' }, -- outdated :(
     }
 })
 
