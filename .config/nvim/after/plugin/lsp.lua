@@ -272,4 +272,3 @@ require('rust-tools').setup({
 })
 
 require('sten.luasnip').init_snippets()
-require('luasnip.loaders.from_vscode').lazy_load() -- Load snippets from friendly-snippets
