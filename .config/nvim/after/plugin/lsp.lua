@@ -88,13 +88,16 @@ cmp_mappings['<Down>'] = nil
 cmp_mappings['<C-d>'] = nil
 cmp_mappings['<C-e>'] = nil
 
+require("copilot_cmp").setup({})
+
 lsp.setup_nvim_cmp({
     mapping = cmp_mappings,
     sources = {
         { name = 'path' },
+        { name = 'copilot' },
         { name = 'nvim_lsp' },
-        { name = 'buffer',  keyword_length = 2 },
         { name = 'luasnip' },
+        { name = 'buffer',  keyword_length = 2 },
     },
     formatting = { format = require('sten.cmp-kinds').format },
 

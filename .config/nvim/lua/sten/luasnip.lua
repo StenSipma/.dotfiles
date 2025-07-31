@@ -69,7 +69,7 @@ end
 
 M = {}
 
-function M.load_custom_snippets()
+function load_custom_snippets()
     ls.add_snippets("all", {
         -- Todo snippet
         s("todo", fmt([[{} TODO: {} ]], { cmt(), i(0) })),
@@ -125,6 +125,11 @@ function M.load_custom_snippets()
         ]], {
             i(1), i(2), i(0)
         })),
+        s("subpl", fmt([[
+                fig, ax = plt.subplots(1, 1)
+                {}
+                ]], { i(0) })),
+
         s("argparse", fmt([[
             import argparse
             def parse_args():
@@ -218,7 +223,7 @@ function M.load_custom_snippets()
                         \end{{document}}
                 ]], { i(0) })),
 
-        --
+        -- Acronyms
         s("ac", fmt([[\ac{{{}}} {}]], { i(1), i(0) })),
 
         s("declareac", fmt([[
@@ -262,6 +267,14 @@ function M.load_custom_snippets()
             { trig = "(%w+)_r", regTrig = true },
             fmt([[{}_{{\rm {}}} {}]], { l(l.CAPTURE1), i(1), i(0) })
         ),
+        s("eq", fmt([[
+                \begin{{equation}}
+                    {}
+                \label{{eq:{}}}
+                \end{{equation}}
+                {}
+        ]], { i(2), i(1), i(0) })),
+
 
         -- Referencing
         s("eqr", fmt([[Equation~\ref{{eq:{}}}{}]], { i(1), i(0) })),
@@ -300,7 +313,7 @@ function M.init_snippets()
     })
 
     -- Load custom snippets last, such that they will always take priority (?)
-    M.load_custom_snippets()
+    load_custom_snippets()
 end
 
 -- Also init snippets on file load

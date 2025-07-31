@@ -15,3 +15,8 @@ vim.wo.foldexpr = "v:lua.foldexpr()"
 vim.wo.foldtext = "v:lua.foldtext()"
 
 vim.b.runprg = 'VimtexCompile'
+
+-- Enables spell checking for LaTeX files
+-- the command is: ':setlocal spell spelllang=en'
+vim.bo.spelllang = "en"
+vim.wo.spell = true
