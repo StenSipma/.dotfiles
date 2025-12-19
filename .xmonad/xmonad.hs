@@ -7,6 +7,7 @@ import XMonad.Config.Desktop
 -- Hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageHelpers
 
@@ -152,7 +153,9 @@ myManageHook = composeAll [ (classNameLower =? "firefox") <&&> (stringProperty "
                           , classNameLower =? "obsidian"    --> doShift (myWorkspaces!!0)
                           , classNameLower =? "mattermost"  --> doShift (myWorkspaces!!6)
                           , classNameLower =? "discord"     --> doShift (myWorkspaces!!6)
-                          , classNameLower =? "thunderbird" --> doShift (myWorkspaces!!7)
+                          -- For some reason Thunderbird does not match the mw_class properly, so match with wm_name instead
+                          , (classNameLower =? "org.mozilla.thunderbird") <||> (stringProperty "WM_NAME" =? "Mozilla Thunderbird")
+                                                            --> doShift (myWorkspaces!!7)
                           -- Match Spotify, no classname given on startup!
                           , classNameLower =? ""            --> doShift (myWorkspaces!!8)
                           , classNameLower =? "peek"        --> doFloat
@@ -189,7 +192,7 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     -- background: colour
                     -- grow-gravity: direction for the bar to grow into, [N, W, S, E] or any
                     --               combination of them (i.e NE, to grow right and bottom)
-                    spawnOnce "stalonetray --geometry 6x1+1000 --icon-gravity NE --grow-gravity NW --background \"#2f343f\" &"
+                    spawnOnce "stalonetray --geometry 6x1+1000+0 --icon-gravity NE --grow-gravity NW --background \"#2f343f\" &"
                     -- Start the tray applet for NetworkManager. Might error if using wicd ?
                     spawnOnce "nm-applet &"
                     -- Start the tray applet for Pulseaudio control
@@ -210,12 +213,13 @@ main = do
         -- The result of the spawned process is given to the log pretty printer (PP)
         hostname <- readFile "/etc/hostname"
         xmproc <- runXmobar $ strip hostname
-        xmonad $ desktopConfig
+        xmonad $ ewmhFullscreen $ ewmh $ desktopConfig
                 -- Dictionary with custom values and hooks
                     -- manageDocks     will shift the screen so the statusbar is visible
                 -- insertPosition  determines where a new window is spawned on the page.
                 -- { manageHook  = manageDocks <+> insertPosition Master Newer <+> myManageHook <+> manageHook def
-                { manageHook  = manageDocks <+> myFocusManager <+> myManageHook <+> manageHook def
+                -- { manageHook  = manageDocks <+> myFocusManager <+> myManageHook <+> manageHook def
+                { manageHook  = manageDocks <+> myManageHook <+> manageHook def
                 , layoutHook  = avoidStruts  $ layoutHook def
                 , logHook     = dynamicLogWithPP $ myPP xmproc
                 , startupHook = myStartupHook
