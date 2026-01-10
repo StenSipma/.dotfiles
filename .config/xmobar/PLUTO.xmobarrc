@@ -1,0 +1,49 @@
+-- vim:ft=haskell
+Config {
+	-- General Appearance
+	  -- font = "xft:Noto Sans:size=12"--,Fira Code Nerd Font"
+	  --font = "Noto Sans:size=12,FiraCode Nerd Font"
+	  font = "Noto Sans:size=12"
+        , bgColor = "#2f343f"
+        , fgColor = "#f3f4f5"  -- Text
+
+	-- Layout
+        , sepChar = "%"
+        , alignSep = "}{"
+        , template = "%UnsafeStdinReader% }{ %disku%  %cpu%    %memory%    %battery%    %date% "
+
+	-- Position
+        -- , position = TopW C 100
+        , position = Static { xpos = 0 , ypos = 0, width = 1920, height = 25 }
+        , allDesktops = True
+
+	-- Commands to run
+        , commands = [
+                  Run DiskU [("/", "  <free>")] ["-p", "1"] 1000
+                , Run Cpu ["-L" ,"3"
+                          ,"-H" ,"70"
+                          ,"--high" , "red"
+                          , "--template"
+                          , "  <total>%"] 10
+                , Run Com "list-updates" [] "updates" 10
+                -- , Run ArchUpdates ("", "1 one", "? updates") 10 -- This command seems to exist but gives an error?
+                , Run Com "display-gpu-status" [] "gpustatus" 10
+                , Run Memory ["-t","  <usedratio>%"] 10
+                , Run Date "%a %b %_d %k:%M" "date" 10
+		, Run Battery [ "--template" , "    <acstatus>"
+				, "--Low"      , "20"        -- units: %
+				, "--low"      , "red"
+				, "--" -- battery specific options
+					-- discharging status
+					, "-o"	, "<left>%"
+					-- AC "on" status
+					, "-O"	, "<fc=#dAA520>Charging</fc>"
+					-- charged status
+					, "-i"	, "<fc=#006000>Charged</fc>"
+                                        -- Send message when threshold (-A) is reached.
+                                        , "-A"  , "10"
+                                        , "-a"  , "notify-send -u critical 'Battery Very Low'"
+				] 50
+                , Run UnsafeStdinReader
+                ]
+        }

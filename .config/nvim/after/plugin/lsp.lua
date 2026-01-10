@@ -1,85 +1,78 @@
-local lsp = require('lsp-zero')
-local util = require('lspconfig/util')
 local cmp = require('cmp')
 local luasnip = require('luasnip')
--- local null_ls = require("null-ls")
-local mason = require('mason')
-local mason_registry = require("mason-registry")
+local conform = require('conform')
 
--- Setup mason for if we need to install
-mason.setup()
+-------------------------------------------------
+-- Mason: ensure external tools are present
+-------------------------------------------------
+-- local mason = require("mason")
+-- mason.setup()
 
--- Custom 'ensure_installed' for Mason
-local mason_packages = { 'black', 'flake8', 'isort' }
-for _, package in ipairs(mason_packages) do
-    if not mason_registry.is_installed(package) then
-        print(string.format("Package %s is not installed, installing via Mason...", package))
-        vim.cmd(string.format(":MasonInstall %s", package))
-    end
+-- Install black, flake8, isort if missing (Python formatters)
+-- local fmt_pkgs = { 'black', 'flake8', 'isort' }
+-- for _, pkg in ipairs(fmt_pkgs) do
+--   if not mason_registry.is_installed(pkg) then
+--     vim.cmd(('MasonInstall %s'):format(pkg))
+--   end
+-- end
+
+-- LSP servers we want Mason to manage
+-- mason_lspconfig.setup {
+--   ensure_installed = {
+--     'lua_ls',
+--     'rust_analyzer',
+--     'pyright',
+--     'texlab',
+--     -- 'gopls',   -- uncomment when you need Go support
+--   },
+-- }
+
+-------------------------------------------------
+-- Global diagnostic / UI preferences
+-------------------------------------------------
+vim.diagnostic.config {
+    virtual_text = true,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+}
+
+local signs = { Error = 'E', Warn = 'W', Hint = 'H', Info = 'I' }
+for type, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
 end
 
-
-lsp.preset("recommended")
-
--- TODO: Probably the local/system installs are no longer required.
-lsp.ensure_installed({
-    -- 'sumneko_lua',
-    'lua_ls',
-    'rust_analyzer',
-    'pyright',
-    'texlab',
-    'gopls',
-})
-
--- Add compatibility with your NeoVim lua configuration
-lsp.nvim_workspace()
-
-
--- cmp Keymaps
+-------------------------------------------------
+-- Completion (nvim-cmp) – keymaps & sources
+-------------------------------------------------
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_mappings = cmp.mapping.preset.insert({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
 
-    -- Toggle visibility of cmp menu
     ['<C-Space>'] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-            cmp.close()
-            fallback()
-        else
-            cmp.complete()
-        end
+        if cmp.visible() then cmp.close() else cmp.complete() end
     end),
 
-    -- go to next placeholder in the snippet (if possible)
     ['<C-j>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(1) then
-            luasnip.jump(1)
-        else
-            fallback()
-        end
+        if luasnip.jumpable(1) then luasnip.jump(1) else fallback() end
     end, { 'i', 's' }),
 
-    -- go to previous placeholder in the snippet (if possible)
     ['<C-k>'] = cmp.mapping(function(fallback)
-        if luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-        else
-            fallback()
-        end
+        if luasnip.jumpable(-1) then luasnip.jump(-1) else fallback() end
     end, { 'i', 's' }),
+
+    ['<C-l>'] = cmp.mapping(function()
+        if luasnip.expandable() then luasnip.expand() end
+    end, { 'i' }),
 })
 
-vim.keymap.set("i", "<C-l>", function()
-    if luasnip.expandable() then
-        luasnip.expand()
-    end
-end)
-
--- Remove default mappings
+-- Remove unwanted defaults
 cmp_mappings['<Tab>'] = nil
 cmp_mappings['<S-Tab>'] = nil
 cmp_mappings['<CR>'] = nil
@@ -88,188 +81,192 @@ cmp_mappings['<Down>'] = nil
 cmp_mappings['<C-d>'] = nil
 cmp_mappings['<C-e>'] = nil
 
-lsp.setup_nvim_cmp({
+cmp.setup {
     mapping = cmp_mappings,
     sources = {
-        { name = 'path' },
         { name = 'nvim_lsp' },
-        { name = 'buffer',  keyword_length = 2 },
+        { name = 'path' },
         { name = 'luasnip' },
+        { name = 'buffer',  keyword_length = 2 },
     },
     formatting = { format = require('sten.cmp-kinds').format },
+}
 
-})
+-- Enable LSP source for nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
+-------------------------------------------------
+-- Helper: on_attach (keybindings per buffer)
+-------------------------------------------------
+local on_attach = function(client, bufnr)
+    local opts = { buffer = bufnr, noremap = true, silent = true }
 
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = false }
-
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-    vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-    vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-end)
-
-vim.diagnostic.config({
-    virtual_text = true,
-})
-
-----------------------------------
--- Specific LSP configurations
-----------------------------------
-
--- Resolves the root dir of a project (if it exists)
--- otherwise defaults to the current file.
-local function python_root_dir(filename)
-    return util.root_pattern("setup.py", "setup.cfg", "pyproject.toml", "requirements.txt", ".git")(filename) or
-        -- util.path.dirname(filename);
-        vim.fs.dirname(filename);
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>vws', vim.lsp.buf.workspace_symbol, opts)
+    vim.keymap.set('n', '<leader>vd', vim.diagnostic.open_float, opts)
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_next, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', '<leader>vrr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('i', '<C-h>', vim.lsp.buf.signature_help, opts)
 end
 
--------------
--- Python
-lsp.configure('pyright', {
-    root_dir = python_root_dir,
+
+vim.lsp.config("*", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+-------------------------------------------------
+-- Server‑specific configurations
+-------------------------------------------------
+
+-- Python (pyright) – custom root detection
+-- OLD: util.root_pattern doesn't work anymore,
+-- local function python_root_dir(fname)
+--   return util.root_pattern('setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt', '.git')(fname)
+--       or vim.fs.dirname(fname)
+-- end
+
+vim.lsp.config('pyright', {
+    -- Test that this still works for a single Python file
+    root_markers = { { 'setup.py', 'setup.cfg', 'pyproject.toml', 'requirements.txt' }, '.git' },
     settings = {
-        defaultVenv = { ".env" },
-        pyright = {
-            disableOrganizeImports = true,
-        },
         python = {
             analysis = {
                 autoSearchPaths = true,
                 useLibraryCodeForTypes = false,
-                extraPaths = { "." },
+                extraPaths = { '.' },
             },
         },
+        pyright = { disableOrganizeImports = true },
+        defaultVenv = { '.venv' },
     },
 })
 
--------------
--- Lua
-lsp.configure('lua_ls', {
+-- Lua (lua_ls) – make Neovim runtime visible
+vim.lsp.config('lua_ls', {
+    -- root_dir = function(bufnr, on_dir)
+    --   if not vim.fn.bufname(bufnr):match('%.lua$') then
+    --     on_dir(vim.fn.getcwd())
+    --   end
+    -- end,
     settings = {
         Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { 'vim' } },
             workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = vim.api.nvim_get_runtime_file('', true),
+                checkThirdParty = false,
             },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
+            telemetry = { enable = false },
         },
     },
 })
 
--------------
--- Go
-lsp.configure('gopls', {
-    settings = {
-        gopls = {
-            codelenses = {
-                test = true,
-            }
-        }
-    },
-})
+-- -- Rust (rust_analyzer) – using rust-tools for extra UI
+-- local rust_opts = {
+--   -- you can extend this table with rust-analyzer specific settings
+-- }
+-- rust_tools.setup {
+--   server = vim.tbl_extend('force', rust_opts, {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--   }),
+--   tools = {
+--     inlay_hints = {
+--       parameter_hints_prefix = ' <- ',
+--       other_hints_prefix = ' :: ',
+--       max_len_align = true,
+--     },
+--   },
+-- }
 
--------------
--- LaTeX
-lsp.configure('texlab', {
+-- LaTeX (texlab)
+vim.lsp.config('texlab', {
+    filetypes = { "tex" },
     settings = {
         texlab = {
-            chktex = {
-                onEdit = true,
-            },
+            chktex = { onEdit = true },
         },
     },
 })
 
--------------
--- Formatting
--- requires: black, flake8, isort
-require("conform").setup({
+-- Nix (nixd)
+vim.lsp.config('nixd', {
+    settings = {
+        nixd = {
+            nixpkgs = {
+                expr = 'import <nixpkgs> { }',
+            },
+            formatting = {
+                command = { 'nixfmt' },
+            },
+            -- If you want autocomplete for specific flakes (i.e. from custom options!)
+            -- options = {
+            --     nixos = {
+            --         expr = '(builtins.getFlake "SOME NIX FLAKE PATH").nixosConfigurations.SYSTEM_NAME.options',
+            --     }
+            -- }
+        },
+    },
+})
+
+
+-- Uncomment and adapt when you need Go support
+-- vim.lsp.config('gopls', {
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- })
+-- vim.lsp.enable('gopls')
+
+vim.lsp.enable({ 'texlab', 'lua_ls', 'pyright', 'nixd' })
+-------------------------------------------------
+-- Formatting – conform.nvim (replaces null‑ls usage)
+-------------------------------------------------
+conform.setup {
     formatters_by_ft = {
-        python = { "isort", "black" },
-        -- You can customize some of the format options for the filetype (:help conform.format)
+        python = { 'isort', 'black' },
+        nix = { 'nixfmt' },
+        -- add other filetypes here if desired
     },
-    -- Below will set up the 'BufPreWrite' autocommand
     format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 500,
-        lsp_format = "fallback",
+        lsp_format = 'fallback',
     },
-})
+}
 
+-- If you still want to trigger formatting manually:
+vim.api.nvim_create_user_command('Format', function(args)
+    conform.format { async = false, lsp_fallback = true }
+end, {})
 
-
---
--- set up null_ls
--- null_ls.setup({
---     sources = {
---         null_ls.builtins.formatting.black.with({
---             extra_args = { "--fast" },
---         }),
---         null_ls.builtins.formatting.isort,
---         null_ls.builtins.diagnostics.flake8,
---     },
--- });
--- And then activate it with lsp
-lsp.format_on_save({
-    format_opts = {
-        async = false,
-        timeout_ms = 10000,
-    },
-    servers = {
-        ['lua_ls'] = { 'lua' },
-        -- ['null-ls'] = { 'python' }, -- outdated :(
-    }
-})
-
-
--------------
--- Rust
--- Make an empty object first, and then call rust-tools after the setup
-local rust_lsp = lsp.build_options('rust_analyzer', {})
-
-
--- Finally call setup
-lsp.setup()
-
-require('rust-tools').setup({
-    server = rust_lsp,
-    tools = {
-        inlay_hints = {
-            parameter_hints_prefix = " <- ",
-            other_hints_prefix = " :: ",
-            max_len_align = true,
-        }
-    }
-})
-
+-------------------------------------------------
+-- Snippet loading (friendly‑snippets)
+-------------------------------------------------
+require('luasnip.loaders.from_vscode').lazy_load()
 require('sten.luasnip').init_snippets()
-require('luasnip.loaders.from_vscode').lazy_load() -- Load snippets from friendly-snippets
+
+-- mason_registry.refresh(function()
+--   for _, pkg in ipairs(mason_lspconfig.get_installed_servers()) do
+--     -- No‑op; just forces Mason to notice newly installed servers
+--   end
+-- end)
+
+-------------------------------------------------
+-- Commands for Log and Info
+-------------------------------------------------
+vim.api.nvim_create_user_command("LspLog", function()
+    vim.cmd.vsplit(vim.lsp.log.get_filename())
+end, {
+    desc = "Get all the lsp logs",
+})
+
+vim.api.nvim_create_user_command("LspInfo", function()
+    vim.cmd("silent checkhealth vim.lsp")
+end, {
+    desc = "Get all the information about all LSP attached",
+})
