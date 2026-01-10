@@ -86,6 +86,7 @@ cmp.setup {
     sources = {
         { name = 'nvim_lsp' },
         { name = 'path' },
+        { name = 'copilot' },
         { name = 'luasnip' },
         { name = 'buffer',  keyword_length = 2 },
     },

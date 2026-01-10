@@ -28,6 +28,12 @@ return require('packer').startup(function(use)
     use 'terrortylor/nvim-comment'
     use 'declancm/maximize.nvim'
     use 'windwp/nvim-autopairs'
+    -- use 'github/copilot.vim'
+    use {
+        "zbirenbaum/copilot.lua",
+        -- cmd = "Copilot",
+        -- event = "InsertEnter"
+    }
 
     -- Theme(s)
     use 'wittyjudge/gruvbox-material.nvim'
@@ -62,6 +68,7 @@ return require('packer').startup(function(use)
             { 'saadparwaiz1/cmp_luasnip' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lua' },
+            { "zbirenbaum/copilot-cmp" },
 
             -- Snippets
             { 'L3MON4D3/LuaSnip' },

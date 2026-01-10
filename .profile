@@ -70,6 +70,9 @@ export ATOMDB=/home/sten/Documents/PhD/atomdb
 export HEADAS="/opt/heasoft/x86_64-pc-linux-gnu-libc2.40"
 alias heainit='. "/opt/heasoft/x86_64-pc-linux-gnu-libc2.40/headas-init.sh"'
 
+# Installation directory for PLUTO
+export PLUTO_DIR="/home/sten/Documents/PhD/PLUTO/PLUTO"
+
 # Fix Java window applications (like topcat)
 export _JAVA_AWT_WM_NONREPARENTING=1
 

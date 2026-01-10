@@ -23,6 +23,11 @@ local function require_local_name(args, _)
     return sn(nil, { i(1, suggestion) })
 end
 
+local function snake_case(args, _)
+    local text = args[1][1] or ""
+    local suggestion = string.gsub(string.lower(text), " ", "-")
+    return sn(nil, { i(1, suggestion) })
+end
 
 local function ni()
     return t { "", "\t" }
@@ -64,13 +69,7 @@ end
 
 M = {}
 
-function M.load_snipmate(path)
-    local sm = require('luasnip.loaders.from_snipmate')
-    sm.load({ path = path })
-    ls.filetype_extend('all', { '_' })
-end
-
-function M.init_snippets()
+function load_custom_snippets()
     ls.add_snippets("all", {
         -- Todo snippet
         s("todo", fmt([[{} TODO: {} ]], { cmt(), i(0) })),
@@ -126,6 +125,11 @@ function M.init_snippets()
         ]], {
             i(1), i(2), i(0)
         })),
+        s("subpl", fmt([[
+                fig, ax = plt.subplots(1, 1)
+                {}
+                ]], { i(0) })),
+
         s("argparse", fmt([[
             import argparse
             def parse_args():
@@ -219,7 +223,7 @@ function M.init_snippets()
                         \end{{document}}
                 ]], { i(0) })),
 
-        --
+        -- Acronyms
         s("ac", fmt([[\ac{{{}}} {}]], { i(1), i(0) })),
 
         s("declareac", fmt([[
@@ -263,6 +267,14 @@ function M.init_snippets()
             { trig = "(%w+)_r", regTrig = true },
             fmt([[{}_{{\rm {}}} {}]], { l(l.CAPTURE1), i(1), i(0) })
         ),
+        s("eq", fmt([[
+                \begin{{equation}}
+                    {}
+                \label{{eq:{}}}
+                \end{{equation}}
+                {}
+        ]], { i(2), i(1), i(0) })),
+
 
         -- Referencing
         s("eqr", fmt([[Equation~\ref{{eq:{}}}{}]], { i(1), i(0) })),
@@ -270,7 +282,38 @@ function M.init_snippets()
         s("figr", fmt([[Figure~\ref{{fig:{}}}{}]], { i(1), i(0) })),
         s("tabr", fmt([[Table~\ref{{tbl:{}}}{}]], { i(1), i(0) })),
         s("appr", fmt([[Appendix~\ref{{app:{}}}{}]], { i(1), i(0) })),
+
+        -- Section Snippets
+        s("sec", fmt([[
+                \section{{{}}}\label{{sec:{}}}%
+                {}
+        ]], { i(1), d(2, snake_case, { 1 }), i(0) })),
+        s("sub", fmt([[
+                \subsection{{{}}}\label{{sec:{}}}%
+                {}
+        ]], { i(1), d(2, snake_case, { 1 }), i(0) })),
+        s("ssub", fmt([[
+                \subsubsection{{{}}}\label{{sec:{}}}%
+                {}
+        ]], { i(1), d(2, snake_case, { 1 }), i(0) })),
     })
+end
+
+function M.load_snipmate(path)
+    -- TODO: See if this is used somewhere?
+    local sm = require('luasnip.loaders.from_snipmate')
+    sm.load({ path = path })
+    ls.filetype_extend('all', { '_' })
+end
+
+function M.init_snippets()
+    -- Load snippets from friendly-snippets
+    require('luasnip.loaders.from_vscode').lazy_load({
+        exclude = { "latex", "tex" }
+    })
+
+    -- Load custom snippets last, such that they will always take priority (?)
+    load_custom_snippets()
 end
 
 -- Also init snippets on file load
