@@ -49,7 +49,7 @@ return require('packer').startup(function(use)
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
-            { 'neovim/nvim-lspconfig' },
+            { 'neovim/nvim-lspconfig' }, -- Needed for default config
             {
                 'williamboman/mason.nvim',
                 run = ':MasonUpdate'
@@ -75,7 +75,8 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
 
             -- Specific LSP configs
-            { 'simrat39/rust-tools.nvim' },
+            -- { 'simrat39/rust-tools.nvim' },
+            { 'mrcjkb/rustaceanvim' }
         }
     }
 

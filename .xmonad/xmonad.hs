@@ -90,9 +90,10 @@ myKeys' =
     , ((noModMask, xF86XK_AudioLowerVolume), spawn "volume down")
     , ((noModMask, xF86XK_AudioMute), spawn "volume mute")
 
-    -- Control (laptop) brightness
-    , ((noModMask, xF86XK_MonBrightnessUp), spawn "brightness up")
-    , ((noModMask, xF86XK_MonBrightnessDown), spawn "brightness down")
+    -- Brightness controls using 'light'
+    , ((noModMask, xF86XK_MonBrightnessUp), spawn "light -A 10")
+    , ((noModMask, xF86XK_MonBrightnessDown), spawn "light -U 10")
+
 
     -- Binding Play/Pause, Next, Previous buttons to playerctl (e.g. control spotify)
     , ((noModMask, xF86XK_AudioPlay), spawn "playerctl play-pause")
@@ -199,12 +200,11 @@ myStartupHook = do  -- Start the wallpaper manager using the previous config
                     spawnOnce "pasystray &"
                     -- Start Rocket.Chat app. Note; you have to 'enable' the tray icon
                     -- By clicking: View --> Tray Icon
-                    -- spawnOnce "rocketchat-desktop &"
-                    -- Start nextcloud sync
-                    spawnOnce "nextcloud --background &"
+                    --spawnOnce "rocketchat-desktop &"
 
 runXmobar "EXOSAT" = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/EXOSAT.xmobarrc"
 runXmobar "Auriga" = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
+runXmobar "PLUTO" = spawnPipe "xmobar"
 runXmobar _        = spawnPipe "xmobar $XDG_CONFIG_HOME/xmobar/xmobarrc"
 
 -- Main xmobar run sequence
