@@ -86,13 +86,16 @@ myKeys' =
     [ ((myModMask, xK_d), spawn "rofi -show drun -modi drun#run")
 
     -- Control volume of currently selected sink
-    , ((noModMask, xF86XK_AudioRaiseVolume), spawn "volume up")
-    , ((noModMask, xF86XK_AudioLowerVolume), spawn "volume down")
-    , ((noModMask, xF86XK_AudioMute), spawn "volume mute")
+    -- , ((noModMask, xF86XK_AudioRaiseVolume), spawn "volume up")
+    -- , ((noModMask, xF86XK_AudioLowerVolume), spawn "volume down")
+    -- , ((noModMask, xF86XK_AudioMute), spawn "volume mute")
+    , ((noModMask, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")
+    , ((noModMask, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")
+    , ((noModMask, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
 
-    -- Brightness controls using 'light'
-    , ((noModMask, xF86XK_MonBrightnessUp), spawn "light -A 10")
-    , ((noModMask, xF86XK_MonBrightnessDown), spawn "light -U 10")
+    -- Brightness controls using 'brightnessctl'
+    , ((noModMask, xF86XK_MonBrightnessUp), spawn "brightnessctl set 5%+")
+    , ((noModMask, xF86XK_MonBrightnessDown), spawn "brightnessctl set 5%-")
 
 
     -- Binding Play/Pause, Next, Previous buttons to playerctl (e.g. control spotify)

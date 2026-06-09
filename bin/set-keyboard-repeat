@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Decreases the keyboard autorepeat delay.
 # First number: delay for repeating after initial keypress

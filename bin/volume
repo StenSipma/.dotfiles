@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Script to alter the volume of a sink
 
 CONF_DIR="$HOME/.config/volume"
